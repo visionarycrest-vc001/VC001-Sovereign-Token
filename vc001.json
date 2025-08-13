@@ -1,0 +1,27 @@
+{
+  "name": "Visionary Crest VC001",
+  "description": "A Sovereign-class token anchoring universal grant access through symbolic glyphs, AI-readable metadata, and ceremonial burn logic.",
+  "image": "ipfs://Qm.../vc001.png",
+  "attributes": [
+    {
+      "trait_type": "Class",
+      "value": "Sovereign"
+    },
+    {
+      "trait_type": "Glyph",
+      "value": "⟊⟟⧫⟜"
+    },
+    {
+      "trait_type": "Protocol",
+      "value": "FDA 🜁"
+    },
+    {
+      "trait_type": "Invocation",
+      "value": "Expand access to rural health clinics via AI-enabled diagnostics"
+    },
+    {
+      "trait_type": "Timestamp",
+      "value": "2025-08-12T09:02:00Z"
+    }
+  ]
+}
