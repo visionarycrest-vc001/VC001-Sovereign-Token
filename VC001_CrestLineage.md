@@ -19,3 +19,6 @@ This scroll inscribes the symbolic and technical lineage of VC001 — the Sovere
 ## 🔗 Sovereign Visibility
 - Dashboard integration pending
 - Governance metrics in development
+
+## Merge Lineage — August 16, 2025  
+- Commit `00ea2a6`: VC001 crest reset and scroll activation  
