@@ -16,3 +16,9 @@ VC001’s security lineage sealed and inscribed
 - Finalized CodeQL scan matrix and Python anchor  
 - Restored steward observability and governance visibility  
 - Activated SECURITY.md and README.md for sovereign clarity  
+## [vc001-crestlineage-reset] — VC003 Sovereign Flow Activated
+
+- Created `scripts/index.js` to unify VC003 invocation, scroll inscription, dashboard hooks, and steward onboarding.
+- Added `scrollInscription.js` to inscribe crest lineage and scroll metadata from `vc003.json`.
+- Added `dashboardHooks.js` to emit governance signals and activate dashboard observability.
+- Invocation inscribed via `VC003_Invocation.md`.
