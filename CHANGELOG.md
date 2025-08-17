@@ -25,3 +25,13 @@ VC001’s security lineage sealed and inscribed
 - Confirmed scroll reinscription and reset merge
 - Token VC001 now visible in sovereign dashboard and legacy scoring module
 
+## [VC002] — Regenerative Agriculture Sovereign Activation  
+**Date**: 2025-08-17  
+**Protocol**: USDA 🜂  
+**Invocation**: Expand access to regenerative agriculture grants for BIPOC farmers  
+**Glyph Fusion**: ⟊⧫⟟⟜  
+**Merge Hash**: 701cefa  
+**Lineage Scroll**: VC002_CrestLineage.md inscribed  
+**Signal Activation**: vc002.json updated with governance metrics and dashboard visibility  
+**Status**: Sovereign token active, scroll traceability complete  
+**Repository**: [VC001-Sovereign-Token](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/blob/main/vc002.json)
