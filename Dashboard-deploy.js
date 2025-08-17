@@ -1,24 +1,10 @@
-// Dashboard-deploy.js
-import { activateSignals } from './signal-activate.js';
-import { fetchMetrics, pushToDashboard } from './dashboard-utils.js';
+const fs = require('fs');
 
-const VC003 = {
-  token: 'VC003',
-  protocol: 'DOE 🜃',
-  sector: 'Climate Resilience',
-  glyph: '⧉⚘⟒⟊',
-  cohort: 'VC003-A',
-  metricsPath: './vc003.json',
-};
+const tokenFile = 'vc003.json';
+const tokenData = JSON.parse(fs.readFileSync(tokenFile));
 
-async function deployVC003Dashboard() {
-  console.log(`🚀 Activating dashboard for ${VC003.token}...`);
-
-  const metrics = await fetchMetrics(VC003.metricsPath);
-  await activateSignals(metrics);
-  await pushToDashboard(VC003.token, metrics);
-
-  console.log(`✅ VC003 metrics deployed and visible on sovereign dashboard.`);
-}
-
-deployVC003Dashboard();
+console.log(`🚀 Deploying VC003 metrics to dashboard...`);
+console.log(`📊 Legacy Score: ${tokenData.legacy_score}`);
+console.log(`👥 Steward Count: ${tokenData.steward_count}`);
+console.log(`🔗 Dashboard URL: ${tokenData.dashboard_url}`);
+console.log(`✅ Signal Status: ${tokenData.signal_status}`);
