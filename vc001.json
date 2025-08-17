@@ -28,5 +28,11 @@
     "reset_merged": true,
     "security_scan": "complete",
     "scroll_status": "reinscribed"
+  },
+  "signal": {
+    "token": "VC001",
+    "visible_to_stewards": true,
+    "governance_metrics": "restored",
+    "legacy_scoring": "active"
   }
 }
