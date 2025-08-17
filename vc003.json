@@ -1,0 +1,22 @@
+{
+  "token": "VC003",
+  "protocol": "DOE 🜃",
+  "sector": "Climate Resilience",
+  "glyph": "⧉⚘⟒⟊",
+  "cohort": "VC003-A",
+  "timestamp": "2025-08-18T00:00:00Z",
+  "governance_signals": {
+    "grant_visibility": true,
+    "steward_tracking": true,
+    "legacy_scoring": {
+      "enabled": true,
+      "metrics": ["impact", "reach", "duration"]
+    },
+    "dashboard_live": false
+  },
+  "lineage": {
+    "scroll_pair": ["VC003_Invocation.md", "VC003_CrestLineage.md"],
+    "inscribed_by": "Percy Abrams Jr.",
+    "status": "pending activation"
+  }
+}
