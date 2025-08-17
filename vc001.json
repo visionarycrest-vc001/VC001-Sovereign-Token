@@ -23,5 +23,10 @@
       "trait_type": "Timestamp",
       "value": "2025-08-12T09:02:00Z"
     }
-  ]
+  ],
+  "status": {
+    "reset_merged": true,
+    "security_scan": "complete",
+    "scroll_status": "reinscribed"
+  }
 }
