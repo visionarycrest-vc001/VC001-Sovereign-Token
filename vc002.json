@@ -28,5 +28,18 @@
     "scroll_status": "initiated",
     "security_scan": "pending",
     "visible_to_stewards": false
+  },
+  "dashboard": {
+    "visibility": true,
+    "governance_signals": {
+      "equity_index": 0.92,
+      "soil_regeneration_score": 0.87,
+      "grant_access_rate": 0.78
+    },
+    "legacy_scoring": {
+      "lineage_depth": 2,
+      "fusion_integrity": "high",
+      "scroll_traceability": "complete"
+    }
   }
 }
