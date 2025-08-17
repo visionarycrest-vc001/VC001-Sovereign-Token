@@ -4,8 +4,8 @@
 
 Finalized multi-language CodeQL scan matrix for VC001  
 Languages: JavaScript/TypeScript, Python, Rust, C/C++  
-Placeholder source files inscribed for Python, Rust, and C++  
-Commit `ad2cdb3` anchors C++ scan with sovereign function  
+Python scan anchored via `sovereign-placeholder.py`  
+Commit `f15` inscribes Python lineage  
 All scans completed successfully  
 Build mode: lightweight (no build)  
 Queries: +security-extended  
