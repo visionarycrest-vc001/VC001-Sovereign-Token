@@ -5,6 +5,10 @@
   "glyph": "⧉⚘⟒⟊",
   "cohort": "VC003-A",
   "timestamp": "2025-08-18T00:00:00Z",
+  "legacy_score": 92,
+  "steward_count": 12,
+  "dashboard_url": "https://sovereign-dashboard.io/vc003",
+  "signal_status": "🟢 Signals live and lineage visible",
   "governance_signals": {
     "grant_visibility": true,
     "steward_tracking": true,
