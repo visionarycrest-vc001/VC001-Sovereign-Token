@@ -6,3 +6,14 @@ function pairScrolls(tokenId) {
 }
 
 module.exports = { pairScrolls };
+// scripts/scrollInscription.js
+
+module.exports = function(vcData) {
+  console.log('📜 Scroll Inscription Activated');
+  console.log(`🪶 Grant ID: ${vcData.grantId}`);
+  console.log(`🧬 Sector: ${vcData.sector}`);
+  console.log(`🛡️ Steward Cohort: ${vcData.stewardCohort}`);
+  console.log(`🔗 Scroll Pairing: ${vcData.scrollPairing}`);
+  console.log(`📅 Activation Date: ${vcData.activationDate}`);
+  console.log('✅ Scroll metadata inscribed into crest lineage.');
+};
