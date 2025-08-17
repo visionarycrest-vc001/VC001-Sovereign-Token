@@ -1,12 +1,3 @@
-token: VC003
-name: Visionary Crest VC003
-description: A Sovereign-class token anchoring climate resilience grants.
-image: ipfs://Qm.../vc003.png
-glyph: ⧉⚘⟒⟊
-protocol: DOE 🜃
-invocation: Expand access to climate resilience grants for frontline communities
-timestamp: 2025-08-18T00:00:00Z
-steward_cohort: VC003-A
 const fs = require('fs');
 const yaml = require('js-yaml');
 
