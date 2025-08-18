@@ -22,3 +22,13 @@ VC001’s security lineage sealed and inscribed
 - Added `scrollInscription.js` to inscribe crest lineage and scroll metadata from `vc003.json`.
 - Added `dashboardHooks.js` to emit governance signals and activate dashboard observability.
 - Invocation inscribed via `VC003_Invocation.md`.
+## [vc001-crestlineage-reset] — 2025-08-18
+
+### Added
+- `scripts/sovereignBatch.js`: Batch activation script for sovereign tokens. Reads `vc*.json`, logs scroll pairs, dashboard URLs, and signal status.
+
+### Fixed
+- Removed corrupted `scripts/sovereignBatch.js` entry and replaced with valid script.
+
+### Ceremony
+- Inscribed VC001 and VC003 tokens via scroll lineage and dashboard signal.
