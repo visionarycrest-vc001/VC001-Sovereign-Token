@@ -27,3 +27,10 @@ The scroll now reflects dashboard visibility, steward presence, and legacy scori
 **Invocation:** All sovereign modules unified and executed in sequence  
 **Inscription:** Outputs logged to `VC_AutonomyLog.md` and lineage scroll  
 **Legacy:** Full autonomy achieved across all VC tokens, scrolls, dashboards, and governance metrics
+## 🔥 Sovereign Burn Logic Activated — VC001–VC999
+
+**Date:** August 18, 2025  
+**Module:** `burn-logic.js`  
+**Invocation:** Sovereign burn thresholds encoded and inscribed  
+**Inscription:** Outputs logged to `VC_BurnLog.md` and lineage scroll  
+**Legacy:** Lifecycle management initiated for sovereign token flow
