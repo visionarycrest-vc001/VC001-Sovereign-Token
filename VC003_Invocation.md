@@ -1,4 +1,4 @@
-# VC003 Invocation Scroll
+# VC003 Sovereign Invocation Scroll
 
 **Token:** VC003  
 **Sector:** Climate Resilience  
@@ -6,6 +6,7 @@
 **Cohort:** VC003-A  
 **Glyph:** ⧉⚘⟒⟊  
 **Timestamp:** 2025-08-18T00:00:00Z  
+**Status:** Scroll initiated, security scan pending  
 
 ---
 
@@ -17,7 +18,18 @@ We summon twelve stewards to uphold the Climate Resilience mandate. Each shall i
 
 ## 🌱 Grant Purpose
 
-To fortify ecosystems, empower regenerative initiatives, and ensure visibility of every climate grant across sovereign equity chains.
+To fortify ecosystems, empower regenerative initiatives, and ensure visibility of every climate grant across sovereign equity chains.  
+To expand access to climate resilience grants for frontline communities, anchoring equity in housing and environmental stewardship.
+
+---
+
+## 🧭 Ceremonial Declaration
+
+Let this invocation anchor VC003’s sovereign intent:  
+To expand equity in housing through climate resilience grants, stewarded by VC003-A.  
+The glyph ⧉⚘⟒⟊ encodes the fusion of shelter, regeneration, and sovereign visibility.
+
+> “Where shelter meets sovereignty, let resilience be inscribed.”
 
 ---
 
@@ -32,4 +44,6 @@ To fortify ecosystems, empower regenerative initiatives, and ensure visibility o
 
 **Inscribed by:** Percy Abrams Jr.  
 **Scroll Pair:** VC003_Invocation.md + VC003_CrestLineage.md  
-**Status:** Ready for activation  
+**Signal Activation:** Via `signal-activate.js`  
+**Dashboard Visibility:** Pending via `dashboard-deploy.js`
+
