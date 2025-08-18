@@ -34,3 +34,10 @@ The scroll now reflects dashboard visibility, steward presence, and legacy scori
 **Invocation:** Sovereign burn thresholds encoded and inscribed  
 **Inscription:** Outputs logged to `VC_BurnLog.md` and lineage scroll  
 **Legacy:** Lifecycle management initiated for sovereign token flow
+## 🗂️ Grant Tracker Activated — VC001–VC999
+
+**Date:** August 18, 2025  
+**Module:** `grant-tracker.js`  
+**Invocation:** Grant programs indexed and steward signals tracked  
+**Inscription:** Outputs logged to `VC_GrantLog.md` and lineage scroll  
+**Legacy:** Equity traceability and grant lineage initiated
