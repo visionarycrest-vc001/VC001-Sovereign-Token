@@ -1,5 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const { inscribeScroll } = require('./scrollInscription');
+const { updateDashboard } = require('./dashboardHooks');
+
+const logPath = './VC_BatchLog.md';
 
 const vcFiles = fs.readdirSync(path.join(__dirname, '../'))
   .filter(f => /^vc\d{3}\.json$/.test(f));
@@ -47,10 +51,6 @@ vcFiles.forEach(file => {
 
   console.log(`✅ Sovereign flow completed for ${tokenId}\n`);
 });
-const { inscribeScroll } = require('./scrollInscription');
-const { updateDashboard } = require('./dashboardHooks');
-const fs = require('fs');
-const logPath = './VC_BatchLog.md';
 
 async function processVC(vcId) {
   let attempts = 0;
@@ -80,3 +80,4 @@ function logFailure(vcId, attempts, err) {
   const entry = `### ❌ ${vcId} — Failed after ${attempts} attempts\nError: ${err.message}\n`;
   fs.appendFileSync(logPath, entry);
 }
+
