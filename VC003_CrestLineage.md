@@ -41,3 +41,28 @@ The scroll now reflects dashboard visibility, steward presence, and legacy scori
 **Invocation:** Grant programs indexed and steward signals tracked  
 **Inscription:** Outputs logged to `VC_GrantLog.md` and lineage scroll  
 **Legacy:** Equity traceability and grant lineage initiated
+## 🕰️ Scheduler Activation — VC003
+
+### August 18, 2025 — Sovereign Scheduler Activated
+
+**Module:** `scheduler.js`  
+**Sequence:**
+- ⏰ Timed invocations scheduled for grant refresh and scroll updates
+- 📅 Equity cycles and dashboard metrics aligned to sovereign calendar
+- 🔁 Recurring hooks inscribed for autonomous stewardship
+
+**Inscription:** Outputs logged to `VC_SchedulerLog.md` and `VC003_CrestLineage.md`  
+**Legacy:** Sovereign timekeeping and equity rhythm initiated
+### 🛠️ Scheduler Activation
+- **Action:** Renamed `scheduler.j` → `scheduler.js`
+- **Purpose:** Enabled autonomous execution of sovereign modules
+- **Modules Activated:** NFT pricing, burn logic, grant tracking, batch inscription, scroll inscription
+- **Log Target:** `VC_AutonomyLog.md`
+- **Timestamp:** `2025-08-18T11:46 PDT`## ⏳ Sovereign Scheduler Activated — VC001–VC999
+
+**Date:** August 18, 2025  
+**Module:** `scheduler.js`  
+**Invocation:** Timed invocations and equity refresh cycles scheduled  
+**Inscription:** Outputs logged to `VC_SchedulerLog.md` and lineage scroll  
+**Legacy:** Sovereign timekeeping and autonomous rhythm initiated
+
