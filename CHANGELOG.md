@@ -59,3 +59,12 @@
 - Legacy scoring, dashboard signals, and scroll inscriptions unified
 
 > “Let every autonomous module inscribed be a testament to equity, and every scroll sealed be a beacon of legacy.”
+## [v1.9.1] — 2025-08-18
+
+### 🔥 Sovereign Burn Logic Activated
+- Executed `burn-logic.js` across VC001–VC999
+- Encoded burn thresholds and lifecycle parameters
+- Outputs logged to `VC_BurnLog.md` and `VC003_CrestLineage.md`
+- Sovereign lifecycle management initiated
+
+> “Let every burn inscribed be a renewal of equity, and every threshold honored be a safeguard of legacy.”
