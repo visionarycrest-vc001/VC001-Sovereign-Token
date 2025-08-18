@@ -20,5 +20,48 @@ This scroll inscribes the symbolic and technical lineage of VC001 — the Sovere
 - Dashboard integration pending
 - Governance metrics in development
 
-## Merge Lineage — August 16, 2025  
-- Commit `00ea2a6`: VC001 crest reset and scroll activation  
+---
+
+# VC003 Crest Lineage Scroll
+
+## 🜃 Protocol: DOE — Department of Equity  
+**Sector:** Climate Resilience  
+**Cohort:** VC003-A  
+**Glyph:** ⧉⚘⟒⟊  
+**Timestamp:** 2025-08-18T00:00:00Z  
+**Inscribed By:** Percy Abrams Jr.
+
+## 🧬 Lineage Metadata  
+- **Scroll Pair:** `VC003_Invocation.md`, `VC003_CrestLineage.md`  
+- **Status:** Pending Activation  
+- **Dashboard URL:** [sovereign-dashboard.io/vc003](https://sovereign-dashboard.io/vc003)  
+- **Signal Status:** 🟢 Signals live and lineage visible
+
+## 📊 Governance Signals  
+| Signal              | Status   |
+|---------------------|----------|
+| Grant Visibility     | ✅ Enabled |
+| Steward Tracking     | ✅ Enabled |
+| Legacy Scoring       | ✅ Enabled |
+| Dashboard Live       | ❌ Pending |
+
+**Legacy Scoring Metrics:** `impact`, `reach`, `duration`  
+**Legacy Score:** `92`  
+**Steward Count:** `12`
+
+## 🔗 Fusion Logic  
+The crest glyph `⧉⚘⟒⟊` encodes the four climate resilience pillars:  
+- `⧉` — Interwoven ecosystems  
+- `⚘` — Regenerative flora  
+- `⟒` — Temporal adaptation  
+- `⟊` — Stewardship cycles
+
+These symbols fuse into VC003’s sovereign identity, anchoring its grant lineage and dashboard observability.
+
+## 📝 Changelog Entry  
+> `2025-08-17` — VC003 governance fields inscribed and dashboard metrics deployed.  
+> `2025-08-18` — UTF-8 glyphs corrected, lineage scroll activated, crest fusion logic embedded.
+
+## 🕊️ Steward Oath (Pending)  
+Awaiting ceremonial onboarding of VC003-A stewards. Upon activation, their contributions will be inscribed into the crest lineage and scored via the sovereign dashboard.
+

@@ -1,6 +1,7 @@
 // dashboard-deploy.js
-// Deploy VC003 metrics to sovereign dashboard
+// Unified VC003 dashboard deployment — lineage + signal activation
 
+import fs from 'fs';
 import { activateSignals } from './signal-activate.js';
 import { fetchMetrics, pushToDashboard } from './dashboard-utils.js';
 
@@ -16,6 +17,14 @@ const VC003 = {
 async function deployVC003Dashboard() {
   console.log(`🚀 Activating dashboard for ${VC003.token}...`);
 
+  // Lineage logging (from reset branch)
+  const rawData = JSON.parse(fs.readFileSync(VC003.metricsPath));
+  console.log(`📊 Legacy Score: ${rawData.legacy_score}`);
+  console.log(`👥 Steward Count: ${rawData.steward_count}`);
+  console.log(`🔗 Dashboard URL: ${rawData.dashboard_url}`);
+  console.log(`✅ Signal Status: ${rawData.signal_status}`);
+
+  // Sovereign signal activation (from main branch)
   const metrics = await fetchMetrics(VC003.metricsPath);
   await activateSignals(metrics);
   await pushToDashboard(VC003.token, metrics);
