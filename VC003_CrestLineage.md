@@ -76,3 +76,7 @@ The scroll now reflects dashboard visibility, steward presence, and legacy scori
 
 **Inscription:** Linked to scheduler, autonomy, and crest lineage logs  
 **Legacy:** Sovereign coordination and resilience protocol initiated
+🛡️ Fallback Protocol Activated  
+- Modules retried up to 3 times on failure  
+- Errors and retries inscribed into VC_OrchestrationLog.md  
+- Legacy: Resilience and recovery embedded in sovereign flow
