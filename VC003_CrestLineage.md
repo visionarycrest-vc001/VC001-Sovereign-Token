@@ -86,3 +86,9 @@ Module: nft-pricing.js
 Invocation: Dynamic pricing logic encoded for all sovereign tokens  
 Inscription: Outputs logged to VC_PricingLog.md and crest lineage  
 Legacy: Equity valuation protocol initiated across VC001–VC999
+August 18, 2025 — Sovereign Batch Inscription Activated
+
+Module: sovereignBatch.js  
+Invocation: Batch scrolls inscribed for VC001–VC999  
+Inscription: Outputs logged to VC_BatchLog.md and crest lineage  
+Legacy: Infinite scalability protocol initiated for sovereign registry
