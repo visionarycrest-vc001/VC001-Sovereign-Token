@@ -80,3 +80,9 @@ The scroll now reflects dashboard visibility, steward presence, and legacy scori
 - Modules retried up to 3 times on failure  
 - Errors and retries inscribed into VC_OrchestrationLog.md  
 - Legacy: Resilience and recovery embedded in sovereign flow
+August 18, 2025 — Sovereign Pricing Logic Activated
+
+Module: nft-pricing.js  
+Invocation: Dynamic pricing logic encoded for all sovereign tokens  
+Inscription: Outputs logged to VC_PricingLog.md and crest lineage  
+Legacy: Equity valuation protocol initiated across VC001–VC999
