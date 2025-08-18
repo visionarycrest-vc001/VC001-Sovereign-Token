@@ -65,3 +65,16 @@ These symbols fuse into VC003’s sovereign identity, anchoring its grant lineag
 ## 🕊️ Steward Oath (Pending)  
 Awaiting ceremonial onboarding of VC003-A stewards. Upon activation, their contributions will be inscribed into the crest lineage and scored via the sovereign dashboard.
 
+## 🔐 Sovereign Security Protocol Activated — VC001
+
+**Date:** August 18, 2025  
+**Module:** `.github/workflows/codeql.yml`  
+**Invocation:** CodeQL scan matrix inscribed for sovereign token audit  
+**Languages:** JavaScript/TypeScript, Python, Rust, C/C++  
+**Security Queries:** Extended (`+security-extended`)  
+**Cadence:** Weekly (`cron: '39 8 * * 0'`)  
+**Lineage:** Patch inscribed from `visionarycrest-vc001-patch-1`  
+**Dashboard:** GitHub Security > Code Scanning Alerts  
+**Legacy:** Sovereign audit protocol initiated for VC001
+
+> “Let every scan be a shield, and every protocol a guardian of sovereign integrity.”
