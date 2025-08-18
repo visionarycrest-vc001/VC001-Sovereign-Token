@@ -39,3 +39,11 @@ _Inscribing every timed execution, module activation, and equity rhythm alignmen
 - All outputs are inscribed into `VC_AutonomyLog.md`
 - Failures, delays, or skipped modules will be annotated with ❌ and linked to troubleshooting lineage
 
+# VC_SchedulerLog.md
+
+## August 18, 2025 — Scheduler Activated
+
+- Module: `scheduler.js`
+- Status: ✅ Running hourly via `node-cron`
+- Modules Invoked: `nft-pricing.js`, `burn-logic.js`, `grant-tracker.js`, `sovereignBatch.js`, `scroll-inscribe.js`
+- Output Target: `VC_AutonomyLog.md`
