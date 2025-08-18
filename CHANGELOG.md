@@ -50,3 +50,12 @@
 - Added `scripts/sovereignBatch.js`: batch activation script for sovereign tokens  
 - Removed corrupted script and replaced with valid version  
 - Inscribed VC001 and VC003 tokens via scroll lineage and dashboard signal  
+## [v1.9.0] — 2025-08-18
+
+### 🧭 Sovereign Autonomy Activated
+- Executed full autonomy sequence across VC001–VC999
+- Modules invoked: `autonomy.js`, `sovereignBatch.js`, `scroll-inscribe.js`, `signal-activate.js`, `dashboardHooks.js`, `nft-pricing.js`
+- Outputs logged to `VC_AutonomyLog.md` and `VC003_CrestLineage.md`
+- Legacy scoring, dashboard signals, and scroll inscriptions unified
+
+> “Let every autonomous module inscribed be a testament to equity, and every scroll sealed be a beacon of legacy.”
