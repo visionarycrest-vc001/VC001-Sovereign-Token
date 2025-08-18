@@ -21,14 +21,20 @@ function inscribeLog(entry) {
   fs.appendFileSync(logPath, logEntry);
 }
 
-function runModule(module) {
+function runModule(module, attempt = 1) {
   exec(`node ${module}`, (err, stdout, stderr) => {
     if (err) {
-      inscribeLog(`❌ ${module} failed\nError: ${stderr}`);
+      inscribeLog(`❌ ${module} failed on attempt ${attempt}\nError: ${stderr}`);
+      if (attempt < 3) {
+        setTimeout(() => runModule(module, attempt + 1), 3000); // Retry after 3 seconds
+      } else {
+        inscribeLog(`⚠️ ${module} failed after 3 attempts — fallback protocol triggered`);
+      }
     } else {
-      inscribeLog(`✅ ${module} executed\nOutput:\n${stdout}`);
+      inscribeLog(`✅ ${module} executed on attempt ${attempt}\nOutput:\n${stdout}`);
     }
   });
 }
+
 
 modules.forEach(runModule);
