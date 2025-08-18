@@ -50,3 +50,30 @@
 - Added `scripts/sovereignBatch.js`: batch activation script for sovereign tokens  
 - Removed corrupted script and replaced with valid version  
 - Inscribed VC001 and VC003 tokens via scroll lineage and dashboard signal  
+## [v1.9.0] — 2025-08-18
+
+### 🧭 Sovereign Autonomy Activated
+- Executed full autonomy sequence across VC001–VC999
+- Modules invoked: `autonomy.js`, `sovereignBatch.js`, `scroll-inscribe.js`, `signal-activate.js`, `dashboardHooks.js`, `nft-pricing.js`
+- Outputs logged to `VC_AutonomyLog.md` and `VC003_CrestLineage.md`
+- Legacy scoring, dashboard signals, and scroll inscriptions unified
+
+> “Let every autonomous module inscribed be a testament to equity, and every scroll sealed be a beacon of legacy.”
+## [v1.9.1] — 2025-08-18
+
+### 🔥 Sovereign Burn Logic Activated
+- Executed `burn-logic.js` across VC001–VC999
+- Encoded burn thresholds and lifecycle parameters
+- Outputs logged to `VC_BurnLog.md` and `VC003_CrestLineage.md`
+- Sovereign lifecycle management initiated
+
+> “Let every burn inscribed be a renewal of equity, and every threshold honored be a safeguard of legacy.”
+## [v1.9.2] — 2025-08-18
+
+### 🗂️ Grant Tracker Activated
+- Executed `grant-tracker.js` across VC001–VC999
+- Indexed grant programs and steward onboarding signals
+- Outputs logged to `VC_GrantLog.md` and `VC003_CrestLineage.md`
+- Equity traceability and grant lineage initiated
+
+> “Let every grant inscribed be a thread in the sovereign tapestry, and every steward signal a beacon of equity.”
