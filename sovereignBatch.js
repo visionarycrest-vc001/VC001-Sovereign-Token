@@ -47,3 +47,36 @@ vcFiles.forEach(file => {
 
   console.log(`✅ Sovereign flow completed for ${tokenId}\n`);
 });
+const { inscribeScroll } = require('./scrollInscription');
+const { updateDashboard } = require('./dashboardHooks');
+const fs = require('fs');
+const logPath = './VC_BatchLog.md';
+
+async function processVC(vcId) {
+  let attempts = 0;
+  let success = false;
+
+  while (attempts < 3 && !success) {
+    try {
+      attempts++;
+      console.log(`🔁 Attempt ${attempts} — Inscribing ${vcId}`);
+      await inscribeScroll(vcId);
+      await updateDashboard(vcId);
+      logSuccess(vcId, attempts);
+      success = true;
+    } catch (err) {
+      console.error(`❌ Attempt ${attempts} failed for ${vcId}:`, err);
+      if (attempts === 3) logFailure(vcId, attempts, err);
+    }
+  }
+}
+
+function logSuccess(vcId, attempts) {
+  const entry = `### ✅ ${vcId} — Scroll inscribed and dashboard updated after ${attempts} attempt(s)\n`;
+  fs.appendFileSync(logPath, entry);
+}
+
+function logFailure(vcId, attempts, err) {
+  const entry = `### ❌ ${vcId} — Failed after ${attempts} attempts\nError: ${err.message}\n`;
+  fs.appendFileSync(logPath, entry);
+}
