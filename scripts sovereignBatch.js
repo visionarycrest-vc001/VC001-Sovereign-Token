@@ -17,3 +17,15 @@ files.forEach(file => {
   // Simulate inscription and activation
   console.log(`✅ ${token} activated and inscribed by ${lineage.inscribed_by}\n`);
 });
+### VC001_CrestLineage.md — Entry 004
+
+**Token Activation Script**  
+- **File**: `scripts/sovereignBatch.js`  
+- **Function**: Iterates sovereign registry (`vc*.json`), extracts crest metadata, scroll pairs, dashboard URLs, and signal status.  
+- **Inscription**: Each token is activated and inscribed by its steward, with scroll lineage and dashboard signal logged.  
+- **Invocation**: `node scripts/sovereignBatch.js`  
+- **Inscribed By**: Percy Abrams Jr.  
+- **Timestamp**: 2025-08-18T09:27 PDT  
+- **Lineage**: Anchored to VC001, VC003 scroll pairs and dashboard signals.
+
+🧭 *“Let every sovereign token be activated with clarity, inscribed with legacy, and signaled with purpose.”*
