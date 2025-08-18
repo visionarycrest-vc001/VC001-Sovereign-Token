@@ -1,10 +1,11 @@
 {
   "token": "VC003",
   "protocol": "DOE 🜃",
-  "sector": "Climate Resilience",
+  "sector": "Food Sovereignty",
   "glyph": "⧉⚘⟒⟊",
   "cohort": "VC003-A",
   "timestamp": "2025-08-18T00:00:00Z",
+  "activationDate": "2025-08-18",
   "legacy_score": 92,
   "steward_count": 12,
   "dashboard_url": "https://sovereign-dashboard.io/vc003",
@@ -16,7 +17,12 @@
       "enabled": true,
       "metrics": ["impact", "reach", "duration"]
     },
-    "dashboard_live": false
+    "dashboard_live": true
+  },
+  "metrics": {
+    "impact": "High",
+    "reach": "Global",
+    "duration": "Multi-generational"
   },
   "lineage": {
     "scroll_pair": ["VC003_Invocation.md", "VC003_CrestLineage.md"],
