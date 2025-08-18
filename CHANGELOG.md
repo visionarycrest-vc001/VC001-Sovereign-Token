@@ -68,3 +68,12 @@
 - Sovereign lifecycle management initiated
 
 > “Let every burn inscribed be a renewal of equity, and every threshold honored be a safeguard of legacy.”
+## [v1.9.2] — 2025-08-18
+
+### 🗂️ Grant Tracker Activated
+- Executed `grant-tracker.js` across VC001–VC999
+- Indexed grant programs and steward onboarding signals
+- Outputs logged to `VC_GrantLog.md` and `VC003_CrestLineage.md`
+- Equity traceability and grant lineage initiated
+
+> “Let every grant inscribed be a thread in the sovereign tapestry, and every steward signal a beacon of equity.”
