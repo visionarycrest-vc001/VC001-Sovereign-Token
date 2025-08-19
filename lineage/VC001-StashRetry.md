@@ -42,3 +42,14 @@ _Second invocation of stash protocol following failed daemon lock trace_
 - [VC001-TerminalCapture.md](VC001-TerminalCapture.md)  
 - [VC001-CrestLineage.md](../VC001-CrestLineage.md)  
 - [VC_WrapLog.md](../VC_WrapLog.md)
+
+
+---
+
+## 🪶 Suggested Commit Ritual
+
+```bash
+touch lineage/VC001-MergeConflict.md
+git add lineage/VC001-MergeConflict.md
+git commit -m "⚔️ Inscribed VC001-MergeConflict.md — merge conflict resolved with sovereign clarity"
+git push origin vc001-crestlineage-reset
