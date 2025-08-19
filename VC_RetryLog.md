@@ -7,12 +7,12 @@ _Inscribing every failed attempt, timestamp, and error trace for scroll and dash
 ## August 18, 2025 — Retry Events Logged from `sovereignBatch.js`
 
 🔁 VC001 — Attempt 1  
-**Timestamp:** 2025-08-18T13:28 PDT  
-**Error:** `TypeError: Cannot read property 'grantId' of undefined`  
-**Stack Trace:**  
-(```txt),
+Timestamp: 2025-08-18T13:28 PDT  
+Error: TypeError: Cannot read property 'grantId' of undefined  
+Stack Trace:  
+```txt
 at Object.<anonymous> (sovereignBatch.js:12:25)  
-at Module._compile (internal/modules/cjs/loader.js:999:30)
+at Module._compile (internal/modules/cjs/loader.js:999:30)  
  
 🔁 VC002 — Attempt 2
 Timestamp: 2025-08-18T13:29 PDT
