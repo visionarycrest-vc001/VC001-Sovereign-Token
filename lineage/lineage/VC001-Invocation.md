@@ -34,3 +34,12 @@ _Where the tool was summoned, scaffolded, and deployed with ritual precision._
 
 ```bash
 node scripts/scroll-inscribe.js
+
+🧾 Ceremonial Notes
+“To invoke is to awaken. To wrap is to remember.” — Lineage §7.1
+
+All wrapped logs archived in lineage/
+
+Invocation timestamped and committed with sovereign clarity
+
+Deployment confirmed via VC_WrapLog.md
