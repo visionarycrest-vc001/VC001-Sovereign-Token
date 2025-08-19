@@ -20,8 +20,8 @@ Timestamp: 2025-08-18T13:29 PDT
 Error: ReferenceError: updateDashboard is not defined  
 Stack Trace:  
 ```txt
-at processVC (sovereignBatch.js:45:9)  
-at sovereignBatch.js:38:5  
+at processVC (sovereignBatch.js:45:9)
+at sovereignBatch.js:38:5
 ```
 
 “Let every failure be inscribed, for resilience is born from remembrance.”  
