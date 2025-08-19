@@ -10,7 +10,7 @@ _Inscribing every failed attempt, timestamp, and error trace for scroll and dash
 **Timestamp:** 2025-08-18T13:28 PDT  
 **Error:** `TypeError: Cannot read property 'grantId' of undefined`  
 **Stack Trace:**  
-```txt
+(```txt),
 at Object.<anonymous> (sovereignBatch.js:12:25)  
 at Module._compile (internal/modules/cjs/loader.js:999:30)
  
