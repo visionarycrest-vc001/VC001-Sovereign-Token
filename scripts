@@ -1,6 +1,0 @@
-VC001-Sovereign-Token/
-└── scripts/
-    ├── index.js
-    ├── dashboardHooks.js
-    ├── onboardVC003A.js
-    └── scrollInscription.js
