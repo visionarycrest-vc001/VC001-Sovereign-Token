@@ -65,3 +65,4 @@ These symbols fuse into VC003’s sovereign identity, anchoring its grant lineag
 ## 🕊️ Steward Oath (Pending)  
 Awaiting ceremonial onboarding of VC003-A stewards. Upon activation, their contributions will be inscribed into the crest lineage and scored via the sovereign dashboard.
 
+📜 See [VC001-TerminalCapture.md](./VC001-TerminalCapture.md) for full stash ritual and scroll archive.
