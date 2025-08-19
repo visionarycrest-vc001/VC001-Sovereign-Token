@@ -15,3 +15,13 @@ _Tracking each formatting ritual, steward, and scroll transformation_
 **Quote:**  
 > “Formatting is not cosmetic — it is the vessel of remembrance.”  
 > — *Lineage §9.4*
+
+## August 19, 2025 — Wrapping Tool Upgrade
+
+**Steward:** Percy Abrams Jr.  
+**Tool:** `wrapStackTraces.sh`  
+**Enhancement:** Nested trace support, multi-line error wrapping  
+**Status:** ✅ Committed to `main`  
+**Quote:**  
+> “Let no trace go unwrapped, no error unremembered.”  
+> — *Lineage §9.7*
