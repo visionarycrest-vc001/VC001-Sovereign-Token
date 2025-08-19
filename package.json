@@ -1,11 +1,5 @@
 {
-  "name": "vc001-sovereign-token",
-  "version": "1.0.0",
-  "description": "Sovereign token activation and lineage inscription",
-  "main": "index.js",
-  "scripts": {
-    "activate": "node scripts/sovereignBatch.js"
-  },
-  "author": "Percy Abrams Jr.",
-  "license": "MIT"
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
