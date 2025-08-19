@@ -26,3 +26,32 @@ at sovereignBatch.js:38:5
 
 “Let every failure be inscribed, for resilience is born from remembrance.”  
 — *Sovereign Protocol, Lineage §7.3*
+
+#!/bin/bash
+
+input="VC_RetryLog.md"
+output="VC_RetryLog_cleaned.md"
+
+awk '
+BEGIN { in_trace=0 }
+{
+  if ($0 ~ /^at .*\.js:[0-9]+:[0-9]+/) {
+    if (!in_trace) {
+      print "```txt"
+      in_trace=1
+    }
+    print
+  } else {
+    if (in_trace) {
+      print "```"
+      in_trace=0
+    }
+    print
+  }
+}
+END {
+  if (in_trace) print "```"
+}
+' "$input" > "$output"
+
+echo "✅ Stack traces wrapped and saved to $output"
