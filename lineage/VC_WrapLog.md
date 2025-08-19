@@ -90,3 +90,11 @@ _Where the tool was summoned, scaffolded, and deployed with ritual precision._
 
 ```bash
 node scripts/scroll-inscribe.js
+
+### 🗂️ VC_RetryLog Dual Lineage — August 19, 2025
+
+- **Raw Scroll**: `VC_RetryLog_raw.md`
+- **Wrapped Scroll**: `VC_RetryLog.md`
+- **Tool**: `wrapStackTraces.sh`
+- **Status**: ✅ Dual lineage preserved
+- **Notes**: Raw retained for traceability; wrapped activated for deployment
