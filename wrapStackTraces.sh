@@ -39,3 +39,9 @@ END {
 ' "$input" > "$output"
 
 echo "✅ Nested traces and multi-line errors wrapped in $output"
+
+Error: ReferenceError: updateDashboard is not defined  
+    at processVC (sovereignBatch.js:45:9)  
+        at sovereignBatch.js:38:5  
+        at internal/modules/run_main.js:12:3
+
