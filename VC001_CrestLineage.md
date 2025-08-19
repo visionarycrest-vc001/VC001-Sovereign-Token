@@ -66,3 +66,14 @@ These symbols fuse into VC003’s sovereign identity, anchoring its grant lineag
 Awaiting ceremonial onboarding of VC003-A stewards. Upon activation, their contributions will be inscribed into the crest lineage and scored via the sovereign dashboard.
 
 📜 See [VC001-TerminalCapture.md](./VC001-TerminalCapture.md) for full stash ritual and scroll archive.
+
+
+---
+
+## 🪶 Suggested Commit Ritual
+
+```bash
+touch lineage/VC001-MergeConflict.md
+git add lineage/VC001-MergeConflict.md
+git commit -m "⚔️ Inscribed VC001-MergeConflict.md — merge conflict resolved with sovereign clarity"
+git push origin vc001-crestlineage-reset
