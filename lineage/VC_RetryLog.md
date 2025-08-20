@@ -1,19 +1,29 @@
-# 🔥 Sovereign Burn Log
+# 📜 VC_RetryLog.md
+> Wrapped Retry Log for VC001 Sovereign System  
+> Dual lineage preserved with `VC_RetryLog_raw.md`  
+> Activated: August 19, 2025  
+> Steward: Percy Abrams Jr.
 
-This scroll inscribes every burn-eligible token detected by `burn-logic.js`.
+---
 
-| Token | Contract | Price | Market | Reason | Timestamp |
-|-------|----------|-------|--------|--------|-----------|
-### August 18, 2025 — Burn Logic Activated
+## 🔁 Retry Event Index
 
-**Module:** `burn-logic.js`  
-**Sequence:**
-- 🔥 Sovereign tokens VC001–VC999 initialized with burn parameters
-- 🧮 Burn thresholds and floor price logic encoded
-- 🧾 Burn events inscribed into dashboard and crest lineage
+| Retry ID | Timestamp           | Module         | Reason                  | Status   | Wrapped By |
+|----------|---------------------|----------------|--------------------------|----------|------------|
+| VC-R001  | 2025-08-18T14:22:01 | scheduler.js   | Timeout on grant pulse   | ✅ Retried | wrapStackTraces.sh |
+| VC-R002  | 2025-08-18T15:47:33 | grant-tracker.js | Missing grant token     | ✅ Retried | wrapStackTraces.sh |
 
-**Inscription:** Outputs logged to `VC_BurnLog.md` and `VC003_CrestLineage.md`  
-**Legacy:** Burn logic activated for sovereign lifecycle management
+---
+
+## 🧵 Wrapped Entries
+
+### 🔹 VC-R001 — Scheduler Timeout
+
+```bash
+[2025-08-18T14:22:01] ERROR: Grant pulse failed to initialize
+Module: scheduler.js
+Trace: TimeoutError at sovereignBatch.js:42:17
+Action: Retried with extended pulse window
 
 # VC001-Invocation.md  
 🛠️ Wrapping Tool Invocation — VC001 Sovereign Archive  

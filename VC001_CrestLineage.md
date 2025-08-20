@@ -84,3 +84,19 @@ Awaiting ceremonial onboarding of VC003-A stewards. Upon activation, their contr
 - 🧬 Steward: Percy Abrams Jr.
 - 🕰️ Timestamp: 2025-08-19
 - 🧪 Validated Output: VC_RetryLog_cleaned.md
+
+---
+
+## 📜 Terminal Capture Reference
+
+See [VC001-TerminalCapture.md](./VC001-TerminalCapture.md) for full stash ritual and scroll archive.
+
+---
+
+## 🪶 Suggested Commit Ritual
+
+```bash
+touch lineage/VC001-MergeConflict.md
+git add lineage/VC001-MergeConflict.md
+git commit -m "⚔️ Resolved VC001_CrestLineage.md conflict — merged security protocol and stash ritual"
+git push origin vc001-crestlineage-reset
