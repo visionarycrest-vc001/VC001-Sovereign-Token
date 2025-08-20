@@ -98,3 +98,11 @@ node scripts/scroll-inscribe.js
 - **Tool**: `wrapStackTraces.sh`
 - **Status**: ✅ Dual lineage preserved
 - **Notes**: Raw retained for traceability; wrapped activated for deployment
+
+### 🧭 Viewer Realignment — August 19, 2025
+
+- **Scroll**: `VC_RetryLog_viewer.sh`
+- **Original Path**: Root directory
+- **New Path**: `scripts/viewers/VC_RetryLog_viewer.sh`
+- **Status**: ✅ Relocated and committed
+- **Notes**: Viewer now resides in sovereign viewer chamber
