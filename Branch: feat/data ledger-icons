@@ -1,0 +1,29 @@
+Files: data/vc_ledger.json (augment entries with ICON and GLYPH)
+
+git checkout -b data/ledger-icons
+cat > data/vc_ledger.json << 'JSON'
+[
+  {
+    "id": "VC-0001",
+    "title": "Founding Crest",
+    "status": "active",
+    "timestamp": "2025-08-21T00:00:00Z",
+    "traits": { "tier": "Sovereign", "version": "1.0.0" },
+    "glyph": "CREST_SOVEREIGN",
+    "icon": "crest-sovereign.svg"
+  },
+  {
+    "id": "VC-0002",
+    "title": "Watcher Seed",
+    "status": "draft",
+    "timestamp": "2025-08-21T00:00:00Z",
+    "traits": { "tier": "Steward", "version": "0.1.0" },
+    "glyph": "EYE_WATCHER",
+    "icon": "eye-watcher.svg"
+  }
+]
+JSON
+git add data/vc_ledger.json
+git commit -m "📜 Data: ledger entries bound to glyphs and icons for visual lineage"
+git checkout main
+git merge --no-ff data/ledger-icons -m "📜 Merge ledger icon bindings into main"
