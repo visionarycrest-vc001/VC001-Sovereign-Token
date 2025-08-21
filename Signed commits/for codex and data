@@ -1,0 +1,10 @@
+Add: CODEOWNERS to require reviews and signed commits on critical paths.
+
+mkdir -p .github
+cat > .github/CODEOWNERS << 'EOF'
+/data/*           @visionary-stewards
+/codex/*          @visionary-stewards
+EOF
+
+git add .github/CODEOWNERS
+git commit -m "✒️ Governance: CODEOWNERS for data/ and codex/ protection"
