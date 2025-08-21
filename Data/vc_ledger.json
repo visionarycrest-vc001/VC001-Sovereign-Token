@@ -1,0 +1,12 @@
+Action: Master index schema with minimal sample entries.
+
+cat > data/vc_ledger.json << 'EOF'
+{
+  "version": "1.0.0",
+  "tokens": [
+    { "id": "VC001", "title": "Foundational Crest", "status": "active", "tier": "prime", "mint": 1, "supply": 111 },
+    { "id": "VC002", "title": "Regenerative Agriculture", "status": "active", "tier": "prime", "mint": 1, "supply": 222 }
+  ],
+  "last_updated": "2025-08-21T00:00:00Z"
+}
+EOF
