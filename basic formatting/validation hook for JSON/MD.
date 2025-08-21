@@ -1,0 +1,16 @@
+mkdir -p .githooks
+cat > .githooks/pre-commit << 'EOF'
+#!/usr/bin/env bash
+set -e
+if command -v jq >/dev/null 2>&1; then
+  for f in $(git diff --cached --name-only --diff-filter=ACM | grep '^data/.*\.json$' || true); do
+    jq . "$f" >/dev/null || { echo "❌ Invalid JSON: $f"; exit 1; }
+    echo "✅ JSON ok: $f"
+  done
+fi
+EOF
+chmod +x .githooks/pre-commit
+git config core.hooksPath .githooks
+
+git add .githooks/pre-commit
+git commit -m "🧷 Hooks: pre-commit JSON validation to protect lineage"
