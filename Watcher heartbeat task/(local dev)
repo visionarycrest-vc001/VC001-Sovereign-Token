@@ -1,3 +1,5 @@
+Add: tiny Node script to bump metrics for demo/testing.
+
 cat > scripts/heartbeat.js << 'EOF'
 const fs = require('fs');
 const p = 'data/watcher-metrics.json';
