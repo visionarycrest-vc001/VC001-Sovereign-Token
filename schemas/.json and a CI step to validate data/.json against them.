@@ -1,0 +1,30 @@
+mkdir -p schemas
+cat > schemas/vc_ledger.schema.json << 'EOF'
+{
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "type":"object",
+  "required":["version","tokens","last_updated"],
+  "properties":{
+    "version":{"type":"string"},
+    "last_updated":{"type":"string"},
+    "tokens":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["id","title","status"],
+        "properties":{
+          "id":{"type":"string"},
+          "title":{"type":"string"},
+          "status":{"type":"string","enum":["active","paused","retired"]},
+          "tier":{"type":"string"},
+          "mint":{"type":"integer"},
+          "supply":{"type":"integer"}
+        }
+      }
+    }
+  }
+}
+EOF
+
+git add schemas/vc_ledger.schema.json
+git commit -m "🛡️ Schema: vc_ledger JSON schema for CI validation"
