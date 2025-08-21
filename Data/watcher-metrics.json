@@ -1,0 +1,11 @@
+Action: Live system stats placeholder.
+
+cat > data/watcher-metrics.json << 'EOF'
+{
+  "uptime_seconds": 0,
+  "last_heartbeat": "2025-08-21T00:00:00Z",
+  "queue_depth": 0,
+  "errors_24h": 0,
+  "processed_24h": 0
+}
+EOF
