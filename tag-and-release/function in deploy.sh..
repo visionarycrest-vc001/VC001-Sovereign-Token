@@ -1,0 +1,4 @@
+awk '1;/^# Placeholder deployment;/{print "\n# Optionally tag a release\nif [ \"${TAG_RELEASE:-}\" ]; then\ngit tag -a \"$TAG_RELEASE\" -m \"Release $TAG_RELEASE\" && git push --tags\nfi\n"}' scripts/deploy.sh > scripts/deploy.tmp && mv scripts/deploy.tmp scripts/deploy.sh
+chmod +x scripts/deploy.sh
+git add scripts/deploy.sh
+git commit -m "🏷️ Deploy: optional TAG_RELEASE to stamp lineage"
