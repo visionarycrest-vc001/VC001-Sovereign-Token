@@ -1,0 +1,23 @@
+Files: public/assets/crest-sovereign.svg, public/assets/eye-watcher.svg
+
+git checkout -b feat/glyph-assets
+mkdir -p public/assets
+
+cat > public/assets/crest-sovereign.svg << 'SVG'
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <circle cx="64" cy="64" r="62" stroke="#8bd3dd" stroke-width="4"/>
+  <path d="M32 72l32-40 32 40-32 24-32-24z" stroke="#e6e8ef" stroke-width="4" fill="none"/>
+</svg>
+SVG
+
+cat > public/assets/eye-watcher.svg << 'SVG'
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <ellipse cx="64" cy="64" rx="56" ry="36" stroke="#8bd3dd" stroke-width="4"/>
+  <circle cx="64" cy="64" r="16" fill="#8bd3dd"/>
+</svg>
+SVG
+
+git add public/assets/crest-sovereign.svg public/assets/eye-watcher.svg
+git commit -m "🔣 Glyphs: crest-sovereign.svg and eye-watcher.svg added to public/assets"
+git checkout main
+git merge --no-ff feat/glyph-assets -m "🔣 Merge glyph assets into main"
