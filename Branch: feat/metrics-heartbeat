@@ -1,0 +1,31 @@
+Files: scripts/heartbeat.js, data/watcher-metrics.json (ensure compatible shape)
+
+git checkout -b feat/metrics-heartbeat
+cat > scripts/heartbeat.js << 'JS'
+import fs from 'node:fs';
+const path = 'data/watcher-metrics.json';
+const now = new Date();
+const iso = now.toISOString();
+const exists = fs.existsSync(path);
+const data = exists ? JSON.parse(fs.readFileSync(path, 'utf8')) : {
+  uptimeSeconds: 0, activeTokens: 0, queueSize: 0, lastSync: iso
+};
+data.uptimeSeconds = (data.uptimeSeconds || 0) + 300;
+data.lastSync = iso;
+fs.writeFileSync(path, JSON.stringify(data, null, 2));
+console.log(`💓 Heartbeat at ${iso} — uptimeSeconds=${data.uptimeSeconds}`);
+JS
+
+cat > data/watcher-metrics.json << 'JSON'
+{
+  "uptimeSeconds": 0,
+  "activeTokens": 1,
+  "queueSize": 0,
+  "lastSync": "2025-08-21T00:00:00Z"
+}
+JSON
+
+git add scripts/heartbeat.js data/watcher-metrics.json
+git commit -m "💓 Watcher: heartbeat script increments uptimeSeconds and stamps lastSync"
+git checkout main
+git merge --no-ff feat/metrics-heartbeat -m "💓 Merge metrics heartbeat into main"
