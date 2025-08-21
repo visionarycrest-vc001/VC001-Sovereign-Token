@@ -1,0 +1,30 @@
+Files: none (uses GitHub CLI to enforce protection)
+
+Commands: Replace OWNER and REPO with your org/repo. Requires gh CLI with admin rights.
+
+git checkout -b governance/branch-protection-cli
+
+# Set variables
+OWNER="YOUR_ORG_OR_USER"
+REPO="YOUR_REPO"
+BRANCH="main"
+
+# Require PR reviews (1), signed commits, and status checks
+gh api -X PUT repos/$OWNER/$REPO/branches/$BRANCH/protection -f required_status_checks.strict=true \
+  -f enforce_admins=true \
+  -f required_pull_request_reviews.required_approving_review_count=1 \
+  -F restrictions=''
+
+# Enable required signed commits on the branch
+gh api -X PUT repos/$OWNER/$REPO/branches/$BRANCH/protection/required_signatures
+
+# Require the CI checks to pass before merging
+gh api -X POST repos/$OWNER/$REPO/branches/$BRANCH/protection/required_status_checks/contexts \
+  -f contexts[]="Verify Commit Signatures" \
+  -f contexts[]="Sovereign CI" \
+  -f contexts[]="Ascension Deploy" \
+  -f contexts[]="Metrics Heartbeat" || true
+
+git commit --allow-empty -m "🏛️ Governance: branch protections applied via gh CLI (reviews + signatures + checks)"
+git checkout main
+git merge --no-ff governance/branch-protection-cli -m "🏛️ Merge governance note after applying branch protections"
