@@ -1,0 +1,12 @@
+Files: .github/CODEOWNERS
+
+git checkout -b governance/codeowners
+mkdir -p .github
+cat > .github/CODEOWNERS << 'TXT'
+/data/*   @visionary-stewards
+/codex/*  @visionary-stewards @glyph-keepers
+TXT
+git add .github/CODEOWNERS
+git commit -m "🏛️ Governance: CODEOWNERS require steward reviews on data/ and codex/"
+git checkout main
+git merge --no-ff governance/codeowners -m "🏛️ Merge CODEOWNERS governance into main"
