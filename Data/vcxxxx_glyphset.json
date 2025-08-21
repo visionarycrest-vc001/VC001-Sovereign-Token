@@ -1,0 +1,11 @@
+Action: Overflow glyphs for extended tiers.
+
+cat > data/vcxxxx_glyphset.json << 'EOF'
+{
+  "namespace": "VCXXXX",
+  "glyphs": [
+    { "glyph": "CREST-ALPHA", "meaning": "Initiatory crest for overflow cohorts", "version": "1.0.0" },
+    { "glyph": "CREST-BETA", "meaning": "Calibration mark for batch minting", "version": "1.0.0" }
+  ]
+}
+EOF
