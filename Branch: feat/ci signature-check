@@ -1,0 +1,37 @@
+Files: .github/workflows/verify-signatures.yml
+
+Note: Use this check plus branch protection “Require signed commits” on main.
+
+git checkout -b ci/signature-check
+mkdir -p .github/workflows
+cat > .github/workflows/verify-signatures.yml << 'YAML'
+name: Verify Commit Signatures
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Check signatures on PR commits
+        run: |
+          PR_SHA_RANGE="$(git rev-list --no-merges origin/main..HEAD)"
+          fail=0
+          for sha in $PR_SHA_RANGE; do
+            status=$(git verify-commit --raw "$sha" 2>&1 || true)
+            if ! git verify-commit "$sha" >/dev/null 2>&1; then
+              echo "❌ Unsigned or unverified commit: $sha"
+              echo "$status"
+              fail=1
+            else
+              echo "✅ Verified: $sha"
+            fi
+          done
+          [ $fail -eq 0 ] || { echo "Commit signature verification failed."; exit 1; }
+YAML
+git add .github/workflows/verify-signatures.yml
+git commit -m "✒️ CI: verify GPG-signed commits on PRs to main"
+git checkout main
+git merge --no-ff ci/signature-check -m "✒️ Merge commit signature verification into main"
