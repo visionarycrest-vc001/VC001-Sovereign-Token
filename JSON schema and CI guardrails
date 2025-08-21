@@ -1,3 +1,7 @@
+Add: schemas/.json and a CI step to validate data/.json against them.
+
+Benefit: Prevents malformed data from breaking viewers.
+
 mkdir -p schemas
 cat > schemas/vc_ledger.schema.json << 'EOF'
 {
