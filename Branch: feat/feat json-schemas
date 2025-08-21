@@ -1,0 +1,118 @@
+Files: schemas/*.schema.json, scripts/validate-json.sh
+
+git checkout -b feat/json-schemas
+mkdir -p schemas scripts
+
+cat > schemas/vc_ledger.schema.json << 'JSON'
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VC Ledger",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id","title","status","timestamp"],
+    "properties": {
+      "id": { "type": "string" },
+      "title": { "type": "string" },
+      "status": { "enum": ["draft","active","archived","burned"] },
+      "timestamp": { "type": "string", "format": "date-time" },
+      "traits": { "type": "object" },
+      "glyph": { "type": "string" },
+      "icon": { "type": "string" }
+    },
+    "additionalProperties": false
+  }
+}
+JSON
+
+cat > schemas/vcxxxx_glyphset.schema.json << 'JSON'
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Glyphset",
+  "type": "object",
+  "patternProperties": {
+    "^[A-Z0-9_\\-]+$": {
+      "type": "object",
+      "required": ["name","meaning"],
+      "properties": {
+        "name": { "type": "string" },
+        "meaning": { "type": "string" },
+        "svg": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
+JSON
+
+cat > schemas/watcher_metrics.schema.json << 'JSON'
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Watcher Metrics",
+  "type": "object",
+  "required": ["uptimeSeconds","activeTokens","queueSize","lastSync"],
+  "properties": {
+    "uptimeSeconds": { "type": "integer", "minimum": 0 },
+    "activeTokens": { "type": "integer", "minimum": 0 },
+    "queueSize": { "type": "integer", "minimum": 0 },
+    "lastSync": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}
+JSON
+
+cat > schemas/ascension_log.schema.json << 'JSON'
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ascension Log",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id","action","by","timestamp"],
+    "properties": {
+      "id": { "type": "string" },
+      "action": { "enum": ["approved","revised","rejected"] },
+      "by": { "type": "string" },
+      "timestamp": { "type": "string", "format": "date-time" },
+      "notes": { "type": "string" }
+    },
+    "additionalProperties": false
+  }
+}
+JSON
+
+cat > schemas/recalibration_queue.schema.json << 'JSON'
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Recalibration Queue",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id","reason","priority"],
+    "properties": {
+      "id": { "type": "string" },
+      "reason": { "type": "string" },
+      "priority": { "enum": ["low","medium","high","urgent"] }
+    },
+    "additionalProperties": false
+  }
+}
+JSON
+
+cat > scripts/validate-json.sh << 'BASH'
+#!/usr/bin/env bash
+set -euo pipefail
+npx --yes ajv-cli@5.0.0 validate -s schemas/vc_ledger.schema.json -d data/vc_ledger.json
+npx --yes ajv-cli@5.0.0 validate -s schemas/vcxxxx_glyphset.schema.json -d data/vcxxxx_glyphset.json
+npx --yes ajv-cli@5.0.0 validate -s schemas/watcher_metrics.schema.json -d data/watcher-metrics.json
+npx --yes ajv-cli@5.0.0 validate -s schemas/ascension_log.schema.json -d data/ascension-log.json
+npx --yes ajv-cli@5.0.0 validate -s schemas/recalibration_queue.schema.json -d data/recalibration-queue.json
+echo "✅ All data/*.json validated against schemas."
+BASH
+chmod +x scripts/validate-json.sh
+
+git add schemas/*.json scripts/validate-json.sh
+git commit -m "🧩 Schemas: tailored JSON contracts + validator ritual for all data scrolls"
+git checkout main
+git merge --no-ff feat/json-schemas -m "🧩 Merge JSON schema guardians into main"
