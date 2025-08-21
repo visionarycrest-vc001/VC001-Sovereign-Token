@@ -1,3 +1,5 @@
+Action: Create root and all folders to mirror the desired structure.
+
 mkdir -p sovereign-archive/{apps/{landing,watcher},data,codex,public/assets,templates,scripts}
 cd sovereign-archive
 git init
