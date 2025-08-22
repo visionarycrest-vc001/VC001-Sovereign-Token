@@ -1,0 +1,41 @@
+name: Setup Node.js Environment (Pinned v4.4.0)
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'Node.js version (SemVer or alias)'
+        required: false
+        default: '18'
+        type: string
+      cache:
+        description: 'Package manager to cache (npm, yarn, pnpm)'
+        required: false
+        default: 'npm'
+        type: string
+      cache-dependency-path:
+        description: 'Path(s) to dependency file(s) for caching'
+        required: false
+        default: 'package-lock.json'
+        type: string
+
+jobs:
+  setup-node:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (pinned)
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: ${{ inputs.cache }}
+          cache-dependency-path: ${{ inputs.cache-dependency-path }}
+          token: ${{ github.server_url == 'https://github.com' && github.token || '' }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
