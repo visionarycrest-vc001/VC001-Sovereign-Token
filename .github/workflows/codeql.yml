@@ -7,6 +7,7 @@ on:
     branches: [ "main" ]
   schedule:
     - cron: '39 8 * * 0'
+  workflow_dispatch:
 
 jobs:
   detect-languages:
@@ -21,24 +22,24 @@ jobs:
         run: |
           langs=()
 
-          # JS/TS: look for lockfiles
-          if find . -type f \( -name "package-lock.json" -o -name "npm-shrinkwrap.json" -o -name "yarn.lock" \) | grep -q .; then
+          # JS/TS: lockfiles or package.json → no build
+          if find . -type f \( -name "package-lock.json" -o -name "npm-shrinkwrap.json" -o -name "yarn.lock" -o -name "package.json" \) | grep -q .; then
             langs+=("{\"language\":\"javascript-typescript\",\"build-mode\":\"none\"}")
           fi
 
-          # Python: look for requirements or pyproject
-          if find . -type f \( -name "requirements.txt" -o -name "pyproject.toml" \) | grep -q .; then
+          # Python: requirements, pyproject, or .py files → no build
+          if find . -type f \( -name "requirements.txt" -o -name "pyproject.toml" -o -name "*.py" \) | grep -q .; then
             langs+=("{\"language\":\"python\",\"build-mode\":\"none\"}")
           fi
 
-          # Rust: look for Cargo.toml
+          # Rust: Cargo.toml → autobuild
           if find . -type f -name "Cargo.toml" | grep -q .; then
-            langs+=("{\"language\":\"rust\",\"build-mode\":\"none\"}")
+            langs+=("{\"language\":\"rust\",\"build-mode\":\"autobuild\"}")
           fi
 
-          # C/C++: always include if present in crest — no manifest needed
-          if find . -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.h" \) | grep -q .; then
-            langs+=("{\"language\":\"c-cpp\",\"build-mode\":\"none\"}")
+          # C/C++: source/headers → autobuild
+          if find . -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) | grep -q .; then
+            langs+=("{\"language\":\"c-cpp\",\"build-mode\":\"autobuild\"}")
           fi
 
           # Build the matrix JSON
@@ -62,7 +63,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Language-specific setup & caching
+      # -------- Language setups --------
       - name: Setup Node.js and cache npm
         if: ${{ matrix.language == 'javascript-typescript' }}
         uses: actions/setup-node@v4
@@ -77,7 +78,15 @@ jobs:
           python-version: "3.x"
           cache: pip
 
-      - name: Setup Rust and cache cargo
+      - name: Setup Rust toolchain
+        if: ${{ matrix.language == 'rust' }}
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          components: clippy
+
+      - name: Cache Cargo
         if: ${{ matrix.language == 'rust' }}
         uses: actions/cache@v4
         with:
@@ -88,6 +97,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-
 
+      - name: Install C/C++ build essentials
+        if: ${{ matrix.language == 'c-cpp' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake
+
+      # -------- CodeQL --------
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
@@ -95,17 +111,8 @@ jobs:
           build-mode: ${{ matrix.build-mode }}
           queries: +security-extended
 
-      - name: Manual Build Step
-        if: ${{ matrix.build-mode == 'manual' }}
-        run: |
-          echo 'Manual build mode active. Insert your build commands here:'
-          echo '  make bootstrap'
-          echo '  make release'
-
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
-        with:
-          output: ./codeql-results
 
       - name: Upload CodeQL SARIF
         uses: actions/upload-artifact@v4
