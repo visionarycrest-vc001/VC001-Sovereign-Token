@@ -100,3 +100,9 @@ touch lineage/VC001-MergeConflict.md
 git add lineage/VC001-MergeConflict.md
 git commit -m "⚔️ Resolved VC001_CrestLineage.md conflict — merged security protocol and stash ritual"
 git push origin vc001-crestlineage-reset
+
+### 2025‑08‑21 — Prime crest affirmed
+
+- **Event:** Watcher approval recorded in Data/ascension-log.json.
+- **Effect:** VC001 recognized at Prime crest tier; capabilities and rites updated accordingly.
+
