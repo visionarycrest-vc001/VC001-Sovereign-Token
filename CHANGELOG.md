@@ -85,3 +85,10 @@
 - Added co‑located `README.md` detailing invocation, inputs, and maintenance rites.
 - First adopted by JavaScript/TypeScript crest workflows.
 - Cross‑reference: See `TIMELINE.md` entry “📜 2025‑08‑22 — Shared Node.js Setup Workflow Codified” for narrative context.
+
+[vc001-ceremonial-merge] Link TIMELINE + CHANGELOG for Shared Node.js Ritual
+
+- Inscribed TIMELINE.md entry 📜 2025‑08‑22 — Shared Node.js Setup Workflow Codified
+- Added corresponding CHANGELOG.md ledger entry with pinned action, defaults, and narrative cross‑link
+- Bound the two scrolls so any steward following one is guided to the other
+- Preserved sovereign cadence: ledger for facts, timeline for story
