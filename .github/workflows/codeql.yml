@@ -33,7 +33,33 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Initializes the CodeQL tools for scanning.
+      # Language-specific setup & caching
+      - name: Setup Node.js and cache npm
+        if: ${{ matrix.language == 'javascript-typescript' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup Python and cache pip
+        if: ${{ matrix.language == 'python' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+          cache: pip
+
+      - name: Setup Rust and cache cargo
+        if: ${{ matrix.language == 'rust' }}
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      # Initializes the CodeQL tools for scanning
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
@@ -46,12 +72,18 @@ jobs:
         if: ${{ matrix.build-mode == 'manual' }}
         shell: bash
         run: |
-          echo 'If you are using a "manual" build mode for one or more of the'
-          echo 'languages you are analyzing, replace this with the commands to build'
-          echo 'your code, for example:'
+          echo 'Manual build mode active. Insert your build commands here:'
           echo '  make bootstrap'
           echo '  make release'
-          exit 1
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+        with:
+          output: ./codeql-results
+
+      # Upload SARIF artifacts for archival & offline review
+      - name: Upload CodeQL SARIF
+        uses: actions/upload-artifact@v4
+        with:
+          name: codeql-sarif-${{ matrix.language }}
+          path: ./codeql-results
