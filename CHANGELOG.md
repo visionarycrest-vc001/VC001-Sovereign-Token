@@ -77,3 +77,11 @@
 - Equity traceability and grant lineage initiated
 
 > “Let every grant inscribed be a thread in the sovereign tapestry, and every steward signal a beacon of equity.”
+
+## [Ceremonial Update] — Shared Node.js Setup Workflow Introduced
+
+- Introduced `.github/workflows/shared-workflows/setup-node.yml` as a central Node.js environment ritual for all sovereign repositories.
+- Pinned to `actions/setup-node@v4.4.0` for deterministic builds and cache consistency.
+- Added co‑located `README.md` detailing invocation, inputs, and maintenance rites.
+- First adopted by JavaScript/TypeScript crest workflows.
+- Cross‑reference: See `TIMELINE.md` entry “📜 2025‑08‑22 — Shared Node.js Setup Workflow Codified” for narrative context.
