@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Ascension Log",
+  "type": "object",
+  "required": ["events"],
+  "properties": {
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["timestamp", "vc", "action,","by","note"],
+        "properties": {
+          "timestamp": { "type": "string", "format": "date-time" },
+          "vc": { "type": "string", "pattern": "^VC\\d{3}$" },
+          "action": { "type": "string", "enum": ["approved", "denied"] },
+          "by": { "type": "string" },
+          "note": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
