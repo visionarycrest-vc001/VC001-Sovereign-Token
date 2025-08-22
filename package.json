@@ -1,0 +1,22 @@
+{
+  "name": "percy-abrams",
+  "version": "1.0.0",
+  "description": "Ceremonial and operational package for Visionary Crest VC001\r ## 🛡️ Sovereign Scrolls",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/visionarycrest-vc001/VC001-Sovereign-Token.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/issues"
+  },
+  "homepage": "https://github.com/visionarycrest-vc001/VC001-Sovereign-Token#readme"
+}
