@@ -9,7 +9,45 @@ on:
     - cron: '39 8 * * 0'
 
 jobs:
+  detect-languages:
+    name: Detect Languages
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: set-matrix
+        run: |
+          langs=()
+
+          # JS/TS: look for lockfiles
+          if find . -type f \( -name "package-lock.json" -o -name "npm-shrinkwrap.json" -o -name "yarn.lock" \) | grep -q .; then
+            langs+=("{\"language\":\"javascript-typescript\",\"build-mode\":\"none\"}")
+          fi
+
+          # Python: look for requirements or pyproject
+          if find . -type f \( -name "requirements.txt" -o -name "pyproject.toml" \) | grep -q .; then
+            langs+=("{\"language\":\"python\",\"build-mode\":\"none\"}")
+          fi
+
+          # Rust: look for Cargo.toml
+          if find . -type f -name "Cargo.toml" | grep -q .; then
+            langs+=("{\"language\":\"rust\",\"build-mode\":\"none\"}")
+          fi
+
+          # C/C++: always include if present in crest — no manifest needed
+          if find . -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.h" \) | grep -q .; then
+            langs+=("{\"language\":\"c-cpp\",\"build-mode\":\"none\"}")
+          fi
+
+          # Build the matrix JSON
+          matrix_json="{\"include\":[${langs[*]}]}"
+          echo "matrix=$matrix_json" >> $GITHUB_OUTPUT
+
   analyze:
+    needs: detect-languages
+    if: ${{ fromJson(needs.detect-languages.outputs.matrix).include != '' }}
     name: Analyze (${{ matrix.language }})
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
     permissions:
@@ -19,16 +57,7 @@ jobs:
       contents: read
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - language: javascript-typescript
-            build-mode: none
-          - language: python
-            build-mode: none
-          - language: rust
-            build-mode: none
-          - language: c-cpp
-            build-mode: none
+      matrix: ${{ fromJson(needs.detect-languages.outputs.matrix) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -59,7 +88,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-
 
-      # Initializes the CodeQL tools for scanning
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
@@ -67,10 +95,8 @@ jobs:
           build-mode: ${{ matrix.build-mode }}
           queries: +security-extended
 
-      # Optional manual build step for compiled languages
       - name: Manual Build Step
         if: ${{ matrix.build-mode == 'manual' }}
-        shell: bash
         run: |
           echo 'Manual build mode active. Insert your build commands here:'
           echo '  make bootstrap'
@@ -81,7 +107,6 @@ jobs:
         with:
           output: ./codeql-results
 
-      # Upload SARIF artifacts for archival & offline review
       - name: Upload CodeQL SARIF
         uses: actions/upload-artifact@v4
         with:
