@@ -1,4 +1,14 @@
-Action: Append-only approval/reject/revise lineage.
+{
+  "events": [
+    {
+      "timestamp": "2025-08-21T00:00:00Z",
+      "vc": "VC001",
+      "action": "approved",
+      "by": "Watcher",
+      "note": "Prime crest affirmed"
+    }
+  ]
+}
 
 cat > data/ascension-log.json << 'EOF'
 {
