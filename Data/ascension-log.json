@@ -1,11 +1,11 @@
 {
-  "events": [
-    {
-      "timestamp": "2025-08-21T00:00:00Z",
-      "vc": "VC001",
-      "action": "approved",
-      "by": "Watcher",
-      "note": "Prime crest affirmed"
-    }
-  ]
+    "events": [
+        {
+            "timestamp": "2025-08-21T00:00:00Z",
+            "vc": "VC001",
+            "action": "approved",
+            "by": "Watcher",
+            "note": "Prime crest affirmed"
+        }
+    ]
 }
