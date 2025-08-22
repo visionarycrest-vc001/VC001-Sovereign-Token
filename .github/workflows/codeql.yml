@@ -20,7 +20,7 @@ jobs:
   setup-node:
     needs: detect-languages
     if: ${{ contains(join(fromJson(needs.detect-languages.outputs.matrix).include.*.language), 'javascript-typescript') }}
-    uses: your-org/shared-workflows/.github/workflows/setup-node.yml@main
+    uses: ./.github/workflows/setup-node.yml
     with:
       node-version: 18
       cache: npm
