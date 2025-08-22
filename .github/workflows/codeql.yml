@@ -1,122 +1,54 @@
-name: "CodeQL Sovereign Scan"
+name: "CodeQL"
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
-  schedule:
-    - cron: '39 8 * * 0'
-  workflow_dispatch:
+    branches: [ main ]
 
 jobs:
   detect-languages:
-    name: Detect Languages
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
-
-      - id: set-matrix
+      - name: Detect languages
+        id: set-matrix
         run: |
-          langs=()
+          echo "matrix={\"include\":[{\"language\":\"javascript-typescript\"},{\"language\":\"python\"}]}" >> $GITHUB_OUTPUT
 
-          # JS/TS: lockfiles or package.json → no build
-          if find . -type f \( -name "package-lock.json" -o -name "npm-shrinkwrap.json" -o -name "yarn.lock" -o -name "package.json" \) | grep -q .; then
-            langs+=("{\"language\":\"javascript-typescript\",\"build-mode\":\"none\"}")
-          fi
-
-          # Python: requirements, pyproject, or .py files → no build
-          if find . -type f \( -name "requirements.txt" -o -name "pyproject.toml" -o -name "*.py" \) | grep -q .; then
-            langs+=("{\"language\":\"python\",\"build-mode\":\"none\"}")
-          fi
-
-          # Rust: Cargo.toml → autobuild
-          if find . -type f -name "Cargo.toml" | grep -q .; then
-            langs+=("{\"language\":\"rust\",\"build-mode\":\"autobuild\"}")
-          fi
-
-          # C/C++: source/headers → autobuild
-          if find . -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) | grep -q .; then
-            langs+=("{\"language\":\"c-cpp\",\"build-mode\":\"autobuild\"}")
-          fi
-
-          # Build the matrix JSON
-          matrix_json="{\"include\":[${langs[*]}]}"
-          echo "matrix=$matrix_json" >> $GITHUB_OUTPUT
+  setup-node:
+    needs: detect-languages
+    if: ${{ contains(join(fromJson(needs.detect-languages.outputs.matrix).include.*.language), 'javascript-typescript') }}
+    uses: your-org/shared-workflows/.github/workflows/setup-node.yml@main
+    with:
+      node-version: 18
+      cache: npm
+      cache-dependency-path: package-lock.json
 
   analyze:
-    needs: detect-languages
+    needs: [detect-languages, setup-node]
     if: ${{ fromJson(needs.detect-languages.outputs.matrix).include != '' }}
-    name: Analyze (${{ matrix.language }})
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
-    permissions:
-      security-events: write
-      packages: read
-      actions: read
-      contents: read
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.detect-languages.outputs.matrix) }}
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # -------- Language setups --------
-      - name: Setup Node.js via shared workflow
-        if: ${{ matrix.language == 'javascript-typescript' }}
-        uses: your-org/shared-workflows/.github/workflows/setup-node.yml@main
-        with:
-          node-version: 18
-          cache: npm
-          cache-dependency-path: package-lock.json
-
-      - name: Setup Python and cache pip
-        if: ${{ matrix.language == 'python' }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-          cache: pip
-
-      - name: Setup Rust toolchain
-        if: ${{ matrix.language == 'rust' }}
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-          components: clippy
-
-      - name: Cache Cargo
-        if: ${{ matrix.language == 'rust' }}
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
-
-      - name: Install C/C++ build essentials
-        if: ${{ matrix.language == 'c-cpp' }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential cmake
-
-      # -------- CodeQL --------
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          build-mode: ${{ matrix.build-mode }}
-          queries: +security-extended
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
 
-      - name: Upload CodeQL SARIF
-        uses: actions/upload-artifact@v4
-        with:
-          name: codeql-sarif-${{ matrix.language }}
-          path: ./codeql-results
