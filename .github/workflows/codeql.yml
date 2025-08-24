@@ -21,7 +21,7 @@
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          
+
 ->>>>> main
 +      # Only for the JS/TS lineage: seal dependencies before scan
 +      - name: Setup Node.js
