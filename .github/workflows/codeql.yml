@@ -1,28 +1,27 @@
 --- a/.github/workflows/codeql.yml
 +++ b/.github/workflows/codeql.yml
 @@ -41,21 +41,28 @@
-       - name: Checkout repository
-         uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
--<<<<<<< legacy-codex-scaffold
--      # 👇 Only for the JS/TS lineage: seal dependencies before scan
--      - name: Setup Node.js
--        if: ${{ matrix.language == 'javascript-typescript' }}
--        uses: actions/setup-node@v4
--        with:
--          node-version: 18
--          cache: npm
--
--      - name: Install dependencies
--        if: ${{ matrix.language == 'javascript-typescript' }}
--        run: npm ci
--
--      # Initializes the CodeQL tools for scanning.
--=======
--      - name: Initialize CodeQL
--        uses: github/codeql-action/init@v3
--        with:
--          languages: ${{ matrix.language }}
+      # Only for the JS/TS lineage: seal dependencies before scan
+      - name: Setup Node.js
+        if: ${{ matrix.language == 'javascript-typescript' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        if: ${{ matrix.language == 'javascript-typescript' }}
+        run: npm ci
+
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          
 ->>>>> main
 +      # Only for the JS/TS lineage: seal dependencies before scan
 +      - name: Setup Node.js
