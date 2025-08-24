@@ -1,54 +1,44 @@
-name: "CodeQL"
+--- a/.github/workflows/codeql.yml
++++ b/.github/workflows/codeql.yml
+@@ -41,21 +41,28 @@
+       - name: Checkout repository
+         uses: actions/checkout@v4
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  detect-languages:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - name: Detect languages
-        id: set-matrix
-        run: |
-          echo "matrix={\"include\":[{\"language\":\"javascript-typescript\"},{\"language\":\"python\"}]}" >> $GITHUB_OUTPUT
-
-  setup-node:
-    needs: detect-languages
-    if: ${{ contains(join(fromJson(needs.detect-languages.outputs.matrix).include.*.language), 'javascript-typescript') }}
-    uses: ./.github/workflows/setup-node.yml
-    with:
-      node-version: 18
-      cache: npm
-      cache-dependency-path: package-lock.json
-
-  analyze:
-    needs: [detect-languages, setup-node]
-    if: ${{ fromJson(needs.detect-languages.outputs.matrix).include != '' }}
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJson(needs.detect-languages.outputs.matrix) }}
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: ${{ matrix.language }}
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+-<<<<<<< legacy-codex-scaffold
+-      # 👇 Only for the JS/TS lineage: seal dependencies before scan
+-      - name: Setup Node.js
+-        if: ${{ matrix.language == 'javascript-typescript' }}
+-        uses: actions/setup-node@v4
+-        with:
+-          node-version: 18
+-          cache: npm
+-
+-      - name: Install dependencies
+-        if: ${{ matrix.language == 'javascript-typescript' }}
+-        run: npm ci
+-
+-      # Initializes the CodeQL tools for scanning.
+-=======
+-      - name: Initialize CodeQL
+-        uses: github/codeql-action/init@v3
+-        with:
+-          languages: ${{ matrix.language }}
+->>>>> main
++      # Only for the JS/TS lineage: seal dependencies before scan
++      - name: Setup Node.js
++        if: ${{ matrix.language == 'javascript-typescript' }}
++        uses: actions/setup-node@v4
++        with:
++          node-version: 18
++          cache: npm
++
++      - name: Install dependencies
++        if: ${{ matrix.language == 'javascript-typescript' }}
++        run: npm ci
++
++      # Initializes the CodeQL tools for scanning.
++      - name: Initialize CodeQL
++        uses: github/codeql-action/init@v3
++        with:
++          languages: ${{ matrix.language }}
 
