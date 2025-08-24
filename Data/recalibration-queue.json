@@ -1,0 +1,9 @@
+Action: Pending glyph recalibrations with priorities.
+
+cat > data/recalibration-queue.json << 'EOF'
+{
+  "items": [
+    { "glyph": "CREST-BETA", "reason": "semantic drift", "priority": 2 }
+  ]
+}
+EOF

@@ -1,0 +1,40 @@
+Files: .github/workflows/metrics-cron.yml
+
+git checkout -b ci/metrics-cron
+mkdir -p .github/workflows
+cat > .github/workflows/metrics-cron.yml << 'YAML'
+name: Metrics Heartbeat
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: metrics-heartbeat
+  cancel-in-progress: true
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run heartbeat
+        run: node scripts/heartbeat.js
+      - name: Commit changes if any
+        run: |
+          git config user.name "watcher-bot"
+          git config user.email "watcher-bot@users.noreply.github.com"
+          git add data/watcher-metrics.json
+          git diff --staged --quiet || git commit -m "💓 Heartbeat: bump watcher-metrics.json"
+      - name: Push
+        run: git push
+YAML
+git add .github/workflows/metrics-cron.yml
+git commit -m "🕒 CI: scheduled heartbeat every 5 minutes to refresh metrics"
+git checkout main
+git merge --no-ff ci/metrics-cron -m "🕒 Merge metrics cron into main"

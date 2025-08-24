@@ -1,0 +1,16 @@
+Minimal, legible, and ceremonial aesthetic.
+
+cat > apps/landing/styles.css << 'EOF'
+:root { --ink:#0f172a; --veil:#f8fafc; --crest:#0ea5e9; --trace:#64748b; }
+* { box-sizing: border-box; }
+body { margin:0; font:16px/1.5 ui-sans-serif, system-ui; color:var(--ink); background:var(--veil); }
+header { padding:2rem 1rem; border-bottom:1px solid #e2e8f0; }
+h1 { margin:0 0 .25rem; }
+.subtitle { color:var(--trace); margin:0; }
+main { max-width:920px; margin:2rem auto; padding:0 1rem; display:grid; gap:2rem; }
+section { background:#fff; border:1px solid #e2e8f0; border-radius:.5rem; padding:1rem; }
+h2 { margin-top:0; color:var(--crest); }
+ul { list-style: none; padding:0; margin:0; }
+li + li { border-top:1px dashed #e2e8f0; margin-top:.5rem; padding-top:.5rem; }
+footer { text-align:center; color:var(--trace); padding:2rem 1rem; }
+EOF

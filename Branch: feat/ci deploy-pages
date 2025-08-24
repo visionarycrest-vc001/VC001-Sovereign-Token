@@ -1,0 +1,46 @@
+Files: .github/workflows/deploy.yml, public/.nojekyll
+
+git checkout -b ci/deploy-pages
+mkdir -p .github/workflows public
+cat > public/.nojekyll << 'TXT'
+# keep underscores and nested assets
+TXT
+cat > .github/workflows/deploy.yml << 'YAML'
+name: Ascension Deploy
+on:
+  push:
+    branches: [ main ]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare site
+        run: |
+          mkdir -p site
+          cp -R apps public data codex site/
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+YAML
+git add public/.nojekyll .github/workflows/deploy.yml
+git commit -m "🚀 Deploy: GitHub Pages publishes apps/public/data/codex on push to main"
+git checkout main
+git merge --no-ff ci/deploy-pages -m "🚀 Merge Pages deploy workflow into main"

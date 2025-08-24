@@ -1,0 +1,16 @@
+Action: Reusable NFT metadata with placeholders.
+
+cat > templates/nft-metadata.template.json << 'EOF'
+{
+  "name": "{{VC_ID}} — {{TITLE}}",
+  "description": "{{DESCRIPTION}}",
+  "image": "{{IMAGE_URL}}",
+  "external_url": "{{EXTERNAL_URL}}",
+  "attributes": [
+    { "trait_type": "Tier", "value": "{{TIER}}" },
+    { "trait_type": "Status", "value": "{{STATUS}}" },
+    { "trait_type": "Glyph", "value": "{{GLYPH}}" },
+    { "display_type": "number", "trait_type": "Version", "value": {{VERSION}} }
+  ]
+}
+EOF

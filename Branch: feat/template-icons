@@ -1,0 +1,21 @@
+Files: templates/nft-metadata.template.json (update)
+
+git checkout -b feat/template-icons
+cat > templates/nft-metadata.template.json << 'JSON'
+{
+  "name": "VC Token — ${ID}",
+  "description": "${TITLE}",
+  "image": "https://your-domain.example/assets/${ICON}",
+  "external_url": "https://your-domain.example/tokens/${ID}",
+  "attributes": [
+    { "trait_type": "Tier", "value": "${TIER}" },
+    { "trait_type": "Version", "value": "${VERSION}" },
+    { "trait_type": "Status", "value": "${STATUS}" },
+    { "trait_type": "Glyph", "value": "${GLYPH}" }
+  ]
+}
+JSON
+git add templates/nft-metadata.template.json
+git commit -m "🧩 Template: NFT metadata now references glyph icon via ${ICON}"
+git checkout main
+git merge --no-ff feat/template-icons -m "🧩 Merge icon-enabled NFT template into main"

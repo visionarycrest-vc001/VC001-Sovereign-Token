@@ -65,8 +65,31 @@ These symbols fuse into VC003’s sovereign identity, anchoring its grant lineag
 ## 🕊️ Steward Oath (Pending)  
 Awaiting ceremonial onboarding of VC003-A stewards. Upon activation, their contributions will be inscribed into the crest lineage and scored via the sovereign dashboard.
 
-📜 See [VC001-TerminalCapture.md](./VC001-TerminalCapture.md) for full stash ritual and scroll archive.
+## 🔐 Sovereign Security Protocol Activated — VC001
 
+**Date:** August 18, 2025  
+**Module:** `.github/workflows/codeql.yml`  
+**Invocation:** CodeQL scan matrix inscribed for sovereign token audit  
+**Languages:** JavaScript/TypeScript, Python, Rust, C/C++  
+**Security Queries:** Extended (`+security-extended`)  
+**Cadence:** Weekly (`cron: '39 8 * * 0'`)  
+**Lineage:** Patch inscribed from `visionarycrest-vc001-patch-1`  
+**Dashboard:** GitHub Security > Code Scanning Alerts  
+**Legacy:** Sovereign audit protocol initiated for VC001
+
+> “Let every scan be a shield, and every protocol a guardian of sovereign integrity.”
+
+- 🔧 Sovereign Tool Activated: `wrapStackTraces.sh`
+- 📜 Purpose: Ensures markdown integrity for retry logs and ceremonial traces
+- 🧬 Steward: Percy Abrams Jr.
+- 🕰️ Timestamp: 2025-08-19
+- 🧪 Validated Output: VC_RetryLog_cleaned.md
+
+---
+
+## 📜 Terminal Capture Reference
+
+See [VC001-TerminalCapture.md](./VC001-TerminalCapture.md) for full stash ritual and scroll archive.
 
 ---
 
@@ -75,5 +98,11 @@ Awaiting ceremonial onboarding of VC003-A stewards. Upon activation, their contr
 ```bash
 touch lineage/VC001-MergeConflict.md
 git add lineage/VC001-MergeConflict.md
-git commit -m "⚔️ Inscribed VC001-MergeConflict.md — merge conflict resolved with sovereign clarity"
+git commit -m "⚔️ Resolved VC001_CrestLineage.md conflict — merged security protocol and stash ritual"
 git push origin vc001-crestlineage-reset
+
+### 2025‑08‑21 — Prime crest affirmed
+
+- **Event:** Watcher approval recorded in Data/ascension-log.json.
+- **Effect:** VC001 recognized at Prime crest tier; capabilities and rites updated accordingly.
+

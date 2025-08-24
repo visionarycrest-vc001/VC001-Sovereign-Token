@@ -1,0 +1,28 @@
+Action: Internal Watcher panel for live metrics and queues.
+
+cat > apps/watcher/dashboard.html << 'EOF'
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Watcher Dashboard</title>
+    <link rel="stylesheet" href="watcher.css" />
+  </head>
+  <body>
+    <header><h1>Watcher Dashboard</h1></header>
+    <main>
+      <section>
+        <h2>Live Metrics</h2>
+        <pre id="metrics"></pre>
+      </section>
+      <section>
+        <h2>Recalibration Queue</h2>
+        <ul id="queue"></ul>
+      </section>
+    </main>
+    <footer><small>Internal — steward eyes only</small></footer>
+    <script src="watcher.js" type="module"></script>
+  </body>
+</html>
+EOF

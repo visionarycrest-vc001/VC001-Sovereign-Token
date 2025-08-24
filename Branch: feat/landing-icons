@@ -1,0 +1,37 @@
+Files: apps/landing/viewer.js (render icon in list)
+
+git checkout -b feat/landing-icons
+cat > apps/landing/viewer.js << 'JS'
+async function loadLedger() {
+  const el = document.getElementById('ledger-list');
+  try {
+    const res = await fetch('../../data/vc_ledger.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const items = await res.json();
+    el.innerHTML = '';
+    items.filter(i => i.status === 'active').forEach(item => {
+      const li = document.createElement('li');
+      const img = document.createElement('img');
+      img.alt = item.glyph || item.id;
+      img.width = 24; img.height = 24;
+      img.src = `../../public/assets/${item.icon || 'crest-sovereign.svg'}`;
+      const title = document.createElement('strong');
+      title.textContent = ` ${item.title} `;
+      const badge = document.createElement('span');
+      badge.className = 'badge';
+      badge.textContent = item.status;
+      const meta = document.createElement('small');
+      meta.textContent = ` ${new Date(item.timestamp).toLocaleString()}`;
+      li.append(img, title, badge, document.createElement('br'), meta);
+      el.appendChild(li);
+    });
+  } catch (e) {
+    el.innerHTML = `<li>Failed to load ledger: ${e.message}</li>`;
+  }
+}
+loadLedger();
+JS
+git add apps/landing/viewer.js
+git commit -m "🖼️ Landing: viewer renders glyph icons from public/assets"
+git checkout main
+git merge --no-ff feat/landing-icons -m "🖼️ Merge landing icon render into main"

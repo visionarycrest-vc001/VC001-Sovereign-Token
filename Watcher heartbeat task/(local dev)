@@ -1,0 +1,16 @@
+Add: tiny Node script to bump metrics for demo/testing.
+
+cat > scripts/heartbeat.js << 'EOF'
+const fs = require('fs');
+const p = 'data/watcher-metrics.json';
+const now = new Date().toISOString();
+const data = JSON.parse(fs.readFileSync(p, 'utf8'));
+data.last_heartbeat = now;
+data.uptime_seconds = (data.uptime_seconds || 0) + 5;
+data.processed_24h = (data.processed_24h || 0) + Math.floor(Math.random()*2);
+fs.writeFileSync(p, JSON.stringify(data, null, 2));
+console.log(`💓 Heartbeat @ ${now}`);
+EOF
+
+git add scripts/heartbeat.js
+git commit -m "💓 Watcher: dev heartbeat script to animate metrics locally"
