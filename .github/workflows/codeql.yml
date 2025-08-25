@@ -1,7 +1,7 @@
 --- a/.github/workflows/codeql.yml
 +++ b/.github/workflows/codeql.yml
 @@ -41,21 +41,28 @@
-           - name: Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       # Only for the JS/TS lineage: seal dependencies before scan
