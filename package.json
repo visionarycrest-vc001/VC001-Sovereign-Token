@@ -1,22 +1,20 @@
 {
-  "name": "percy-abrams",
-  "version": "1.0.0",
-  "description": "Ceremonial and operational package for Visionary Crest VC001\r ## 🛡️ Sovereign Scrolls",
-  "main": "index.js",
-  "devDependencies": {},
+  "name": "vc-ecosystem",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "echo \"add app builds here\"",
+    "lint": "eslint .",
+    "test": "jest --passWithNoTests",
+    "validate:data": "node scripts/generate-timeline.js && node .github/tools/validate-json.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/visionarycrest-vc001/VC001-Sovereign-Token.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/issues"
-  },
-  "homepage": "https://github.com/visionarycrest-vc001/VC001-Sovereign-Token#readme"
+  "devDependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^3.0.1",
+    "eslint": "^9.0.0",
+    "jest": "^29.7.0"
+  }
 }
