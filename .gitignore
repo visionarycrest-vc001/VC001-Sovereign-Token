@@ -1,0 +1,18 @@
+# System folders
+AppData/
+OneDrive/
+node_modules/
+*.log
+*.tmp
+*.bak
+
+# Windows artifacts
+NTUSER.*
+Thumbs.db
+Desktop.ini
+
+# Editor and shell history
+.bash_history
+.lesshst
+.gitconfig
+.cache/
