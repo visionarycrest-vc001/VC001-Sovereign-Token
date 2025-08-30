@@ -1,0 +1,10 @@
+{
+  "glyphs": [
+    {
+      "id": "glyph-crest-lock",
+      "name": "Crest Lock",
+      "animation": "pulse-lock",
+      "usedIn": ["governance-overlay", "badge-mint"]
+    }
+  ]
+}
