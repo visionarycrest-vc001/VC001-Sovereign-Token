@@ -1,0 +1,8 @@
+[
+  {
+    "id": "recal-001",
+    "module": "metrics-cron",
+    "reason": "heartbeat drift",
+    "scheduledFor": "2025-08-30T00:00:00Z"
+  }
+]
