@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["heartbeat", "activeContributors", "fundingVelocity", "badgeMintRate"],
+  "properties": {
+    "heartbeat": { "type": "string", "format": "date-time" },
+    "activeContributors": { "type": "integer" },
+    "fundingVelocity": {
+      "type": "object",
+      "required": ["daily", "weekly", "monthly"],
+      "properties": {
+        "daily": { "type": "number" },
+        "weekly": { "type": "number" },
+        "monthly": { "type": "number" }
+      }
+    },
+    "badgeMintRate": { "type": "integer" }
+  }
+}
