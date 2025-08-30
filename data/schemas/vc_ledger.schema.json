@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["contributors"],
+  "properties": {
+    "contributors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "role", "badge", "joined"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "badge": { "type": "string" },
+          "joined": { "type": "string", "format": "date" }
+        }
+      }
+    }
+  }
+}
