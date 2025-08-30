@@ -3,6 +3,12 @@
 # Path to your registry file
 REGISTRY="VC_ViewerRegistry.md"
 
+# Check if file exists
+if [ ! -f "$REGISTRY" ]; then
+  echo "❌ $REGISTRY does not exist. Please create it first."
+  exit 1
+fi
+
 # Extract header and separator lines
 HEADER=$(grep '^|' "$REGISTRY" | head -n 2)
 # Extract everything before the table
