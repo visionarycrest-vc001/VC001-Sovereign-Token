@@ -51,3 +51,12 @@ jobs:
         run: |
           echo "🪙 Logging contributor glyph..."
           echo "- ${{ github.event.pull_request.user.login }} — Codex update on $(date -u)" >> glyph-log.md
+
+      - name: Commit and Push Ritual Artifacts
+        if: steps.codex-check.outputs.codex_updated == 'true'
+        run: |
+          git config user.name "Visionary Steward"
+          git config user.email "security@visionarycrest.org"
+          git add nft-metadata.json glyph-log.md VC_LegacyCodex.md
+          git commit -m "🪙 Ritual: Codex, badge, and glyph log updated"
+          git push origin main
