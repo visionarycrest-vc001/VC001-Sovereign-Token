@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["glyphs"],
+  "properties": {
+    "glyphs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "animation", "usedIn"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "animation": { "type": "string" },
+          "usedIn": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
