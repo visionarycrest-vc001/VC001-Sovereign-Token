@@ -1,0 +1,10 @@
+{
+  "heartbeat": "2025-08-29T20:45:00Z",
+  "activeContributors": 42,
+  "fundingVelocity": {
+    "daily": 12000,
+    "weekly": 84000,
+    "monthly": 360000
+  },
+  "badgeMintRate": 5
+}
