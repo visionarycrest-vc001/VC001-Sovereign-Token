@@ -1,7 +1,16 @@
+/**
+ * Append a viewer glyph to VC_ViewerRegistry.md.
+ * Usage: node appendViewerGlyph.js <glyph> <name> <purpose> <location>
+ * - Safely appends to registry table in repo root.
+ * - Checks for duplicate glyph/name (case-insensitive).
+ * - Maintains markdown table formatting.
+ */
+
 const fs = require('fs');
 const path = require('path');
 
-const registryPath = path.join(__dirname, 'VC_ViewerRegistry.md');
+// Always resolve to repo root
+const registryPath = path.resolve(process.cwd(), 'VC_ViewerRegistry.md');
 
 // CLI arguments
 const [glyph, name, purpose, location] = process.argv.slice(2).map(arg => arg && arg.trim());
@@ -19,19 +28,38 @@ try {
   // Read existing registry
   const content = fs.readFileSync(registryPath, 'utf8');
 
-  // Check for duplicate glyph (first column after "|")
-  const duplicate = content
-    .split('\n')
-    .some(line => line.startsWith('|') && line.includes(`| ${glyph} `));
+  // Split into lines and find end of table
+  const lines = content.split('\n');
+  const tableRows = lines.filter(line => line.startsWith('|'));
+  const lowerGlyph = glyph.toLowerCase();
+  const lowerName = name.toLowerCase();
+  const duplicate = tableRows.some(line => {
+    const parts = line.split('|').map(s => s.trim());
+    return (
+      (parts[1] && parts[1].toLowerCase() === lowerGlyph) ||
+      (parts[2] && parts[2].toLowerCase() === lowerName)
+    );
+  });
 
   if (duplicate) {
-    console.log('🛑 Glyph already exists in registry. No update made.');
+    console.log('🛑 Glyph or name already exists in registry. No update made.');
     process.exit(0);
   }
 
-  // Ensure there is a trailing newline before appending
-  const updatedContent = content.endsWith('\n') ? content + row + '\n' : content + '\n' + row + '\n';
-  fs.writeFileSync(registryPath, updatedContent);
+  // Find last table row to append after
+  let insertIdx = lines.length;
+  for (let i = lines.length - 1; i >= 0; i--) {
+    if (lines[i].startsWith('|')) {
+      insertIdx = i + 1;
+      break;
+    }
+  }
+
+  // Insert new row after last table row
+  lines.splice(insertIdx, 0, row);
+
+  // Write updated content
+  fs.writeFileSync(registryPath, lines.join('\n'));
 
   console.log('✅ Viewer registry updated with new glyph.');
 } catch (err) {
