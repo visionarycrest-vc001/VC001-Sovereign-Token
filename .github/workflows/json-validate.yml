@@ -1,0 +1,20 @@
+name: 🔍 JSON Schema Validation
+
+on:
+  push:
+    paths:
+      - 'data/*.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install AJV CLI
+        run: npm install -g ajv-cli
+      - name: Validate JSON files
+        run: |
+          for file in data/*.json; do
+            name=$(basename "$file" .json)
+            ajv validate -s "data/schemas/$name.schema.json" -d "$file"
+          done
