@@ -15,3 +15,7 @@ dist/
 # CI artifacts
 coverage/
 *.lock
+
+# Legacy Windows artifacts (optional)
+Thumbs.db
+Desktop.ini
