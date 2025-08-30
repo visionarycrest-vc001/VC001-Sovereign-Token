@@ -8,13 +8,41 @@ jobs:
   mint-badge:
     if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Check for Codex Update
+        id: codex-check
         run: |
           git fetch origin main
           git diff origin/main HEAD -- VC_LegacyCodex.md > codex.diff
           if [ -s codex.diff ]; then
             echo "Codex updated — minting badge..."
+            echo "codex_updated=true" >> $GITHUB_OUTPUT
           else
             echo "No codex update — no badge minted."
-          fi
+            echo "codex_updated=false" >> $GITHUB_OUTPUT
+
+      - name: Mint Contributor Badge
+        if: steps.codex-check.outputs.codex_updated == 'true'
+        run: |
+          echo "🏅 Minting badge for contributor..."
+          echo "Badge minted for ${{ github.event.pull_request.user.login }}"
+
+      - name: Update NFT Metadata
+        if: steps.codex-check.outputs.codex_updated == 'true'
+        run: |
+          echo "🧬 Updating NFT metadata..."
+          echo "{
+            \"contributor\": \"${{ github.event.pull_request.user.login }}\",
+            \"ritual\": \"Codex Update\",
+            \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"
+          }" > nft-metadata.json
+
+      - name: Log Contributor Glyph
+        if: steps.codex-check.outputs.codex_updated == 'true'
+        run: |
+          echo "🪙 Logging contributor glyph..."
+          echo "- ${{ github.event.pull_request.user.login }} — Codex update on $(date -u)" >> glyph-log.md
