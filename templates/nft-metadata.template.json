@@ -1,0 +1,31 @@
+{
+  "name": "Builder Verified — {{contributor}}",
+  "description": "This NFT certifies that {{contributor}} has completed onboarding, passed governance proposal {{proposalId}}, and inscribed their scroll in lineage.",
+  "image": "ipfs://{{imageCID}}",
+  "attributes": [
+    {
+      "trait_type": "Role",
+      "value": "{{role}}"
+    },
+    {
+      "trait_type": "Badge",
+      "value": "Builder Verified"
+    },
+    {
+      "trait_type": "Proposal ID",
+      "value": "{{proposalId}}"
+    },
+    {
+      "trait_type": "Cohort",
+      "value": "{{cohort}}"
+    },
+    {
+      "trait_type": "Glyph",
+      "value": "{{glyph}}"
+    },
+    {
+      "trait_type": "Timestamp",
+      "value": "{{timestamp}}"
+    }
+  ]
+}
