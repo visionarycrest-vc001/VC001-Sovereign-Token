@@ -1,18 +1,17 @@
-# System folders
-AppData/
-OneDrive/
+# Node artifacts
 node_modules/
+dist/
+.env
+.DS_Store
+
+# Logs and temp
 *.log
 *.tmp
-*.bak
 
-# Windows artifacts
-NTUSER.*
-Thumbs.db
-Desktop.ini
+# Editor configs
+.vscode/
+.idea/
 
-# Editor and shell history
-.bash_history
-.lesshst
-.gitconfig
-.cache/
+# CI artifacts
+coverage/
+*.lock
