@@ -1,6 +1,11 @@
 {
-  "name": "@vc/core",
-  "version": "0.1.0",
+  "name": "@vc001/core",
+  "version": "1.0.0",
   "main": "index.js",
-  "type": "module"
+  "description": "Core logic for VisionaryCrest‑001",
+  "scripts": {
+    "build": "node build.js",
+    "test": "jest"
+  },
+  "dependencies": {}
 }
