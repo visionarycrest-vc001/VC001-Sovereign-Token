@@ -47,7 +47,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 👇 Only for the JS/TS lineage: seal dependencies before scan
+      # 👇 Node.js setup and npm authentication for JS/TS
       - name: Setup Node.js
         if: ${{ matrix.language == 'javascript-typescript' }}
         uses: actions/setup-node@v4
