@@ -1,0 +1,20 @@
+name: "Badge Minting Ritual"
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  mint-badge:
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Codex Update
+        run: |
+          git fetch origin main
+          git diff origin/main HEAD -- VC_LegacyCodex.md > codex.diff
+          if [ -s codex.diff ]; then
+            echo "Codex updated — minting badge..."
+          else
+            echo "No codex update — no badge minted."
+          fi
