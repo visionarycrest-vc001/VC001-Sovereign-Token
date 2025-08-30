@@ -25,6 +25,11 @@ jobs:
             echo "No codex update — no badge minted."
             echo "codex_updated=false" >> $GITHUB_OUTPUT
 
+      - name: Auto-inscribe Codex Ritual
+        if: steps.codex-check.outputs.codex_updated == 'true'
+        run: |
+          node scripts/appendCodexEntry.js
+
       - name: Mint Contributor Badge
         if: steps.codex-check.outputs.codex_updated == 'true'
         run: |
