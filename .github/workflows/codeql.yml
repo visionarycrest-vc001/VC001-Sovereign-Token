@@ -55,6 +55,13 @@ jobs:
           node-version: 18
           cache: npm
 
+      - name: Set up npm auth
+        if: ${{ matrix.language == 'javascript-typescript' }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > $HOME/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Install dependencies
         if: ${{ matrix.language == 'javascript-typescript' }}
         run: npm ci
