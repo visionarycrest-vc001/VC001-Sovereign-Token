@@ -1,0 +1,13 @@
+name: 📡 Metrics Heartbeat
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Every 24h
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run metrics pulse
+        run: node scripts/metrics-pulse.js
