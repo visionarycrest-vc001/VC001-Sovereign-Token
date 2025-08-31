@@ -1,13 +1,59 @@
+# 🤖 Dependabot Configuration for VC001 Sovereign Token
+# Automated dependency updates and security vulnerability alerts
+
 version: 2
 updates:
-  # JavaScript/Node.js (npm)
+  # 📦 NPM Dependencies
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "bot-dependabot"
+      - "auto-merge-candidate"
+    commit-message:
+      prefix: "⬆️ deps"
+      include: "scope"
+    # Auto-merge for patch and minor updates
     allow:
       - dependency-type: "direct"
-      - dependency-type: "all"
+        update-type: "version-update:semver-patch"
+      - dependency-type: "direct"
+        update-type: "version-update:semver-minor"
+      - dependency-type: "indirect"
+    reviewers:
+      - "visionarycrest-vc001"
+
+  # 🐳 Docker Dependencies (if any Dockerfiles exist)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "04:00"
+    labels:
+      - "dependencies"
+      - "docker"
+      - "bot-dependabot"
+
+  # 🛠️ GitHub Actions Dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "04:00"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "bot-dependabot"
+    commit-message:
+      prefix: "⬆️ actions"
+      include: "scope"
 
   # Python (pip)
   - package-ecosystem: "pip"
@@ -17,9 +63,3 @@ updates:
     allow:
       - dependency-type: "direct"
       - dependency-type: "all"
-
-  # GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
