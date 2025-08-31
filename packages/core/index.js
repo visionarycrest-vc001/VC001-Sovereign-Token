@@ -1,3 +1,3 @@
 export function hello() {
-  console.log("Hello from core");
+  console.log('Hello from core');
 }

@@ -7,7 +7,7 @@ module.exports = function mintBadge(contributor, ritualId) {
     glyph: `🪙`,
     metadata: {
       ritual: `Codex Update ${ritualId}`,
-      archive: "VC001-Sovereign-Token"
+      archive: 'VC001-Sovereign-Token'
     }
   };
 };
