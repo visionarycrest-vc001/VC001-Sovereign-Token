@@ -1,4 +1,4 @@
-name: Publish Package
+name: Build, Test, and Publish Package
 
 on:
   push:
@@ -6,8 +6,9 @@ on:
       - main
 
 jobs:
-  publish:
+  build-test-publish:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,6 +25,13 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build package
+        run: npm run build
+        # If you don't have a build step, you can remove this step
 
       - name: Publish package
         run: npm publish
