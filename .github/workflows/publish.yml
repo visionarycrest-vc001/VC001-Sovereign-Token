@@ -1,12 +1,14 @@
-name: Build, Test, and Publish Package
+name: Critique, Fix, Build, Test, and Publish Package
 
 on:
   push:
     branches:
       - main
+  schedule:
+    - cron: '0 4 * * *' # Runs daily at 04:00 UTC
 
 jobs:
-  build-test-publish:
+  critique-fix-build-test-publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,12 +28,24 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Run ESLint and auto-fix
+        run: |
+          npx eslint . --ext .js,.jsx,.ts,.tsx --fix
+
       - name: Run tests
         run: npm test
 
       - name: Build package
         run: npm run build
-        # If you don't have a build step, you can remove this step
+        # Remove if you don't have a build step
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
 
       - name: Publish package
         run: npm publish
