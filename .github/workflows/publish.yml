@@ -206,7 +206,8 @@ jobs:
             ")
             echo "📈 Current coverage: $COVERAGE%"
             THRESHOLD=75
-            if [ "$(echo "$COVERAGE < $THRESHOLD" | bc -l 2>/dev/null || echo "1")" -eq 1 ]; then
+            BELOW_THRESHOLD=$(node -e "console.log(Number(process.env.COVERAGE) < Number(process.env.THRESHOLD) ? '1' : '0')")
+            if [ "$BELOW_THRESHOLD" -eq 1 ]; then
               echo "⚠️ Coverage below $THRESHOLD% threshold - consider adding more tests"
             else
               echo "✅ Coverage meets $THRESHOLD% threshold"
