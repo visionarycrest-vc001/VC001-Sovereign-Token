@@ -54,3 +54,12 @@ updates:
     commit-message:
       prefix: "⬆️ actions"
       include: "scope"
+
+  # Python (pip)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "all"
