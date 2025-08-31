@@ -1,4 +1,3 @@
-// scripts/sovereign-Batch.js
 const fs = require('fs');
 const path = require('path');
 
@@ -17,6 +16,8 @@ files.forEach(file => {
   // Simulate inscription and activation
   console.log(`✅ ${token} activated and inscribed by ${lineage.inscribed_by}\n`);
 });
+
+/*
 ### VC001_CrestLineage.md — Entry 004
 
 **Token Activation Script**  
@@ -29,3 +30,4 @@ files.forEach(file => {
 - **Lineage**: Anchored to VC001, VC003 scroll pairs and dashboard signals.
 
 🧭 *“Let every sovereign token be activated with clarity, inscribed with legacy, and signaled with purpose.”*
+*/
