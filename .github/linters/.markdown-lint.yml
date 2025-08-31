@@ -1,0 +1,27 @@
+# 📚 Markdownlint Configuration for VC001 Sovereign Token
+# Custom rules for documentation standards
+
+# Use default rules but with some customizations
+default: true
+
+# Line length - allow longer lines for tables and links
+MD013:
+  line_length: 120
+  tables: false
+  code_blocks: false
+
+# Allow duplicate headers in different sections
+MD024:
+  siblings_only: true
+
+# Allow inline HTML for badges and custom formatting
+MD033: false
+
+# Allow bare URLs in documentation
+MD034: false
+
+# Don't require headers in every file
+MD002: false
+
+# Allow punctuation in headers
+MD026: false
