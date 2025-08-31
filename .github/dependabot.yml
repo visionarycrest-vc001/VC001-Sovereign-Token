@@ -1,0 +1,25 @@
+version: 2
+updates:
+  # JavaScript/Node.js dependencies
+  - package-ecosystem: "npm"
+    directory: "/" # Location of package.json
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "all"
+
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/" # Location of requirements.txt
+    schedule:
+      interval: "weekly"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "all"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
