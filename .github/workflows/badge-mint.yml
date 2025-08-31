@@ -24,7 +24,7 @@ jobs:
           else
             echo "No codex update — no badge minted."
             echo "codex_updated=false" >> $GITHUB_OUTPUT
-
+          fi
       - name: Auto-inscribe Codex Ritual
         if: steps.codex-check.outputs.codex_updated == 'true'
         run: |
