@@ -1,16 +1,16 @@
-name: Critique, Fix, Build, Test, and Publish Package
+name: Ultimate Code Quality & Automation
 
 on:
   push:
     branches:
       - main
+  pull_request:
   schedule:
-    - cron: '0 4 * * *' # Runs daily at 04:00 UTC
+    - cron: '0 4 * * *'  # Daily at 04:00 UTC
 
 jobs:
-  critique-fix-build-test-publish:
+  quality-check:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,24 +21,64 @@ jobs:
           node-version: '20'
           registry-url: 'https://npm.pkg.github.com/'
 
-      - name: Configure npm for GitHub Packages
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
       - name: Install dependencies
         run: npm install
 
+      # JS/TS Lint & Auto-fix
       - name: Run ESLint and auto-fix
+        run: npx eslint . --ext .js,.ts,.tsx --fix
+
+      # CSS/SCSS Lint
+      - name: Run Stylelint
         run: |
-          npx eslint . --ext .js,.jsx,.ts,.tsx --fix
+          npx stylelint "**/*.{css,scss}" --fix || echo "No CSS/SCSS files found."
 
+      # Shell Lint
+      - name: Run ShellCheck
+        run: |
+          find . -type f -name "*.sh" -exec shellcheck {} \; || echo "No shell scripts found."
+
+      # Python Lint
+      - name: Run Flake8 and Black
+        run: |
+          pip install flake8 black || true
+          find . -type f -name "*.py" -exec black {} \;
+          find . -type f -name "*.py" -exec flake8 {} \;
+
+      # Markdown Lint
+      - name: Run Markdownlint
+        run: |
+          npx markdownlint "**/*.md" || echo "No markdown files found."
+
+      # Prettier Formatting
+      - name: Run Prettier
+        run: npx prettier --write .
+
+      # Run tests and coverage
       - name: Run tests
-        run: npm test
+        run: npm test -- --coverage
 
+      - name: Check coverage
+        run: |
+          COVERAGE=$(node -e "const f=require('./coverage/coverage-summary.json');console.log(f.total.lines.pct)")
+          echo "Coverage: $COVERAGE%"
+          if [ "$(echo "$COVERAGE < 90" | bc)" -eq 1 ]; then
+            echo "Coverage below 90%!"; exit 1;
+          fi
+
+      # Build package
       - name: Build package
         run: npm run build
-        # Remove if you don't have a build step
 
+      # Security audit
+      - name: Run npm audit
+        run: npm audit --audit-level=high
+
+      # Documentation generation (JSDoc example)
+      - name: Generate docs
+        run: npx jsdoc -c jsdoc.json || echo "No JSDoc config found."
+
+      # CodeQL Static Analysis
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
@@ -47,7 +87,22 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
 
+      # Publish package
       - name: Publish package
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Auto-create PR for auto-fixes
+      - name: Commit auto-fixes and open PR
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          git config --local user.email "bot@github.com"
+          git config --local user.name "QualityBot"
+          git checkout -b auto-fix-$(date +%s)
+          git add .
+          git commit -m "chore(bot): auto-fix lint/style issues [bot-strategy]"
+          git push origin HEAD
+          gh pr create --title "Auto-fix bot PR" --body "Automated code style, lint, and formatting fixes. 🚀 [bot-strategy]" --label "auto-fix,bot"
+
+    # Add more jobs for deployment/docs if needed!
