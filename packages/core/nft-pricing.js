@@ -21,7 +21,7 @@ async function fetchFloorPrice(contract) {
     try {
       const res = await axios.get(market.url(contract));
       const price = market.extractPrice(res.data);
-      if (price > 0) {return { market: market.name, price };}
+      if (price > 0) return { market: market.name, price };
     } catch (err) {
       console.warn(`Failed ${market.name} for ${contract}:`, err.message);
     }
