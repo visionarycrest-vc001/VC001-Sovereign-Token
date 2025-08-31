@@ -23,7 +23,7 @@ function scanDir(dir) {
       process.exit(1);
     }
 
-    if (entry.isDirectory()) scanDir(fullPath);
+    if (entry.isDirectory()) {scanDir(fullPath);}
   }
 }
 

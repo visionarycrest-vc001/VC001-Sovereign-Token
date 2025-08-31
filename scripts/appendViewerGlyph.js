@@ -154,7 +154,7 @@ async function appendViewerGlyph() {
     
     const duplicate = tableRows.some(line => {
       const parts = line.split('|').map(s => s.trim());
-      if (parts.length < 4) return false;
+      if (parts.length < 4) {return false;}
       
       const rowGlyph = parts[1] ? parts[1].toLowerCase().trim() : '';
       const rowName = parts[2] ? parts[2].toLowerCase().trim() : '';
