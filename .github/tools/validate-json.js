@@ -47,4 +47,4 @@ for (const [jsonFile, schemaFile] of pairs) {
   }
 }
 
-if (failed) {process.exit(1);}
+if (failed) process.exit(1);
