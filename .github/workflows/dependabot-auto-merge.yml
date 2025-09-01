@@ -26,6 +26,13 @@ jobs:
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
+      - name: 🧹 Run Super-Linter
+        uses: super-linter/super-linter@v7.1.0
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: ✅ Auto-approve safe updates
         if: steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor'
         run: |
@@ -49,3 +56,4 @@ jobs:
           gh pr edit "${{ github.event.pull_request.number }}" --add-label "major-update,needs-review"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
