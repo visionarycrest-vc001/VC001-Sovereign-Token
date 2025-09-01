@@ -74,7 +74,6 @@ export default [
       "@typescript-eslint/explicit-function-return-type": "off",
     },
   },
-  // Overrides for tests and config files
   {
     files: ["**/*.test.{js,jsx,ts,tsx}"],
     rules: {
