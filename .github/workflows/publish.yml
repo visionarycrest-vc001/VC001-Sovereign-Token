@@ -69,8 +69,10 @@ jobs:
       - name: "🔍 NPM Security Audit"
         run: |
           echo "🔍 Running comprehensive npm security audit..."
-          npm audit --audit-level=moderate --omit=dev || echo "⚠️ Audit found issues - check output above"
-          
+          if ! npm audit --audit-level=moderate --omit=dev; then
+            echo "⚠️ Audit found issues - check output above"
+            exit 1
+          fi
           # Generate detailed audit report
           npm audit --json > audit-report.json || true
           
