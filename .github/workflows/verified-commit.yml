@@ -1,0 +1,43 @@
+name: Verified Commit Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  verified-commit-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Commit single file
+        uses: tohgarashi/verified-commit@v2.x
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: myfile
+          commit-message: Committing ./myfile
+          ref: refs/heads/main
+
+      - name: Commit multiple files
+        uses: tohgarashi/verified-commit@v2.x
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            path/to/myfile1
+            path/to/myfile2
+            path/to/myfile3
+          commit-message: Committing files
+          ref: refs/heads/main
+
+      - name: Auto-detect changed files and commit
+        uses: tohgarashi/verified-commit@v2.x
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          detect-changed: true
+          commit-message: Committing detected changed files
+          ref: refs/heads/main
