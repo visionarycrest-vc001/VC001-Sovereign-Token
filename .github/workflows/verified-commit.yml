@@ -3,7 +3,10 @@ name: Verified Commit Example
 on:
   push:
     branches:
-      - main
+      - '*'           # Runs on all branches
+  pull_request:
+    branches:
+      - '*'           # Runs on all branches
 
 jobs:
   verified-commit-job:
@@ -12,14 +15,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Commit single file
+      - name: Commit file
         uses: tohgarashi/verified-commit@v2.x
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: myfile
           commit-message: Committing ./myfile
-          ref: refs/heads/main
+          ref: ${{ github.ref }}   # Commits to the current branch
 
       - name: Commit multiple files
         uses: tohgarashi/verified-commit@v2.x
@@ -31,7 +34,7 @@ jobs:
             path/to/myfile2
             path/to/myfile3
           commit-message: Committing files
-          ref: refs/heads/main
+          ref: ${{ github.ref }}
 
       - name: Auto-detect changed files and commit
         uses: tohgarashi/verified-commit@v2.x
@@ -40,4 +43,4 @@ jobs:
         with:
           detect-changed: true
           commit-message: Committing detected changed files
-          ref: refs/heads/main
+          ref: ${{ github.ref }}
