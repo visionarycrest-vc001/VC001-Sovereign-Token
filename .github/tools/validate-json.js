@@ -1,3 +1,8 @@
+#!/usr/bin/env node
+// Usage: node .github/tools/validate-json.js
+// Validates JSON files in ./data against schemas in ./data/schemas
+// Exits with code 1 on failure, 0 on success.
+
 import fs from 'node:fs';
 import path from 'node:path';
 import Ajv from 'ajv';
@@ -33,9 +38,32 @@ for (const [jsonFile, schemaFile] of pairs) {
     continue;
   }
 
-  const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
-  const schema = JSON.parse(fs.readFileSync(schemaPath, 'utf-8'));
-  const validate = ajv.compile(schema);
+  let data;
+  try {
+    data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+  } catch (err) {
+    console.error(`[fail] ${jsonFile} (invalid JSON: ${err.message})`);
+    failed = true;
+    continue;
+  }
+
+  let schema;
+  try {
+    schema = JSON.parse(fs.readFileSync(schemaPath, 'utf-8'));
+  } catch (err) {
+    console.error(`[fail] ${schemaFile} (invalid JSON: ${err.message})`);
+    failed = true;
+    continue;
+  }
+
+  let validate;
+  try {
+    validate = ajv.compile(schema);
+  } catch (err) {
+    console.error(`[fail] Could not compile schema for ${jsonFile}: ${err.message}`);
+    failed = true;
+    continue;
+  }
 
   const ok = validate(data);
   if (!ok) {
@@ -48,3 +76,4 @@ for (const [jsonFile, schemaFile] of pairs) {
 }
 
 if (failed) process.exit(1);
+else process.exit(0);
