@@ -7,4 +7,4 @@ const mintBadge = require('../VC002_TokenHarness.js');
 const badge = mintBadge(contributor, ritualId);
 
 fs.appendFileSync(badgePath, `\n// ${JSON.stringify(badge)}\n`);
-console.log(`🏅 Badge minted for ${contributor}`);
+console.log(`🏅 Badge minted`);
