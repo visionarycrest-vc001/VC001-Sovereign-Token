@@ -1,6 +1,7 @@
 {
   "name": "@visionarycrest-vc001/core",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "description": "Core logic for VisionaryCrest‑001",
   "scripts": {
