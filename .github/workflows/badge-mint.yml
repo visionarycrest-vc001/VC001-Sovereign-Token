@@ -17,7 +17,7 @@ jobs:
         id: codex-check
         run: |
           git fetch origin main
-          git diff origin/main HEAD -- VC_LegacyCodex.md > codex.diff
+          git diff origin/main HEAD -- vc-legacy-codex.md > codex.diff
           if [ -s codex.diff ]; then
             echo "Codex updated — minting badge..."
             echo "codex_updated=true" >> $GITHUB_OUTPUT
@@ -28,7 +28,7 @@ jobs:
       - name: Auto-inscribe Codex Ritual
         if: steps.codex-check.outputs.codex_updated == 'true'
         run: |
-          node scripts/appendCodexEntry.js
+          node scripts/append-codex-entry.js
 
       - name: Mint Contributor Badge
         if: steps.codex-check.outputs.codex_updated == 'true'
@@ -57,6 +57,6 @@ jobs:
         run: |
           git config user.name "Visionary Steward"
           git config user.email "security@visionarycrest.org"
-          git add nft-metadata.json glyph-log.md VC_LegacyCodex.md
+          git add nft-metadata.json glyph-log.md vc-legacy-codex.md
           git commit -m "🪙 Ritual: Codex, badge, and glyph log updated"
           git push origin main

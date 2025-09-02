@@ -19,8 +19,8 @@ echo "🔮 Pre-commit ritual activated..."
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 cd "$REPO_ROOT" || exit 1
 
-node scripts/appendCodexEntry.js
-node scripts/mintBadge.js
-node scripts/appendViewerGlyph.js "🧭" "Ritual Navigator" "Pre-commit badge + codex sync" ".git/hooks/pre-commit"
+node scripts/append-codex-entry.js
+node scripts/mint-badge.js
+node scripts/append-viewer-glyph.js "🧭" "Ritual Navigator" "Pre-commit badge + codex sync" ".git/hooks/pre-commit"
 
 echo "✅ Ritual complete. Codex, badge, and registry updated."

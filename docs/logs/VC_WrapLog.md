@@ -95,7 +95,7 @@ node scripts/scroll-inscribe.js
 
 - **Raw Scroll**: `VC_RetryLog_raw.md`
 - **Wrapped Scroll**: `VC_RetryLog.md`
-- **Tool**: `wrapStackTraces.sh`
+- **Tool**: `wrap-stack-traces.sh`
 - **Status**: ✅ Dual lineage preserved
 - **Notes**: Raw retained for traceability; wrapped activated for deployment
 
