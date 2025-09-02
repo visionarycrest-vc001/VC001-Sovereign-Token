@@ -19,7 +19,12 @@ export default [
         global: "readonly",
         document: "readonly",
         window: "readonly",
-        fetch: "readonly"
+        fetch: "readonly",
+        setTimeout: "readonly",
+        clearTimeout: "readonly",
+        setInterval: "readonly",
+        clearInterval: "readonly",
+        marked: "readonly"
       },
     },
     rules: {

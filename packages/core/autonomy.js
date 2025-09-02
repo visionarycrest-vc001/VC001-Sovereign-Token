@@ -1,13 +1,13 @@
 // autonomy.js — Sovereign Orchestrator for VC001–VC999
-const fs = require('fs');
-const sovereignBatch = require('./scripts/sovereignBatch');
-const scrollInscribe = require('./scripts/scroll-inscribe');
-const signalActivate = require('./scripts/signal-activate');
-const dashboardHooks = require('./dashboardHooks');
-const nftPricing = require('./nft-pricing');
+const fs = require("fs");
+const sovereignBatch = require("./scripts/sovereignBatch");
+const scrollInscribe = require("./scripts/scroll-inscribe");
+const signalActivate = require("./scripts/signal-activate");
+const dashboardHooks = require("./dashboardHooks");
+const nftPricing = require("./nft-pricing");
 
-const logFile = 'docs/logs/vc-autonomy-log.md';
-const crestLineageFile = 'VC003_CrestLineage.md';
+const logFile = "docs/logs/vc-autonomy-log.md";
+const crestLineageFile = "VC003_CrestLineage.md";
 
 function inscribeLog(entry) {
   const timestamp = new Date().toISOString();
@@ -18,24 +18,24 @@ function inscribeLog(entry) {
 
 async function runAutonomy() {
   try {
-    inscribeLog('🔔 Initiating Sovereign Autonomy Protocol');
+    inscribeLog("🔔 Initiating Sovereign Autonomy Protocol");
 
     await sovereignBatch();
-    inscribeLog('✅ sovereignBatch.js executed: VC tokens inscribed');
+    inscribeLog("✅ sovereignBatch.js executed: VC tokens inscribed");
 
     await scrollInscribe();
-    inscribeLog('📜 scroll-inscribe.js executed: Scrolls generated');
+    inscribeLog("📜 scroll-inscribe.js executed: Scrolls generated");
 
     await signalActivate();
-    inscribeLog('📡 signal-activate.js executed: Governance metrics injected');
+    inscribeLog("📡 signal-activate.js executed: Governance metrics injected");
 
     await dashboardHooks();
-    inscribeLog('📊 dashboardHooks.js executed: Dashboard signals updated');
+    inscribeLog("📊 dashboardHooks.js executed: Dashboard signals updated");
 
     await nftPricing();
-    inscribeLog('💰 nft-pricing.js executed: Sovereign floor prices cached');
+    inscribeLog("💰 nft-pricing.js executed: Sovereign floor prices cached");
 
-    inscribeLog('🎉 Sovereign Autonomy Complete: All modules inscribed');
+    inscribeLog("🎉 Sovereign Autonomy Complete: All modules inscribed");
   } catch (err) {
     inscribeLog(`❌ Error: ${err.message}`);
     throw err;
