@@ -6,7 +6,7 @@ const signalActivate = require('./scripts/signal-activate');
 const dashboardHooks = require('./dashboardHooks');
 const nftPricing = require('./nft-pricing');
 
-const logFile = 'VC_AutonomyLog.md';
+const logFile = 'docs/logs/vc-autonomy-log.md';
 const crestLineageFile = 'VC003_CrestLineage.md';
 
 function inscribeLog(entry) {

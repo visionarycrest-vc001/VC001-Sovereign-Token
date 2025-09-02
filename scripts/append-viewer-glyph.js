@@ -2,11 +2,11 @@
  * VC001 Sovereign Token - Viewer Glyph Registry Script
  * 
  * PURPOSE:
- * Safely appends new viewer glyphs to the VC_ViewerRegistry.md file in the repository root.
+ * Safely appends new viewer glyphs to the vc-viewer-registry.md file in the repository root.
  * Maintains markdown table formatting integrity and prevents duplicate entries.
  * 
  * USAGE:
- * node scripts/appendViewerGlyph.js <glyph> <name> <purpose> <location>
+ * node scripts/append-viewer-glyph.js <glyph> <name> <purpose> <location>
  * 
  * PARAMETERS:
  * - glyph: Unicode glyph/emoji representing the viewer (e.g., 🧭)
@@ -22,7 +22,7 @@
  * - Maintains consistent column padding for markdown readability
  * 
  * EXAMPLE:
- * node scripts/appendViewerGlyph.js "🧭" "Ritual Navigator" "CI badge and codex sync" "badge-mint.yml"
+ * node scripts/append-viewer-glyph.js "🧭" "Ritual Navigator" "CI badge and codex sync" "badge-mint.yml"
  * 
  * AUTHOR: Enhanced for VC001 Sovereign Token repository structure
  */
@@ -50,7 +50,7 @@ function findRepoRoot() {
 
 // Resolve registry path relative to repository root
 const repoRoot = findRepoRoot();
-const registryPath = path.join(repoRoot, 'VC_ViewerRegistry.md');
+const registryPath = path.join(repoRoot, 'vc-viewer-registry.md');
 
 // Parse and validate CLI arguments
 const args = process.argv.slice(2);
@@ -60,7 +60,7 @@ if (args.length !== 4 || !glyph || !name || !purpose || !location) {
   console.error('❌ ERROR: Invalid arguments provided');
   console.error('');
   console.error('USAGE:');
-  console.error('  node scripts/appendViewerGlyph.js <glyph> <name> <purpose> <location>');
+  console.error('  node scripts/append-viewer-glyph.js <glyph> <name> <purpose> <location>');
   console.error('');
   console.error('PARAMETERS:');
   console.error('  glyph    - Unicode glyph/emoji (e.g., 🧭)');
@@ -69,7 +69,7 @@ if (args.length !== 4 || !glyph || !name || !purpose || !location) {
   console.error('  location - File path or activation location');
   console.error('');
   console.error('EXAMPLE:');
-  console.error('  node scripts/appendViewerGlyph.js "🧭" "Ritual Navigator" "CI badge and codex sync" "badge-mint.yml"');
+  console.error('  node scripts/append-viewer-glyph.js "🧭" "Ritual Navigator" "CI badge and codex sync" "badge-mint.yml"');
   process.exit(1);
 }
 
@@ -105,7 +105,7 @@ async function appendViewerGlyph() {
       console.error('❌ ERROR: Registry file not found');
       console.error(`   Expected location: ${registryPath}`);
       console.error('   Please ensure you are running this script from the VC001 repository');
-      console.error('   and that VC_ViewerRegistry.md exists in the repository root.');
+      console.error('   and that vc-viewer-registry.md exists in the repository root.');
       process.exit(1);
     }
 
@@ -134,7 +134,7 @@ async function appendViewerGlyph() {
     if (!content.includes('| Glyph |') || !content.includes('|-------|')) {
       console.error('❌ ERROR: Registry file does not contain expected markdown table structure');
       console.error('   Expected headers: | Glyph | Name | Purpose | Activated In |');
-      console.error('   Please verify the VC_ViewerRegistry.md file format.');
+      console.error('   Please verify the vc-viewer-registry.md file format.');
       process.exit(1);
     }
 

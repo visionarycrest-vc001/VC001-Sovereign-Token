@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to your registry file
-REGISTRY="VC_ViewerRegistry.md"
+REGISTRY="vc-viewer-registry.md"
 
 # Check if file exists
 if [ ! -f "$REGISTRY" ]; then

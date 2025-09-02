@@ -10,8 +10,8 @@
 
 | Retry ID | Timestamp           | Module         | Reason                  | Status   | Wrapped By |
 |----------|---------------------|----------------|--------------------------|----------|------------|
-| VC-R001  | 2025-08-18T14:22:01 | scheduler.js   | Timeout on grant pulse   | ✅ Retried | wrapStackTraces.sh |
-| VC-R002  | 2025-08-18T15:47:33 | grant-tracker.js | Missing grant token     | ✅ Retried | wrapStackTraces.sh |
+| VC-R001  | 2025-08-18T14:22:01 | scheduler.js   | Timeout on grant pulse   | ✅ Retried | wrap-stack-traces.sh |
+| VC-R002  | 2025-08-18T15:47:33 | grant-tracker.js | Missing grant token     | ✅ Retried | wrap-stack-traces.sh |
 
 ---
 

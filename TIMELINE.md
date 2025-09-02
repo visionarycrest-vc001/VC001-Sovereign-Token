@@ -41,8 +41,8 @@ This scroll inscribes the ceremonial progression of the VC001 archive — from i
 
 ## 🧙 Future Rituals
 
-- `VC_LegacyCodex.md` — to be inscribed for generational sealing
-- `VC_ViewerRegistry.md` — to unify glyphs and scrolls across modules
+- `vc-legacy-codex.md` — to be inscribed for generational sealing
+- `vc-viewer-registry.md` — to unify glyphs and scrolls across modules
 - `VC_TokenizationHarness.js` — to activate mass grant onboarding
 
 ---

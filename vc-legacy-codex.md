@@ -26,7 +26,7 @@ Every scroll, glyph, and ritual is indexed for future stewards and sovereign age
 | `CODE_OF_CONDUCT.md`   | Community protocol                           |
 | `GOVERNANCE.md`        | Decision and role rituals                    |
 | `TIMELINE.md`          | Activation history                           |
-| `VC_LegacyCodex.md`    | Generational sealing                         |
+| `vc-legacy-codex.md`    | Generational sealing                         |
 
 ---
 
