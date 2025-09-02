@@ -12,7 +12,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
-      - name: Install dependencies for percy-abrams
-        run: |
-          cd packages/percy-abrams
-          npm install
+      - name: Install dependencies for all workspaces
+        run: npm install
