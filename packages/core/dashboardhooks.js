@@ -7,7 +7,7 @@ function activateMetrics(tokenId) {
 module.exports = { activateMetrics };
 // scripts/dashboardHooks.js
 
-module.exports = function(vcData) {
+module.exports = function (vcData) {
   console.log("📊 Dashboard Hooks Triggered");
   console.log(`📡 Emitting signal for ${vcData.grantId}`);
   console.log(`📈 Governance metrics: ${JSON.stringify(vcData.metrics)}`);

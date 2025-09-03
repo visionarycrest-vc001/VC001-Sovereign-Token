@@ -1,8 +1,9 @@
 ## 📋 Pull Request Summary
 
 **Type of Change:**
+
 - [ ] 🐛 Bug fix (non-breaking change that fixes an issue)
-- [ ] ✨ New feature (non-breaking change that adds functionality)  
+- [ ] ✨ New feature (non-breaking change that adds functionality)
 - [ ] 💥 Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] 📚 Documentation update
 - [ ] 🔧 Configuration/tooling update
@@ -22,6 +23,7 @@ Related to #(issue number)
 ## 🔄 Changes Made
 
 **What changed:**
+
 - List the main changes made
 - Use bullet points for clarity
 - Be specific about modified files/components
@@ -32,17 +34,20 @@ Explain the reasoning behind the implementation approach.
 ## 🧪 Testing
 
 **How was this tested:**
+
 - [ ] Unit tests added/updated
-- [ ] Integration tests added/updated  
+- [ ] Integration tests added/updated
 - [ ] Manual testing performed
 - [ ] Existing tests still pass
 
 **Test scenarios covered:**
+
 1. Scenario 1: Expected outcome
 2. Scenario 2: Expected outcome
 3. Edge case: Expected handling
 
 **Testing checklist:**
+
 - [ ] `npm run lint` passes
 - [ ] `npm test` passes
 - [ ] `npm run validate:data` passes (if applicable)
@@ -58,6 +63,7 @@ If applicable, add screenshots or screen recordings showing the changes:
 ## 🔍 Code Review Checklist
 
 **For the author:**
+
 - [ ] Code follows the project's style guidelines
 - [ ] Self-review completed
 - [ ] Comments added for complex logic
@@ -67,6 +73,7 @@ If applicable, add screenshots or screen recordings showing the changes:
 - [ ] Performance impact considered
 
 **For reviewers:**
+
 - [ ] Code is clear and maintainable
 - [ ] Logic is correct and efficient
 - [ ] Tests are comprehensive
@@ -77,11 +84,13 @@ If applicable, add screenshots or screen recordings showing the changes:
 ## 🚀 Deployment Considerations
 
 **Pre-deployment:**
+
 - [ ] Database migrations (if any)
 - [ ] Environment variable updates (if any)
 - [ ] Configuration changes (if any)
 
 **Post-deployment:**
+
 - [ ] Monitoring/alerting updates needed
 - [ ] Documentation updates required
 - [ ] User communication needed
@@ -96,14 +105,17 @@ If applicable, add screenshots or screen recordings showing the changes:
 ## 🏷️ Additional Notes
 
 **Dependencies:**
+
 - Any new dependencies added and why
 - Version constraints or compatibility notes
 
 **Breaking changes:**
+
 - Description of any breaking changes
 - Migration guide for users (if applicable)
 
 **Future considerations:**
+
 - Any follow-up work needed
 - Technical debt implications
 
@@ -111,9 +123,10 @@ If applicable, add screenshots or screen recordings showing the changes:
 
 **Reviewer Assignment:**
 Please assign appropriate reviewers based on the type of change:
+
 - Code changes: Assign code maintainers
-- Documentation: Assign documentation maintainers  
+- Documentation: Assign documentation maintainers
 - Security: Assign security team
 - Configuration: Assign infrastructure team
 
-*Thank you for contributing to the sovereign lineage! Every pull request strengthens our collective codebase.*
+_Thank you for contributing to the sovereign lineage! Every pull request strengthens our collective codebase._

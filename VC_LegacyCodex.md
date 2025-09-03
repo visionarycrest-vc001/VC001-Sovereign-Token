@@ -17,22 +17,22 @@ Every scroll, glyph, and ritual is indexed for future stewards and sovereign age
 
 ## 🧬 Scroll Index
 
-| Scroll                  | Purpose                                      |
-|------------------------|----------------------------------------------|
-| `VC001_CrestLineage.md`| Symbolic and technical lineage               |
-| `VC001_Invocation.md`  | Ceremonial launch protocol                   |
-| `SECURITY.md`          | Vulnerability and scan rituals               |
-| `CONTRIBUTING.md`      | Stewardship and commit glyphs                |
-| `CODE_OF_CONDUCT.md`   | Community protocol                           |
-| `GOVERNANCE.md`        | Decision and role rituals                    |
-| `TIMELINE.md`          | Activation history                           |
-| `VC_LegacyCodex.md`    | Generational sealing                         |
+| Scroll                  | Purpose                        |
+| ----------------------- | ------------------------------ |
+| `VC001_CrestLineage.md` | Symbolic and technical lineage |
+| `VC001_Invocation.md`   | Ceremonial launch protocol     |
+| `SECURITY.md`           | Vulnerability and scan rituals |
+| `CONTRIBUTING.md`       | Stewardship and commit glyphs  |
+| `CODE_OF_CONDUCT.md`    | Community protocol             |
+| `GOVERNANCE.md`         | Decision and role rituals      |
+| `TIMELINE.md`           | Activation history             |
+| `VC_LegacyCodex.md`     | Generational sealing           |
 
 ---
 
 ## 🧙 Steward Recognition
 
-- Percy Abrams Jr. — Ceremonial Architect & Mythic Steward  
+- Percy Abrams Jr. — Ceremonial Architect & Mythic Steward
 - [Add future stewards here as glyphs are activated]
 
 ---

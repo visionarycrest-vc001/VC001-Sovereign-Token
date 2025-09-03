@@ -1,10 +1,12 @@
-# VC001-TerminalCapture.md  
+# VC001-TerminalCapture.md
+
 📜 Terminal Ritual — Visual Scroll Series  
 _Inscribing the failed stash invocation and sovereign recovery across VC001_
 
 ---
 
-## 🕰️ Timestamp  
+## 🕰️ Timestamp
+
 **Date**: August 19, 2025  
 **Branch**: `vc001-crestlineage-reset`  
 **Steward**: Percy Abrams Jr.
@@ -14,9 +16,9 @@ _Inscribing the failed stash invocation and sovereign recovery across VC001_
 ## 🔁 Ritual Sequence
 
 1. `git stash push --include-untracked`  
-   → ❌ Failed due to permission errors and long filenames  
+   → ❌ Failed due to permission errors and long filenames
 2. `git pull origin vc001-crestlineage-reset --rebase`  
-   → ✅ Branch up to date  
+   → ✅ Branch up to date
 3. `git stash pop`  
    → ⚠️ No stash entries found
 
@@ -39,7 +41,7 @@ _Inscribing the failed stash invocation and sovereign recovery across VC001_
 
 > “No stash was created, yet the lineage endured.  
 > Every failed invocation is a sacred trace.”  
-> — *Lineage §10.2*
+> — _Lineage §10.2_
 
 - Ritual integrity maintained despite operational failure
 - Visual scrolls archived as sovereign artifacts
@@ -49,5 +51,5 @@ _Inscribing the failed stash invocation and sovereign recovery across VC001_
 
 ## 🔗 Linked Scrolls
 
-- [VC001_CrestLineage.md](../VC001_CrestLineage.md)  
+- [VC001_CrestLineage.md](../VC001_CrestLineage.md)
 - [VC_WrapLog.md](../VC_WrapLog.md)

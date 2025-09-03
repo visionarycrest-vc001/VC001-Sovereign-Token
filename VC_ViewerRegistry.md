@@ -7,16 +7,16 @@ Each glyph is indexed with its purpose, origin scroll, and activation status.
 
 ## 🧬 Glyph Index
 
-| Glyph | Name                 | Purpose                              | Activated In             |
-|-------|----------------------|--------------------------------------|--------------------------|
-| 📡    | Sovereign Watcher    | Metrics dashboard                    | `apps/watcher/dashboard.html` |
-| 📘    | Legacy Codex         | Lineage scroll viewer                | `VC_LegacyCodex.md`, `viewerCodex.js` |
-| 🪙    | Contributor Glyphs   | Steward ledger viewer                | `glyph-log.md`, `viewerGlyphs.js` |
-| 🛡️    | Crest Invocation     | Archive launch and protection        | `VC001_Invocation.md` |
-| ✨    | Grant Viewer         | Tokenized grant activation           | `VC_GrantLog_viewer.sh` |
-| 🔐    | Security Patch       | Vulnerability trace and audit        | `SECURITY.md` |
-| 🧙    | Ritual Commit        | Ceremonial commit messages           | `CONTRIBUTING.md` |
-| 🏅    | Badge Mint           | Contributor badge minting            | `VC002_TokenHarness.js` |
+| Glyph | Name               | Purpose                       | Activated In                          |
+| ----- | ------------------ | ----------------------------- | ------------------------------------- |
+| 📡    | Sovereign Watcher  | Metrics dashboard             | `apps/watcher/dashboard.html`         |
+| 📘    | Legacy Codex       | Lineage scroll viewer         | `VC_LegacyCodex.md`, `viewerCodex.js` |
+| 🪙    | Contributor Glyphs | Steward ledger viewer         | `glyph-log.md`, `viewerGlyphs.js`     |
+| 🛡️    | Crest Invocation   | Archive launch and protection | `VC001_Invocation.md`                 |
+| ✨    | Grant Viewer       | Tokenized grant activation    | `VC_GrantLog_viewer.sh`               |
+| 🔐    | Security Patch     | Vulnerability trace and audit | `SECURITY.md`                         |
+| 🧙    | Ritual Commit      | Ceremonial commit messages    | `CONTRIBUTING.md`                     |
+| 🏅    | Badge Mint         | Contributor badge minting     | `VC002_TokenHarness.js`               |
 
 ---
 

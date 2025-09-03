@@ -14,7 +14,9 @@ function evaluateBurns() {
     const token = VC_TOKENS[vc];
     const priceData = PRICING[vc];
 
-    if (!priceData || priceData.price === 0) {continue;}
+    if (!priceData || priceData.price === 0) {
+      continue;
+    }
 
     if (priceData.price < BURN_THRESHOLD) {
       burnLog.push({
@@ -26,7 +28,9 @@ function evaluateBurns() {
         timestamp: new Date().toISOString(),
       });
 
-      console.log(`🔥 Burn eligible: ${vc} at ${priceData.price} (${priceData.market})`);
+      console.log(
+        `🔥 Burn eligible: ${vc} at ${priceData.price} (${priceData.market})`
+      );
     }
   }
 

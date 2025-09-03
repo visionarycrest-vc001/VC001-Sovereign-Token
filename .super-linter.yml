@@ -47,7 +47,7 @@ filter_regex_exclude: |
   .*\.lock$
 
 # Custom configurations
-eslint_config_file: .eslintrc.js
+eslint_config_file: eslint.config.mjs
 prettier_config_file: .prettierrc
 markdownlint_config_file: .markdownlint.json
 stylelint_config_file: .stylelintrc.json

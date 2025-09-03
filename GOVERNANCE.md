@@ -46,6 +46,7 @@ This scroll defines the steward roles, decision rituals, and ceremonial authorit
 ### Proposal Types
 
 #### 1. **Ceremonial Proposals** (Major Changes)
+
 - Scope: Fundamental changes to project vision, governance, or ceremonial aspects
 - Requirements:
   - Formal proposal document
@@ -55,6 +56,7 @@ This scroll defines the steward roles, decision rituals, and ceremonial authorit
 - Process: Issue → Discussion → Formal Vote → Implementation
 
 #### 2. **Technical Proposals** (Implementation Changes)
+
 - Scope: Significant technical changes, new features, architectural decisions
 - Requirements:
   - Technical design document
@@ -64,6 +66,7 @@ This scroll defines the steward roles, decision rituals, and ceremonial authorit
 - Process: PR → Review → Approval → Merge
 
 #### 3. **Operational Proposals** (Process Changes)
+
 - Scope: Workflow changes, tool updates, maintenance procedures
 - Requirements:
   - One operational steward approval
@@ -89,6 +92,7 @@ All major changes require a **ritual proposal** via pull request with:
 - **Risk Assessment**: Potential negative impacts and mitigation strategies
 
 Approved proposals are merged with a ceremonial commit:
+
 ```bash
 git commit -m "🪄 Merge Ritual #042: Activate VC002 viewer glyphs"
 ```
@@ -98,12 +102,14 @@ git commit -m "🪄 Merge Ritual #042: Activate VC002 viewer glyphs"
 ## 📋 Steward Responsibilities
 
 ### Monthly Rituals
+
 - **First Week**: Review active proposals and security updates
 - **Second Week**: Community engagement and feedback collection
 - **Third Week**: Technical debt assessment and planning
 - **Fourth Week**: Ceremonial review and lineage documentation
 
 ### Quarterly Ceremonies
+
 - **Q1**: Annual governance review and steward elections
 - **Q2**: Security audit and compliance assessment
 - **Q3**: Community health and contribution metrics
@@ -114,12 +120,14 @@ git commit -m "🪄 Merge Ritual #042: Activate VC002 viewer glyphs"
 ## 🌊 Succession and Continuity
 
 ### Steward Rotation
+
 - **Nomination Period**: Open nominations 30 days before term expiration
 - **Eligibility**: Minimum 6 months of active contribution
 - **Selection**: Current stewards vote, community feedback considered
 - **Transition**: 2-week overlap period for knowledge transfer
 
 ### Emergency Procedures
+
 - **Inactive Steward**: If unresponsive for 30 days, temporary replacement
 - **Security Incident**: Audit Sentinel has emergency authority
 - **Ceremonial Crisis**: Ceremonial Architect can invoke emergency protocols
@@ -129,12 +137,14 @@ git commit -m "🪄 Merge Ritual #042: Activate VC002 viewer glyphs"
 ## 🤝 Conflict Resolution
 
 ### Process Hierarchy
+
 1. **Direct Discussion**: Stewards attempt resolution privately
 2. **Mediated Discussion**: Neutral steward facilitates
 3. **Community Input**: Public discussion if requested
 4. **Governance Vote**: Final resolution through formal vote
 
 ### Appeal Process
+
 - Any community member can appeal steward decisions
 - Appeals require sponsorship from one core steward
 - Appeals are voted on by all stewards excluding conflicted parties
@@ -144,16 +154,19 @@ git commit -m "🪄 Merge Ritual #042: Activate VC002 viewer glyphs"
 ## 📊 Transparency and Accountability
 
 ### Public Records
+
 - All votes and decisions are recorded in governance meeting notes
 - Voting records are published (steward names and votes)
 - Decision rationale is documented in commit messages or issues
 
 ### Community Access
+
 - Governance meetings are open to community observers
 - Meeting schedules published in advance
 - Community can submit items for steward consideration
 
 ### Accountability Measures
+
 - Annual steward performance reviews
 - Community feedback surveys
 - Regular governance process retrospectives
@@ -163,6 +176,7 @@ git commit -m "🪄 Merge Ritual #042: Activate VC002 viewer glyphs"
 ## 🔄 Governance Evolution
 
 This governance model itself is subject to ceremonial proposals. Changes to governance require:
+
 - 30-day community discussion period
 - Formal proposal with detailed impact analysis
 - 90% consensus from all core stewards
@@ -179,6 +193,6 @@ This governance model itself is subject to ceremonial proposals. Changes to gove
 
 ---
 
-*"In every decision lies the weight of legacy, in every vote the voice of the future. Let wisdom guide our stewardship of this sovereign archive."*
+_"In every decision lies the weight of legacy, in every vote the voice of the future. Let wisdom guide our stewardship of this sovereign archive."_
 
-*Last updated: January 2025*
+_Last updated: January 2025_

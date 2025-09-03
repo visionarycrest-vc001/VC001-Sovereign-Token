@@ -6,7 +6,7 @@
 **Cohort:** VC003-A  
 **Glyph:** ⧉⚘⟒⟊  
 **Timestamp:** 2025-08-18T00:00:00Z  
-**Status:** Scroll initiated, security scan pending  
+**Status:** Scroll initiated, security scan pending
 
 ---
 

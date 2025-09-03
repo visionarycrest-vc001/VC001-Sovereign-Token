@@ -42,12 +42,14 @@ Paste any relevant logs here
 ## 🛠 Environment
 
 **System Information:**
+
 - OS: [e.g., macOS 14.0, Ubuntu 22.04, Windows 11]
 - Browser: [e.g., Chrome 120, Firefox 121, Safari 17] (if applicable)
 - Node.js version: [e.g., 18.17.0]
 - npm version: [e.g., 9.6.7]
 
 **Repository Information:**
+
 - Branch: [e.g., main, feat/new-feature]
 - Commit SHA: [e.g., abc1234]
 - Local changes: [ ] Yes [ ] No
@@ -55,6 +57,7 @@ Paste any relevant logs here
 ## 🔗 Related Issues
 
 Link any related issues or discussions:
+
 - Related to #123
 - Similar to #456
 
@@ -68,10 +71,11 @@ Link any related issues or discussions:
 ## 🏷️ Additional Context
 
 Add any other context about the problem here, including:
+
 - When did this start happening?
 - Does it happen in different environments?
 - Any workarounds you've found?
 
 ---
 
-*Thank you for helping improve the sovereign archive! Every bug report strengthens our collective resilience.*
+_Thank you for helping improve the sovereign archive! Every bug report strengthens our collective resilience._

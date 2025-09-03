@@ -45,6 +45,7 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) with glyph pref
 - ♻️ `refactor:` — code refactoring without functional changes
 
 ### Examples:
+
 ```bash
 git commit -m "✨ feat: activate grant viewer in dashboard"
 git commit -m "🐛 fix: resolve memory leak in token processing"
@@ -57,12 +58,14 @@ git commit -m "🔧 config: modernize ESLint configuration"
 ## 🧪 Testing & Quality
 
 ### Before Submitting
+
 - [ ] Run `npm run lint` and fix any issues
 - [ ] Run `npm test` and ensure all tests pass
 - [ ] Run `npm run validate:data` to validate JSON schemas
 - [ ] Check that your code follows the project's coding standards
 
 ### Coding Standards
+
 - **JavaScript/TypeScript**: Use ES6+ syntax, double quotes, trailing commas
 - **Documentation**: JSDoc for all exported functions
 - **File Structure**: Follow the [Project Structure](docs/PROJECT_STRUCTURE.md) guidelines
@@ -79,6 +82,7 @@ git commit -m "🔧 config: modernize ESLint configuration"
 5. **Merge**: Squash and merge with conventional commit message
 
 ### PR Checklist
+
 - [ ] My changes comply with the [Project Structure & Setup](docs/PROJECT_STRUCTURE.md)
 - [ ] I have added/updated tests as needed
 - [ ] I have updated documentation as needed
@@ -91,10 +95,12 @@ git commit -m "🔧 config: modernize ESLint configuration"
 ## 🏗️ Development Setup
 
 ### Prerequisites
+
 - Node.js 18+ and npm 8+
 - Git with signed commits enabled (recommended)
 
 ### Local Development
+
 ```bash
 # Install dependencies
 npm install
@@ -113,7 +119,9 @@ npx pre-commit install
 ```
 
 ### Editor Configuration
+
 This project includes `.editorconfig` and linting configurations. Recommended extensions:
+
 - **VS Code**: ESLint, Prettier, EditorConfig
 - **Other editors**: Install equivalent extensions for consistent formatting
 
@@ -131,14 +139,18 @@ This project includes `.editorconfig` and linting configurations. Recommended ex
 ## 🎯 Issue Reporting
 
 ### Bug Reports
+
 Use the [bug report template](.github/ISSUE_TEMPLATE/bug.md) and include:
+
 - Clear description of the problem
 - Steps to reproduce
 - Expected vs actual behavior
 - Environment details
 
 ### Feature Requests
+
 Use the [feature request template](.github/ISSUE_TEMPLATE/feature.md) and include:
+
 - Use case description
 - Proposed solution
 - Alternative solutions considered
@@ -167,7 +179,8 @@ For major changes, refer to our [Governance](GOVERNANCE.md) documentation. Stewa
 
 ---
 
-*Thank you for contributing to the sovereign lineage. Every commit is a sacred inscription in our collective memory.*
+_Thank you for contributing to the sovereign lineage. Every commit is a sacred inscription in our collective memory._
 
 ## Repository Structure
+
 All contributors must follow the [Project Structure & Setup](docs/PROJECT_STRUCTURE.md) guidelines.

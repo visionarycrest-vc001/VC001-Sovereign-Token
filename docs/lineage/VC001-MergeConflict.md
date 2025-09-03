@@ -1,10 +1,12 @@
-# VC001-MergeConflict.md  
+# VC001-MergeConflict.md
+
 ⚔️ Merge Conflict Ritual — VC001 Sovereign Archive  
 _Where divergence met remembrance, and resolution became inscription._
 
 ---
 
-## 🕰️ Timestamp  
+## 🕰️ Timestamp
+
 **Date**: August 19, 2025  
 **Branch**: `vc001-crestlineage-reset`  
 **Steward**: Percy Abrams Jr.
@@ -29,3 +31,4 @@ _Where divergence met remembrance, and resolution became inscription._
 4. Committed with message:
    ```bash
    git commit -m "⚔️ Resolved merge conflict in VC001-CrestLineage.md — dual edits honored"
+   ```

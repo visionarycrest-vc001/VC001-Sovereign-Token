@@ -1,9 +1,8 @@
-
 ---
 
 ## 📜 `docs/VC_GlyphCodex.md`
 
-```md
+````md
 # 🧬 VC Glyph Codex
 
 This codex defines all glyphs used across VisionaryCrest‑001.
@@ -17,3 +16,5 @@ This codex defines all glyphs used across VisionaryCrest‑001.
   "animation": "pulse-type",
   "usedIn": ["module1", "module2"]
 }
+```
+````

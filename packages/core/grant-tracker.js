@@ -16,7 +16,9 @@ function trackGrants() {
 
   for (const vc of Object.keys(VC_TOKENS)) {
     const grant = GRANT_LEDGER[vc];
-    if (!grant) {continue;}
+    if (!grant) {
+      continue;
+    }
 
     updates.push({
       token: vc,

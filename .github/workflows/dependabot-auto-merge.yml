@@ -56,4 +56,3 @@ jobs:
           gh pr edit "${{ github.event.pull_request.number }}" --add-label "major-update,needs-review"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

@@ -24,3 +24,4 @@ node scripts/mintBadge.js
 node scripts/appendViewerGlyph.js "🧭" "Ritual Navigator" "Pre-commit badge + codex sync" ".git/hooks/pre-commit"
 
 echo "✅ Ritual complete. Codex, badge, and registry updated."
+```

@@ -3,7 +3,7 @@ name: 🔍 JSON Schema Validation
 on:
   push:
     paths:
-      - 'data/*.json'
+      - "data/*.json"
 
 jobs:
   validate:

@@ -22,17 +22,19 @@ Describe the security concern or improvement suggestion.
 ## 🎯 Impact Assessment
 
 **What could be affected?**
+
 - [ ] User data
-- [ ] System integrity  
+- [ ] System integrity
 - [ ] Service availability
 - [ ] Authentication/Authorization
-- [ ] Other: ___________
+- [ ] Other: \***\*\_\_\_\*\***
 
 **Who might be affected?**
+
 - [ ] End users
 - [ ] Administrators
 - [ ] Systems/Infrastructure
-- [ ] Other: ___________
+- [ ] Other: \***\*\_\_\_\*\***
 
 ## 🔄 Proposed Solution
 
@@ -45,11 +47,13 @@ List any alternative solutions you've considered.
 ## 🛠 Implementation Considerations
 
 **Technical requirements:**
+
 - Code changes needed
 - Configuration updates
 - Documentation updates
 
 **Testing approach:**
+
 - How should the fix be tested?
 - What security testing is needed?
 
@@ -63,10 +67,11 @@ List any alternative solutions you've considered.
 ## 🏷️ Additional Context
 
 Any additional information about the security concern:
+
 - Related security standards or best practices
 - Similar issues in other projects
 - Timeline considerations
 
 ---
 
-*Thank you for helping secure the sovereign archive! Your vigilance strengthens our collective security posture.*
+_Thank you for helping secure the sovereign archive! Your vigilance strengthens our collective security posture._

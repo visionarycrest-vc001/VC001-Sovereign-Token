@@ -21,6 +21,7 @@ Describe the problem this feature would address or the improvement it would brin
 **So that** [benefit/value]
 
 **Example scenarios:**
+
 1. When a user does X, they should be able to Y
 2. In situation Z, the system should provide A
 
@@ -46,21 +47,25 @@ Code examples or pseudo-code can go here
 ## 🧙 Related Scrolls & Lineage
 
 **Related issues or discussions:**
+
 - Related to #123
 - Builds upon #456
 
 **Governance considerations:**
+
 - Does this require a ceremonial proposal?
 - Which steward roles should be involved?
 
 **Documentation impact:**
+
 - What documentation would need updating?
 
 ## 🔄 Acceptance Criteria
 
 **This feature will be complete when:**
+
 - [ ] Criterion 1
-- [ ] Criterion 2  
+- [ ] Criterion 2
 - [ ] Criterion 3
 - [ ] Documentation updated
 - [ ] Tests added/updated
@@ -76,14 +81,17 @@ Code examples or pseudo-code can go here
 ## 🏗️ Implementation Considerations
 
 **Technical complexity:**
+
 - What parts of the codebase would be affected?
 - Are there any technical challenges or dependencies?
 
 **Breaking changes:**
+
 - Would this introduce any breaking changes?
 - How would migration be handled?
 
 **Performance impact:**
+
 - Any performance considerations?
 
 ## ✅ Checklist
@@ -96,13 +104,15 @@ Code examples or pseudo-code can go here
 ## 🏷️ Additional Context
 
 **Inspiration or references:**
+
 - Similar features in other projects
 - Research or articles that support this feature
 
 **Timeline considerations:**
+
 - Is this time-sensitive?
 - Are there external dependencies or deadlines?
 
 ---
 
-*Thank you for contributing to the sovereign vision! Every feature request helps shape our collective future.*
+_Thank you for contributing to the sovereign vision! Every feature request helps shape our collective future._

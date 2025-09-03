@@ -1,4 +1,3 @@
-
 ---
 
 ## 📜 `docs/VCXXXX_Protocol.md`
@@ -25,3 +24,4 @@ Defines the operational and ceremonial logic for VCXXXX modules.
 
 - Proposal ID: VCXXXX-GOV-001
 - Badge: Crest Architect
+```

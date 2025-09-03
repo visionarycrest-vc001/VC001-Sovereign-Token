@@ -1,4 +1,3 @@
-
 # 🤝 VisionaryCrest Code of Conduct
 
 We are building a mythic, inclusive, and resilient ecosystem.  
@@ -39,7 +38,7 @@ Reports will be handled with discretion and confidentiality. All maintainers are
 Community leaders will follow these guidelines when determining consequences:
 
 1. **Correction**: Private, written warning with clarity around violation and explanation of why behavior was inappropriate
-2. **Warning**: Warning with consequences for continued behavior  
+2. **Warning**: Warning with consequences for continued behavior
 3. **Temporary Ban**: Temporary ban from community interaction
 4. **Permanent Ban**: Permanent ban from all community interaction
 
@@ -53,5 +52,4 @@ For answers to common questions about this code of conduct, see the FAQ at [http
 
 ---
 
-*Last updated: January 2025*
-
+_Last updated: January 2025_

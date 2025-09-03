@@ -10,5 +10,8 @@ const timeline = ascensionLog.map(entry => ({
   proposal: entry.proposalId,
 }));
 
-fs.writeFileSync("./docs/logs/VC_Timeline.json", JSON.stringify(timeline, null, 2));
+fs.writeFileSync(
+  "./docs/logs/VC_Timeline.json",
+  JSON.stringify(timeline, null, 2)
+);
 console.log("✅ Timeline written to VC_Timeline.json");

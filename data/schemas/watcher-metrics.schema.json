@@ -1,7 +1,12 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "required": ["heartbeat", "activeContributors", "fundingVelocity", "badgeMintRate"],
+  "required": [
+    "heartbeat",
+    "activeContributors",
+    "fundingVelocity",
+    "badgeMintRate"
+  ],
   "properties": {
     "heartbeat": { "type": "string", "format": "date-time" },
     "activeContributors": { "type": "integer" },

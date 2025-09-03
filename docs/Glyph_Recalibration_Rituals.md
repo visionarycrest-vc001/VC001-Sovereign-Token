@@ -21,3 +21,4 @@ Glyphs must be recalibrated when:
   "reason": "used in badge minting + council overlay",
   "scheduledFor": "2025-09-01T00:00:00Z"
 }
+```

@@ -8,7 +8,9 @@ function activateCohort(cohortName) {
 
   // Register stewards
   const stewards = [
-    "Steward001", "Steward002", "Steward003", // Add all 12
+    "Steward001",
+    "Steward002",
+    "Steward003", // Add all 12
   ];
 
   stewards.forEach(steward => {

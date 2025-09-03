@@ -1,9 +1,74 @@
 # Normalize line endings
 * text=auto
 
-# Treat JSON and Markdown as UTF-8
+# Source code
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
 *.json text eol=lf
 *.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sh text eol=lf
+*.bash text eol=lf
 
-# Mark lineage scrolls as linguistically rich
+# Documentation
+*.md text eol=lf
+*.txt text eol=lf
+*.rst text eol=lf
+
+# Configuration files
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.editorconfig text eol=lf
+*.rc text eol=lf
+*.config.* text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.zip binary
+*.tar.gz binary
+*.pdf binary
+
+# Archives
+*.7z binary
+*.gz binary
+*.tar binary
+*.zip binary
+
+# Linguist overrides
 docs/lineage/* linguist-language=Markdown
+*.config.js linguist-language=JavaScript
+*.config.mjs linguist-language=JavaScript
+*.config.ts linguist-language=TypeScript
+
+# Security and sensitive files
+*.pem binary
+*.key binary
+*.crt binary
+*.p12 binary
+
+# Large files (consider using Git LFS)
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.avi filter=lfs diff=lfs merge=lfs -text
+*.wmv filter=lfs diff=lfs merge=lfs -text
+*.mkv filter=lfs diff=lfs merge=lfs -text
+
+# Generated files
+dist/ export-ignore
+build/ export-ignore
+coverage/ export-ignore
+node_modules/ export-ignore
+*.log export-ignore
+.env* export-ignore

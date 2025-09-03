@@ -60,7 +60,9 @@ for (const [jsonFile, schemaFile] of pairs) {
   try {
     validate = ajv.compile(schema);
   } catch (err) {
-    console.error(`[fail] Could not compile schema for ${jsonFile}: ${err.message}`);
+    console.error(
+      `[fail] Could not compile schema for ${jsonFile}: ${err.message}`
+    );
     failed = true;
     continue;
   }
@@ -75,5 +77,8 @@ for (const [jsonFile, schemaFile] of pairs) {
   }
 }
 
-if (failed) {process.exit(1);}
-else {process.exit(0);}
+if (failed) {
+  process.exit(1);
+} else {
+  process.exit(0);
+}

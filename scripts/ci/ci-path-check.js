@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const forbiddenChars = [":", "/", "\\", "*", "?", "\"", "<", ">", "|"];
+const forbiddenChars = [":", "/", "\\", "*", "?", '"', "<", ">", "|"];
 const allowedPattern = /^[a-z0-9\-_.]+$/; // kebab-case, snake_case, dots
 
 function scanDir(dir) {
@@ -13,7 +13,9 @@ function scanDir(dir) {
 
     if (forbiddenChars.some(char => entry.name.includes(char))) {
       console.error(`❌ Invalid path detected: "${fullPath}"`);
-      console.error("🛡️ Ritual Block: Forbidden character found. Use kebab-case.");
+      console.error(
+        "🛡️ Ritual Block: Forbidden character found. Use kebab-case."
+      );
       process.exit(1);
     }
 
@@ -23,7 +25,9 @@ function scanDir(dir) {
       process.exit(1);
     }
 
-    if (entry.isDirectory()) {scanDir(fullPath);}
+    if (entry.isDirectory()) {
+      scanDir(fullPath);
+    }
   }
 }
 

@@ -6,13 +6,13 @@ const VC_TOKENS = require("./vc001.json"); // Extend to vc999.json dynamically
 const marketplaces = [
   {
     name: "OpenSea",
-    url: (contract) => `https://api.opensea.io/api/v1/asset/${contract}/1`,
-    extractPrice: (data) => parseFloat(data?.last_sale?.total_price || 0) / 1e18,
+    url: contract => `https://api.opensea.io/api/v1/asset/${contract}/1`,
+    extractPrice: data => parseFloat(data?.last_sale?.total_price || 0) / 1e18,
   },
   {
     name: "MagicEden",
-    url: (contract) => `https://api-mainnet.magiceden.dev/v2/tokens/${contract}`,
-    extractPrice: (data) => parseFloat(data?.price || 0),
+    url: contract => `https://api-mainnet.magiceden.dev/v2/tokens/${contract}`,
+    extractPrice: data => parseFloat(data?.price || 0),
   },
 ];
 
@@ -21,7 +21,9 @@ async function fetchFloorPrice(contract) {
     try {
       const res = await axios.get(market.url(contract));
       const price = market.extractPrice(res.data);
-      if (price > 0) {return { market: market.name, price };}
+      if (price > 0) {
+        return { market: market.name, price };
+      }
     } catch (err) {
       console.warn(`Failed ${market.name} for ${contract}:`, err.message);
     }

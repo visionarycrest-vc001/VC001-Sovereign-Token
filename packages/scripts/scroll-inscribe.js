@@ -8,7 +8,8 @@ const data = {
   image: "ipfs://Qm.../vc003.png",
   glyph: "⧉⚘⟒⟊",
   protocol: "DOE 🜃",
-  invocation: "Expand access to climate resilience grants for frontline communities",
+  invocation:
+    "Expand access to climate resilience grants for frontline communities",
   timestamp: "2025-08-18T00:00:00Z",
   steward_cohort: "VC003-A",
 };
@@ -45,4 +46,6 @@ const crestMd = `# ${token} Crest Lineage Scroll — ${data.description}
 fs.writeFileSync(`${token}_Invocation.md`, invocationMd);
 fs.writeFileSync(`${token}_CrestLineage.md`, crestMd);
 
-console.log(`✅ Scrolls generated: ${token}_Invocation.md and ${token}_CrestLineage.md`);
+console.log(
+  `✅ Scrolls generated: ${token}_Invocation.md and ${token}_CrestLineage.md`
+);
