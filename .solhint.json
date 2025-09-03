@@ -1,0 +1,1 @@
+{\n  "extends": "solhint:recommended",\n  "rules": {\n    "compiler-version": "error",\n    "func-visibility": ["error", { "ignoreConstructors": false }],\n    "no-inline-assembly": "error",\n    "reason-string": ["warn", { "maxLength": 64 }],\n    "max-line-length": ["warn", 100],\n    "avoid-low-level-calls": "error"\n  }\n}
