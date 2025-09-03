@@ -6,10 +6,10 @@ _Tracking all viewer scripts that render scrolls with ceremonial clarity._
 
 ## 📜 Viewer Index
 
-| Viewer Script                  | Scroll Rendered     | Steward           | Status   | Path                                |
-|-------------------------------|----------------------|-------------------|----------|-------------------------------------|
-| VC_RetryLog_viewer.sh         | VC_RetryLog.md       | Percy Abrams Jr.  | ✅ Active | scripts/viewers/VC_RetryLog_viewer.sh |
-| VC_GrantLog_viewer.sh         | VC_GrantLog.md       | Percy Abrams Jr.  | ✅ Active | scripts/viewers/VC_GrantLog_viewer.sh |
+| Viewer Script              | Scroll Rendered   | Steward           | Status    | Path                                  |
+|---------------------------|-------------------|-------------------|-----------|---------------------------------------|
+| VC_RetryLog_viewer.sh     | VC_RetryLog.md    | Percy Abrams Jr.  | ✅ Active | scripts/viewers/VC_RetryLog_viewer.sh |
+| vc-grantlog-viewer.sh     | VC_GrantLog.md    | Percy Abrams Jr.  | ✅ Active | scripts/viewers/vc-grantlog-viewer.sh |
 
 ---
 
@@ -26,5 +26,5 @@ _Tracking all viewer scripts that render scrolls with ceremonial clarity._
 
 ## 🔗 Related Scrolls
 
-- [VC_WrapLog.md](VC_WrapLog.md)  
+- [VC_WrapLog.md](../logs/VC_WrapLog.md)  
 - [VC001-Invocation.md](VC001-Invocation.md)

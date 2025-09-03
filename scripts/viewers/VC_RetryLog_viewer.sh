@@ -4,7 +4,7 @@
 # Steward: Percy Abrams Jr.
 # Activated: August 19, 2025
 
-SCROLL="VC_RetryLog.md"
+SCROLL="docs/logs/VC_RetryLog.md"
 
 # 🧾 Ritual Header
 echo -e "\033[1;36m📜 Viewing Wrapped Retry Scroll — $SCROLL\033[0m"

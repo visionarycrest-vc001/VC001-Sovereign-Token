@@ -1,10 +1,10 @@
 #!/bin/bash
-# 📜 VC_GrantLog_viewer.sh
+# 📜 vc-grantlog-viewer.sh
 # Sovereign Viewer for Grant Log Scrolls
 # Steward: Percy Abrams Jr.
 # Activated: August 19, 2025
 
-SCROLL="VC_GrantLog.md"
+SCROLL="docs/logs/VC_GrantLog.md"
 
 # 🧾 Ritual Header
 echo -e "\033[1;36m📜 Viewing Sovereign Grant Log — $SCROLL\033[0m"
