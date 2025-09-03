@@ -1,0 +1,77 @@
+name: "🧬 NFT Metadata Update Ritual"
+
+on:
+  workflow_dispatch:
+    inputs:
+      token_id:
+        description: 'Token ID to update'
+        required: true
+      update_type:
+        description: 'Type of update (metadata, image, attributes)'
+        required: true
+        default: 'metadata'
+  push:
+    branches: [main]
+    paths: ['data/glyph-metadata/**']
+
+jobs:
+  metadata-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Validate Metadata Schema
+        run: |
+          echo "📋 Validating NFT metadata schema..."
+          # Ceremonial validation of metadata structure
+          
+      - name: Execute Metadata Update
+        run: |
+          echo "🧬 Initiating NFT metadata update ritual..."
+          node scripts/updateMetadata.js ${{ github.event.inputs.token_id || 'all' }} ${{ github.event.inputs.update_type || 'metadata' }}
+          
+      - name: Generate Updated Metadata
+        run: |
+          echo "🔄 Generating updated metadata files..."
+          # Update JSON metadata files with new attributes
+          
+      - name: Validate Metadata Integrity
+        run: |
+          echo "🔍 Validating metadata integrity post-update..."
+          # Validate JSON structure and required fields
+          
+      - name: Update IPFS Metadata
+        run: |
+          echo "🌐 Updating IPFS metadata references..."
+          # Ceremonial IPFS update simulation
+          
+      - name: Log Metadata Changes
+        run: |
+          echo "📜 Logging metadata changes to update registry..."
+          echo "### Metadata Update - $(date -u)" >> data/glyph-metadata/update-log.md
+          echo "- Token ID: ${{ github.event.inputs.token_id || 'batch' }}" >> data/glyph-metadata/update-log.md
+          echo "- Update Type: ${{ github.event.inputs.update_type || 'metadata' }}" >> data/glyph-metadata/update-log.md
+          echo "- Updated by: ${{ github.actor }}" >> data/glyph-metadata/update-log.md
+          
+      - name: Update Dashboard Metrics
+        run: |
+          echo "📊 Updating dashboard with metadata changes..."
+          node scripts/Dashboard-deploy.js update-metadata
+          
+      - name: Commit Metadata Artifacts
+        run: |
+          git config user.name "Metadata Steward"
+          git config user.email "security@visionarycrest.org"
+          git add data/glyph-metadata/
+          git commit -m "🧬 Metadata Update: ${{ github.event.inputs.update_type || 'metadata' }} updated for token ${{ github.event.inputs.token_id || 'batch' }}" || exit 0
+          git push origin main

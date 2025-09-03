@@ -1,0 +1,80 @@
+{
+  "name": "VC001 Sovereign Token #1",
+  "description": "The first sovereign token of the VC001 ecosystem, representing the foundational lineage and ceremonial authority of the Visionary Crest protocol.",
+  "image": "https://visionarycrest.org/tokens/1.png",
+  "external_url": "https://visionarycrest.org/tokens/1",
+  "background_color": "000000",
+  "animation_url": "https://visionarycrest.org/animations/sovereign-1.mp4",
+  "attributes": [
+    {
+      "trait_type": "Token ID",
+      "value": "1"
+    },
+    {
+      "trait_type": "Token Type",
+      "value": "Sovereign Founder"
+    },
+    {
+      "trait_type": "Glyph Type",
+      "value": "sovereign"
+    },
+    {
+      "trait_type": "Ceremonial Symbols",
+      "value": "⟊⟟⧫⟜"
+    },
+    {
+      "trait_type": "Grant Sector",
+      "value": "FDA"
+    },
+    {
+      "trait_type": "Sector Code",
+      "value": 1
+    },
+    {
+      "trait_type": "Steward Authority",
+      "value": "Verified"
+    },
+    {
+      "trait_type": "Lineage Status",
+      "value": "Ancient"
+    },
+    {
+      "trait_type": "Sovereign Tier",
+      "value": "Sovereign"
+    },
+    {
+      "trait_type": "Ceremonial Power",
+      "value": "Maximum"
+    },
+    {
+      "trait_type": "Inscribed By",
+      "value": "Percy Abrams Jr."
+    },
+    {
+      "trait_type": "Invocation",
+      "value": "Expand access to rural health clinics via AI-enabled diagnostics"
+    },
+    {
+      "trait_type": "Creation Date",
+      "value": "2025-09-03T05:10:00Z"
+    },
+    {
+      "trait_type": "Metadata Version",
+      "value": "2.0"
+    },
+    {
+      "trait_type": "Last Updated",
+      "value": "2025-09-03T05:20:02.061Z"
+    },
+    {
+      "trait_type": "Update Type",
+      "value": "Full metadata refresh"
+    },
+    {
+      "trait_type": "Steward Blessing",
+      "value": "Sanctified"
+    }
+  ],
+  "sample_metadata": true,
+  "ceremonial_blessing": "🛡️ May this token serve as the eternal anchor of sovereign purpose"
+}

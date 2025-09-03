@@ -1,0 +1,15 @@
+{
+  "grant_id": "GRANT-TEST-001",
+  "title": "Grant Application #GRANT-TEST-001",
+  "description": "Sovereign grant application",
+  "applicant": "Unknown",
+  "sector": "FDA",
+  "sector_code": 1,
+  "requested_amount": 0,
+  "status": "Pending Review",
+  "application_date": "2025-09-03T05:19:56.495Z",
+  "last_updated": "2025-09-03T05:19:56.495Z",
+  "steward_notes": [],
+  "ceremonial_blessing": "🌿 May this grant serve the sovereign purpose",
+  "lineage_anchor": "VC001 Grant Protocol"
+}

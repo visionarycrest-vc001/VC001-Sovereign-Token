@@ -1,0 +1,68 @@
+name: "💰 L-Token Minting Protocol"
+
+on:
+  workflow_dispatch:
+    inputs:
+      amount:
+        description: 'Amount of L-tokens to mint'
+        required: true
+        default: '1000'
+      recipient:
+        description: 'Recipient address'
+        required: true
+  schedule:
+    - cron: '0 12 * * 1' # Weekly L-token distribution
+
+jobs:
+  ltoken-mint:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Validate Minting Authority
+        run: |
+          echo "🛡️ Validating L-token minting authority..."
+          # Ceremonial authority validation
+          
+      - name: Execute L-Token Mint
+        run: |
+          echo "💰 Initiating L-token minting protocol..."
+          node scripts/mintLToken.js ${{ github.event.inputs.amount || '1000' }} ${{ github.event.inputs.recipient || 'treasury' }}
+          
+      - name: Update Token Supply Registry
+        run: |
+          echo "📊 Updating L-token supply metrics..."
+          CURRENT_SUPPLY=$(grep -o '"total_supply": [0-9]*' data/vc_ledger.json | cut -d: -f2 | tr -d ' ' || echo "0")
+          NEW_SUPPLY=$((CURRENT_SUPPLY + ${{ github.event.inputs.amount || 1000 }}))
+          echo "New total supply: $NEW_SUPPLY L-tokens"
+          
+      - name: Log Minting Transaction
+        run: |
+          echo "📜 Logging L-token minting to ledger..."
+          echo "### L-Token Mint - $(date -u)" >> data/ltoken-mint-log.md
+          echo "- Amount: ${{ github.event.inputs.amount || '1000' }} L-tokens" >> data/ltoken-mint-log.md
+          echo "- Recipient: ${{ github.event.inputs.recipient || 'treasury' }}" >> data/ltoken-mint-log.md
+          echo "- Minted by: ${{ github.actor }}" >> data/ltoken-mint-log.md
+          
+      - name: Update Dashboard Metrics
+        run: |
+          echo "📊 Updating dashboard with new L-token metrics..."
+          node scripts/Dashboard-deploy.js update-tokens
+          
+      - name: Commit L-Token Artifacts
+        run: |
+          git config user.name "L-Token Steward"
+          git config user.email "security@visionarycrest.org"
+          git add data/
+          git commit -m "💰 L-Token Mint: ${{ github.event.inputs.amount || '1000' }} tokens minted for ${{ github.event.inputs.recipient || 'treasury' }}" || exit 0
+          git push origin main

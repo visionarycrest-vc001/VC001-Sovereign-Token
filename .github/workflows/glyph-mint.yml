@@ -1,0 +1,63 @@
+name: "🔮 Glyph Minting Ritual"
+
+on:
+  workflow_dispatch:
+    inputs:
+      glyph_type:
+        description: 'Type of glyph to mint (sovereign, contributor, grant)'
+        required: true
+        default: 'contributor'
+      recipient:
+        description: 'Glyph recipient address or username'
+        required: true
+  push:
+    branches: [main]
+    paths: ['docs/lineage/**', 'VC_LegacyCodex.md']
+
+jobs:
+  glyph-minting:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Generate Glyph Metadata
+        run: |
+          echo "🔮 Generating glyph metadata for ceremonial minting..."
+          node scripts/mintGlyph.js ${{ github.event.inputs.glyph_type || 'auto' }}
+          
+      - name: Inscribe Glyph Lineage
+        run: |
+          echo "📜 Inscribing glyph to sovereign lineage..."
+          GLYPH_ID=$(date +%s)
+          echo "- Glyph ID: $GLYPH_ID" >> data/glyph-metadata/glyph-registry.md
+          echo "- Type: ${{ github.event.inputs.glyph_type || 'auto' }}" >> data/glyph-metadata/glyph-registry.md
+          echo "- Recipient: ${{ github.event.inputs.recipient || github.actor }}" >> data/glyph-metadata/glyph-registry.md
+          echo "- Timestamp: $(date -u)" >> data/glyph-metadata/glyph-registry.md
+          
+      - name: Update NFT Metadata
+        run: |
+          echo "🧬 Updating NFT metadata collection..."
+          node scripts/updateMetadata.js glyph
+          
+      - name: Log to Viewer Registry
+        run: |
+          echo "📖 Updating viewer registry with new glyph..."
+          node scripts/appendViewerGlyph.js "🔮" "Glyph Mint" "Ceremonial glyph minting" "glyph-mint.yml"
+          
+      - name: Commit Glyph Artifacts
+        run: |
+          git config user.name "Glyph Steward"
+          git config user.email "security@visionarycrest.org"
+          git add data/glyph-metadata/ VC_ViewerRegistry.md
+          git commit -m "🔮 Glyph Mint: ${{ github.event.inputs.glyph_type || 'auto' }} glyph minted for ${{ github.event.inputs.recipient || github.actor }}" || exit 0
+          git push origin main

@@ -1,0 +1,29 @@
+{
+  "name": "VC001 Contributor Glyph",
+  "description": "Sovereign contributor glyph minted for testuser",
+  "image": "https://visionarycrest.org/glyphs/contributor.png",
+  "attributes": [
+    {
+      "trait_type": "Glyph Type",
+      "value": "contributor"
+    },
+    {
+      "trait_type": "Ceremonial Symbols",
+      "value": "🔮⚡🛡️"
+    },
+    {
+      "trait_type": "Recipient",
+      "value": "testuser"
+    },
+    {
+      "trait_type": "Mint Timestamp",
+      "value": "2025-09-03T05:19:50.991Z"
+    },
+    {
+      "trait_type": "Steward Authority",
+      "value": "Verified"
+    }
+  ],
+  "external_url": "https://visionarycrest.org/tokens",
+  "background_color": "000000"
+}

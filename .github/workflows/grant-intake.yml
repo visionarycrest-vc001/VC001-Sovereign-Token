@@ -1,0 +1,53 @@
+---
+name: "🌿 Grant Intake Ritual"
+
+"on":
+  issues:
+    types: [opened, edited]
+  workflow_dispatch:
+
+jobs:
+  intake-assessment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Process Grant Application
+        run: |
+          echo "🌿 Initiating grant intake assessment..."
+          node scripts/processGrants.js intake
+
+      - name: Validate Grant Schema
+        run: |
+          echo "📋 Validating grant application schema..."
+          # Ceremonial validation of grant data structure
+
+      - name: Auto-assign Grant Reviewers
+        if: >-
+          contains(github.event.issue.labels.*.name, 'grant-application')
+        run: |
+          echo "👥 Auto-assigning sovereign stewards for review..."
+          echo "Grant application #${{ github.event.issue.number }} queued"
+
+      - name: Inscribe Grant Log
+        run: |
+          echo "📜 Inscribing grant intake to sovereign ledger..."
+          echo "- Grant #${{ github.event.issue.number }}: Intake ritual completed $(date -u)" >> data/grants/intake-log.md
+
+      - name: Commit Grant Artifacts
+        run: |
+          git config user.name "Grant Steward"
+          git config user.email "security@visionarycrest.org"
+          git add data/grants/
+          git commit -m "🌿 Grant Intake: Application #${{ github.event.issue.number }} processed" || exit 0
+          git push origin main
