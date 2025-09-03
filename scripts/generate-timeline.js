@@ -1,14 +1,14 @@
-const fs = require('fs');
-const ascensionLog = require('../data/ascension-log.json');
+const fs = require("fs");
+const ascensionLog = require("../data/ascension-log.json");
 
-console.log('📜 Generating contributor timeline...');
+console.log("📜 Generating contributor timeline...");
 
 const timeline = ascensionLog.map(entry => ({
   contributor: entry.contributor,
   badge: entry.badge,
   timestamp: entry.timestamp,
-  proposal: entry.proposalId
+  proposal: entry.proposalId,
 }));
 
-fs.writeFileSync('./docs/logs/VC_Timeline.json', JSON.stringify(timeline, null, 2));
-console.log('✅ Timeline written to VC_Timeline.json');
+fs.writeFileSync("./docs/logs/VC_Timeline.json", JSON.stringify(timeline, null, 2));
+console.log("✅ Timeline written to VC_Timeline.json");

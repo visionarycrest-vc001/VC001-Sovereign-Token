@@ -1,19 +1,19 @@
 // orchestrator.js
 // 🧬 Sovereign Orchestrator — Coordinates module execution and lineage inscription
 
-const { exec } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+const { exec } = require("child_process");
+const fs = require("fs");
+const path = require("path");
 
 const modules = [
-  'nft-pricing.js',
-  'burn-logic.js',
-  'grant-tracker.js',
-  'sovereignBatch.js',
-  'scroll-inscribe.js'
+  "nft-pricing.js",
+  "burn-logic.js",
+  "grant-tracker.js",
+  "sovereignBatch.js",
+  "scroll-inscribe.js",
 ];
 
-const logPath = path.join(__dirname, 'VC_OrchestrationLog.md');
+const logPath = path.join(__dirname, "VC_OrchestrationLog.md");
 const timestamp = new Date().toISOString();
 
 function inscribeLog(entry) {

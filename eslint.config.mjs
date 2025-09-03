@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import react from "eslint-plugin-react";
 import globals from "globals";
 import tseslint from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
 import importPlugin from "eslint-plugin-import";
 import jsdoc from "eslint-plugin-jsdoc";
 import security from "eslint-plugin-security";
@@ -17,16 +18,30 @@ const commonRules = {
   eqeqeq: "error",
   "prefer-const": "error",
   "no-var": "error",
-  "react/jsx-uses-react": "off",
-  "react/react-in-jsx-scope": "off",
-  // Plugins rules
-  "import/no-unresolved": "error",
+  "no-unused-vars": "warn",
+  // Plugin rules
+  "import/no-unresolved": "off", // Can be problematic in monorepos
   "jsdoc/check-alignment": "warn",
   "security/detect-object-injection": "warn",
   "promise/always-return": "warn",
 };
 
 export default [
+  // Global ignores
+  {
+    ignores: [
+      "node_modules/",
+      "dist/",
+      "build/",
+      "coverage/",
+      "*.min.js",
+      "**/AppData/",
+      "**/Extensions/",
+      "public/",
+      ".github/workflows/eslint.config.js", // Avoid self-reference
+    ],
+  },
+  // Base ESLint recommended rules
   js.configs.recommended,
   {
     files: ["**/*.{js,jsx}"],
@@ -45,6 +60,8 @@ export default [
     rules: {
       ...commonRules,
       "react/prop-types": "off",
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off",
     },
     settings: {
       react: { version: "detect" },
@@ -53,9 +70,8 @@ export default [
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
-      parser: "@typescript-eslint/parser",
+      parser: tsParser,
       parserOptions: {
-        project: "./tsconfig.json",
         ecmaVersion: "latest",
         sourceType: "module",
       },
@@ -72,6 +88,8 @@ export default [
       ...commonRules,
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "no-unused-vars": "off", // Disable base rule in favor of TypeScript version
     },
   },
   {

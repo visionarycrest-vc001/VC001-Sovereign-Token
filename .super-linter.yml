@@ -1,12 +1,57 @@
 ---
+# Super-Linter Configuration
+# Reference: https://github.com/super-linter/super-linter
+
+# Global settings
 run_all_linters: false
+default_branch: main
+validate_all_codebase: false
 
-validate_cpp: true
-validate_javascript: true
+# Language validation
+validate_javascript_es: true
+validate_javascript_standard: false
+validate_typescript_es: true
+validate_typescript_standard: false
 validate_python: true
-validate_rust: true
-validate_typescript: true
+validate_python_black: true
+validate_python_flake8: true
+validate_rust: false
+validate_cpp: false
+validate_go: false
 
-# Optional extras
+# Web technologies
+validate_css: true
+validate_html: true
+validate_xml: true
+validate_json: true
 validate_yaml: true
+
+# Documentation and configuration
 validate_markdown: true
+validate_dockerfile: true
+validate_bash: true
+validate_shell: true
+
+# Security and quality
+validate_secrets: true
+validate_env: true
+
+# Additional linters
+validate_github_actions: true
+validate_editorconfig: true
+
+# Exclusions
+filter_regex_exclude: |
+  .*/(node_modules|\.git|dist|build|coverage|\.vscode|\.idea)/.*
+  .*\.(min\.js|bundle\.js|vendor\.js)$
+  .*\.lock$
+
+# Custom configurations
+eslint_config_file: .eslintrc.js
+prettier_config_file: .prettierrc
+markdownlint_config_file: .markdownlint.json
+stylelint_config_file: .stylelintrc.json
+
+# Output settings
+log_level: WARN
+create_log_file: true

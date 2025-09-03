@@ -1,16 +1,48 @@
 # Pre-commit hooks for formatting and validation
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.6.0
     hooks:
       - id: trailing-whitespace
+        exclude: '\.md$'
       - id: end-of-file-fixer
       - id: check-json
       - id: check-yaml
+        args: ['--unsafe']
+      - id: check-toml
       - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: mixed-line-ending
 
   - repo: https://github.com/prettier/prettier
-    rev: v3.0.0
+    rev: v3.3.3
     hooks:
       - id: prettier
-        files: "\\.(js|ts|json|md)$"
+        files: '\.(js|jsx|ts|tsx|json|md|yaml|yml)$'
+        exclude: '^(package-lock\.json|\.github/workflows/eslint\.config\.js)$'
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        files: '\.py$'
+      - id: ruff-format
+        files: '\.py$'
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        files: '\.(sh|bash)$'
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: ESLint
+        entry: npx eslint --fix
+        language: node
+        files: '\.(js|jsx|ts|tsx)$'
+        exclude: 'node_modules|dist|build'

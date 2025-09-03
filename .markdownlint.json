@@ -1,1 +1,27 @@
-{\n  "default": true,\n  "MD013": false,\n  "MD033": false,\n  "MD041": false,\n  "MD024": {\n    "allow_different_titles": true\n  }\n}
+{
+  "default": true,
+  "MD013": {
+    "line_length": 100,
+    "code_blocks": false,
+    "tables": false
+  },
+  "MD033": {
+    "allowed_elements": ["details", "summary", "img", "br", "sub", "sup"]
+  },
+  "MD041": false,
+  "MD024": {
+    "allow_different_titles": true
+  },
+  "MD029": {
+    "style": "ordered"
+  },
+  "MD046": {
+    "style": "fenced"
+  },
+  "MD049": {
+    "style": "underscore"
+  },
+  "MD050": {
+    "style": "asterisk"
+  }
+}

@@ -11,8 +11,8 @@ function runMetricsPulse() {
   const metrics = {
     heartbeat: true,
     timestamp,
-    status: 'OK',
-    note: 'Metrics Pulse script executed successfully.'
+    status: "OK",
+    note: "Metrics Pulse script executed successfully.",
   };
   console.log(JSON.stringify(metrics, null, 2));
 }
