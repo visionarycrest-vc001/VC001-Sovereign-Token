@@ -583,7 +583,7 @@ jobs:
 
       # 📄 Setup GitHub Pages
       - name: "📄 Setup GitHub Pages"
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       # 📤 Upload documentation artifacts
       - name: "📤 Upload documentation to Pages"
