@@ -1,6 +1,16 @@
 # 🚀 Ultimate Code Quality & Automation Workflow
 # VC001 Sovereign Archive - Comprehensive CI/CD Pipeline
 
+# Features:
+# - Multi-language linting and formatting (JS/TS, CSS/SCSS, Shell, Python, Markdown, C++, Rust, HTML)
+# - GitHub Super-Linter integration for comprehensive code review
+# - Security scanning (npm audit, CodeQL, GitHub security scanning)
+# - Automated testing with coverage requirements
+# - Documentation generation and deployment
+# - Auto-fix PR creation with proper labeling
+# - Dependabot integration support
+# - Package publishing with proper authentication
+
 name: "🔮 Ultimate Code Quality & Automation"
 
 on:
@@ -49,7 +59,10 @@ jobs:
       - name: "🔍 NPM Security Audit"
         run: |
           echo "🔍 Running comprehensive npm security audit..."
-          npm audit --audit-level=moderate --omit=dev || echo "⚠️ Audit found issues - check output above"
+          if ! npm audit --audit-level=moderate --omit=dev; then
+            echo "⚠️ Audit found issues - check output above"
+            exit 1
+          fi
           npm audit --json > audit-report.json || true
           HIGH_VULNS=$(cat audit-report.json | jq '.metadata.vulnerabilities.high // 0')
           CRITICAL_VULNS=$(cat audit-report.json | jq '.metadata.vulnerabilities.critical // 0')
@@ -80,7 +93,9 @@ jobs:
               - '**/*.spec.js'
 
       - name: "🏗️ Build for security analysis"
-        run: npm run build
+        run: |
+          echo "🏗️ Building project for CodeQL analysis..."
+          npm run build
 
       - name: "🔍 Perform CodeQL Analysis"
         uses: github/codeql-action/analyze@v3
