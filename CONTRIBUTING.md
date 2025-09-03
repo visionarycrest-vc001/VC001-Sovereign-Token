@@ -30,3 +30,6 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) with glyph pref
 Example:
 ```bash
 git commit -m "✨ feat: activate grant viewer in dashboard"
+
+## Repository Structure
+All contributors must follow the [Project Structure & Setup](docs/PROJECT_STRUCTURE.md) guidelines.
