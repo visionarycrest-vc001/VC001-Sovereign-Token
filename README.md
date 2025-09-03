@@ -11,17 +11,17 @@ Below is the full lifecycle of our self‑maintaining, self‑healing, and self�
 
 | Phase | Workflow | Status |
 |-------|----------|--------|
-| 📁 Structure | [CodeQL](.github/workflows/codeql.yml) | ![CodeQL](https://github.com/<OWNER>/<REPO>/actions/workflows/codeql.yml/badge.svg) |
-| 🧰 Guardrails | [Validate JSON](.github/workflows/json-validate.yml) | ![Validate JSON](https://github.com/<OWNER>/<REPO>/actions/workflows/json-validate.yml/badge.svg) |
-| 🧪 Guardrails | [Run Tests](.github/workflows/test.yml) | ![Run Tests](https://github.com/<OWNER>/<REPO>/actions/workflows/test.yml/badge.svg) |
-| 🧹 Self‑Healing | [Auto‑Fix](.github/workflows/auto-fix.yml) | ![Auto-Fix](https://github.com/<OWNER>/<REPO>/actions/workflows/auto-fix.yml/badge.svg) |
-| ♻️ Self‑Healing | [Metrics Cron](.github/workflows/metrics-cron.yml) | ![Metrics Cron](https://github.com/<OWNER>/<REPO>/actions/workflows/metrics-cron.yml/badge.svg) |
-| 🏛 Governance | [Governance Review](.github/workflows/governance-review.yml) | ![Governance Review](https://github.com/<OWNER>/<REPO>/actions/workflows/governance-review.yml/badge.svg) |
-| 🧠 Intelligence | [Predictive Alert](.github/workflows/predictive-alert.yml) | ![Predictive Alert](https://github.com/<OWNER>/<REPO>/actions/workflows/predictive-alert.yml/badge.svg) |
-| 💡 Intelligence | [AI Fix](.github/workflows/ai-fix.yml) | ![AI Fix](https://github.com/<OWNER>/<REPO>/actions/workflows/ai-fix.yml/badge.svg) |
-| 🤖 Self‑Repair | [Auto‑Merge AI Fix](.github/workflows/auto-merge-ai-fix.yml) | ![Auto-Merge AI Fix](https://github.com/<OWNER>/<REPO>/actions/workflows/auto-merge-ai-fix.yml/badge.svg) |
+| 📁 Structure | [CodeQL](.github/workflows/codeql.yml) | ![CodeQL](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/codeql.yml/badge.svg) |
+| 🧰 Guardrails | [Validate JSON](.github/workflows/json-validate.yml) | ![Validate JSON](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/json-validate.yml/badge.svg) |
+| 🧪 Guardrails | [Run Tests](.github/workflows/test.yml) | ![Run Tests](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/test.yml/badge.svg) |
+| 🧹 Self‑Healing | [Auto‑Fix](.github/workflows/auto-fix.yml) | ![Auto-Fix](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/auto-fix.yml/badge.svg) |
+| ♻️ Self‑Healing | [Metrics Cron](.github/workflows/metrics-cron.yml) | ![Metrics Cron](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/metrics-cron.yml/badge.svg) |
+| 🏛 Governance | [Governance Review](.github/workflows/governance-review.yml) | ![Governance Review](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/governance-review.yml/badge.svg) |
+| 🧠 Intelligence | [Predictive Alert](.github/workflows/predictive-alert.yml) | ![Predictive Alert](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/predictive-alert.yml/badge.svg) |
+| 💡 Intelligence | [AI Fix](.github/workflows/ai-fix.yml) | ![AI Fix](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/ai-fix.yml/badge.svg) |
+| 🤖 Self‑Repair | [Auto‑Merge AI Fix](.github/workflows/auto-merge-ai-fix.yml) | ![Auto-Merge AI Fix](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/auto-merge-ai-fix.yml/badge.svg) |
 
-> Replace `<OWNER>` and `<REPO>` with your GitHub username/org and repository name.
+
 
 ---
 

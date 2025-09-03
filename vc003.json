@@ -17,7 +17,11 @@
     "steward_tracking": true,
     "legacy_scoring": {
       "enabled": true,
-      "metrics": ["impact", "reach", "duration"]
+      "metrics": [
+        "impact",
+        "reach",
+        "duration"
+      ]
     },
     "dashboard_live": true
   },
@@ -27,9 +31,13 @@
     "duration": "Multi-generational"
   },
   "lineage": {
-    "scroll_pair": ["VC003_Invocation.md", "VC003_CrestLineage.md"],
+    "scroll_pair": [
+      "VC003_Invocation.md",
+      "VC003_CrestLineage.md"
+    ],
     "inscribed_by": "Percy Abrams Jr.",
     "status": "pending activation"
-  }
+  },
+  "visibility": "activated",
+  "signal_timestamp": "2025-09-03T04:18:49.608Z"
 }
-
