@@ -1,6 +1,7 @@
+---
 name: "🔮 Glyph Minting Ritual"
 
-on:
+"on":
   workflow_dispatch:
     inputs:
       glyph_type:
@@ -17,24 +18,24 @@ on:
 jobs:
   glyph-minting:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          
+
       - name: Install dependencies
         run: npm install
-        
+
       - name: Generate Glyph Metadata
         run: |
           echo "🔮 Generating glyph metadata for ceremonial minting..."
           node scripts/mintGlyph.js ${{ github.event.inputs.glyph_type || 'auto' }}
-          
+
       - name: Inscribe Glyph Lineage
         run: |
           echo "📜 Inscribing glyph to sovereign lineage..."
@@ -43,17 +44,17 @@ jobs:
           echo "- Type: ${{ github.event.inputs.glyph_type || 'auto' }}" >> data/glyph-metadata/glyph-registry.md
           echo "- Recipient: ${{ github.event.inputs.recipient || github.actor }}" >> data/glyph-metadata/glyph-registry.md
           echo "- Timestamp: $(date -u)" >> data/glyph-metadata/glyph-registry.md
-          
+
       - name: Update NFT Metadata
         run: |
           echo "🧬 Updating NFT metadata collection..."
           node scripts/updateMetadata.js glyph
-          
+
       - name: Log to Viewer Registry
         run: |
           echo "📖 Updating viewer registry with new glyph..."
           node scripts/appendViewerGlyph.js "🔮" "Glyph Mint" "Ceremonial glyph minting" "glyph-mint.yml"
-          
+
       - name: Commit Glyph Artifacts
         run: |
           git config user.name "Glyph Steward"

@@ -1,6 +1,7 @@
+---
 name: "🧬 NFT Metadata Update Ritual"
 
-on:
+"on":
   workflow_dispatch:
     inputs:
       token_id:

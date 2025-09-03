@@ -1,6 +1,7 @@
+---
 name: "🔥 Burn Manager Protocol"
 
-on:
+"on":
   workflow_dispatch:
     inputs:
       token_id:

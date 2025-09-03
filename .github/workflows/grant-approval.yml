@@ -1,6 +1,7 @@
+---
 name: "✅ Grant Approval Ceremony"
 
-on:
+"on":
   issue_comment:
     types: [created]
   workflow_dispatch:
@@ -11,41 +12,43 @@ on:
 
 jobs:
   approval-ceremony:
-    if: contains(github.event.comment.body, '/approve-grant') || github.event_name == 'workflow_dispatch'
+    if: >-
+      contains(github.event.comment.body, '/approve-grant') ||
+      github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          
+
       - name: Install dependencies
         run: npm install
-        
+
       - name: Verify Steward Authority
         run: |
           echo "🛡️ Verifying steward authority for grant approval..."
           # Ceremonial check for approval authority
-          
+
       - name: Process Grant Approval
         run: |
           echo "✅ Initiating grant approval ceremony..."
           node scripts/processGrants.js approve ${{ github.event.issue.number || github.event.inputs.grant_id }}
-          
+
       - name: Mint Grant Token
         run: |
           echo "🪙 Minting sovereign grant token..."
           node scripts/mintGlyph.js grant-token
-          
+
       - name: Update Grant Status
         run: |
           echo "📊 Updating grant dashboard metrics..."
           echo "Grant approved and token minted" >> data/grants/approved-log.md
-          
+
       - name: Inscribe Approval Lineage
         run: |
           echo "📜 Inscribing approval ceremony to crest lineage..."
@@ -53,7 +56,7 @@ jobs:
           echo "- Grant ID: ${{ github.event.issue.number || github.event.inputs.grant_id }}" >> docs/lineage/Grant_Lineage.md
           echo "- Approved by: ${{ github.actor }}" >> docs/lineage/Grant_Lineage.md
           echo "- Sovereign token minted" >> docs/lineage/Grant_Lineage.md
-          
+
       - name: Commit Approval Artifacts
         run: |
           git config user.name "Approval Steward"

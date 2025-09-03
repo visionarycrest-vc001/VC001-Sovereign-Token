@@ -1,0 +1,11 @@
+{
+  "transaction_type": "L-Token Mint",
+  "amount": 5000,
+  "amount_wei": "5e+21",
+  "recipient": "test-recipient",
+  "mint_type": "Steward Authority Mint",
+  "timestamp": "2025-09-03T05:22:46.955Z",
+  "steward_authority": "Verified",
+  "ceremonial_status": "Inscribed",
+  "lineage_anchor": "VC001 Sovereign Protocol"
+}

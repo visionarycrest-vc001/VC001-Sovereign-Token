@@ -1,6 +1,7 @@
+---
 name: "💰 L-Token Minting Protocol"
 
-on:
+"on":
   workflow_dispatch:
     inputs:
       amount:

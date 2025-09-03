@@ -1,6 +1,7 @@
+---
 name: "🤖 Auto-Merge AI Fix"
 
-on:
+"on":
   pull_request:
     types: [opened, synchronize]
     branches: [main]
