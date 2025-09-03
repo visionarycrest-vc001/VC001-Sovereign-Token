@@ -138,3 +138,6 @@ How to use:
 
 Keep this README.md up to date alongside the repo’s structure and automation.
 For onboarding, reference this doc in internal guides and contribution documentation.
+
+## 📁 Project Structure & Setup
+See [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) for the full directory and workflow checklist.
