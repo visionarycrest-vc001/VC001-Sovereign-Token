@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "glyph.schema.json",
+  "title": "VC001 Glyph Schema",
+  "description": "Schema for dimensional glyphs representing sovereign grants",
+  "type": "object",
+  "required": [
+    "id",
+    "grant_id",
+    "sector",
+    "token_id",
+    "owner",
+    "mint_timestamp",
+    "metadata_uri"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^VC001-[A-Z]{3}-[A-Z0-9]{8}$",
+      "description": "Unique glyph identifier"
+    },
+    "grant_id": {
+      "type": "string",
+      "pattern": "^GRANT-[0-9]{6}$",
+      "description": "Associated grant identifier"
+    },
+    "sector": {
+      "type": "string",
+      "enum": ["FDA", "EDA", "SAM"],
+      "description": "Grant sector classification"
+    },
+    "token_id": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "ERC-721 token ID on blockchain"
+    },
+    "owner": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "Current owner wallet address"
+    },
+    "mint_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 minting timestamp"
+    },
+    "metadata_uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "IPFS URI for glyph metadata"
+    },
+    "dimensional_attributes": {
+      "type": "object",
+      "description": "4D/5D glyph characteristics",
+      "required": ["geometry", "resonance", "phase"],
+      "properties": {
+        "geometry": {
+          "type": "string",
+          "enum": ["tetrahedron", "cube", "octahedron", "dodecahedron", "icosahedron"],
+          "description": "Base geometric form"
+        },
+        "resonance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Harmonic resonance factor (0-1)"
+        },
+        "phase": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 360,
+          "description": "Phase angle in degrees"
+        },
+        "color_spectrum": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^#[a-fA-F0-9]{6}$"
+          },
+          "minItems": 1,
+          "maxItems": 7,
+          "description": "Spectral color array"
+        },
+        "energy_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Glyph energy intensity (1-10)"
+        }
+      }
+    },
+    "ceremonial_data": {
+      "type": "object",
+      "description": "Ritual and ceremonial inscriptions",
+      "properties": {
+        "inscribed_by": {
+          "type": "string",
+          "description": "Steward who inscribed the glyph"
+        },
+        "invocation": {
+          "type": "string",
+          "description": "Ceremonial invocation text"
+        },
+        "lineage": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ancestral glyph lineage"
+        },
+        "blessing": {
+          "type": "string",
+          "description": "Sovereign blessing inscription"
+        }
+      }
+    },
+    "operational_data": {
+      "type": "object",
+      "description": "Operational glyph information",
+      "properties": {
+        "burn_status": {
+          "type": "boolean",
+          "description": "Whether glyph has been burned"
+        },
+        "burn_reason": {
+          "type": "string",
+          "description": "Reason for burning if applicable"
+        },
+        "ltoken_allocation": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Associated L-Token amount"
+        },
+        "transfer_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of ownership transfers"
+        },
+        "last_activity": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last transaction timestamp"
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "description": "Glyph verification data",
+      "properties": {
+        "checksum": {
+          "type": "string",
+          "description": "Integrity checksum"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Cryptographic signature"
+        },
+        "proof_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Verification proof location"
+        }
+      }
+    }
+  }
+}

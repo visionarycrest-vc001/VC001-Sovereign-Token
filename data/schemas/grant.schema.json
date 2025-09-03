@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "grant.schema.json",
+  "title": "VC001 Grant Application Schema",
+  "description": "Schema for sovereign grant applications in the VC001 ecosystem",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "description",
+    "sector",
+    "amount",
+    "applicant",
+    "submitted_date",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^GRANT-[0-9]{6}$",
+      "description": "Unique grant identifier"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 100,
+      "description": "Grant application title"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 2000,
+      "description": "Detailed grant description"
+    },
+    "sector": {
+      "type": "string",
+      "enum": ["FDA", "EDA", "SAM"],
+      "description": "Grant sector classification"
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 1000,
+      "maximum": 1000000,
+      "description": "Requested grant amount in USD"
+    },
+    "applicant": {
+      "type": "object",
+      "required": ["name", "email", "organization"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Applicant full name"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email"
+        },
+        "organization": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Organization name"
+        },
+        "address": {
+          "type": "string",
+          "description": "Wallet address for token delivery"
+        }
+      }
+    },
+    "submitted_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 submission timestamp"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "under_review", "approved", "rejected", "minted"],
+      "description": "Current application status"
+    },
+    "review_notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["reviewer", "date", "comment"],
+        "properties": {
+          "reviewer": {
+            "type": "string",
+            "description": "Reviewer identifier"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Review comment"
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Review score (0-100)"
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional grant metadata",
+      "properties": {
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    }
+  }
+}

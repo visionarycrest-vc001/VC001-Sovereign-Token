@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ltoken.schema.json",
+  "title": "VC001 L-Token Schema",
+  "description": "Schema for L-Token transactions and balances linked to glyphs",
+  "type": "object",
+  "required": [
+    "transaction_id",
+    "type",
+    "amount",
+    "glyph_id",
+    "recipient",
+    "timestamp"
+  ],
+  "properties": {
+    "transaction_id": {
+      "type": "string",
+      "pattern": "^LTK-[0-9a-fA-F]{16}$",
+      "description": "Unique L-Token transaction identifier"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["mint", "transfer", "burn", "stake", "unstake"],
+      "description": "Transaction type"
+    },
+    "amount": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.?[0-9]*$",
+      "description": "Token amount (with decimal precision)"
+    },
+    "glyph_id": {
+      "type": "string",
+      "pattern": "^VC001-[A-Z]{3}-[A-Z0-9]{8}$",
+      "description": "Associated glyph identifier"
+    },
+    "recipient": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "Recipient wallet address"
+    },
+    "sender": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "Sender wallet address (for transfers)"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 transaction timestamp"
+    },
+    "block_number": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Blockchain block number"
+    },
+    "transaction_hash": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{64}$",
+      "description": "Blockchain transaction hash"
+    },
+    "gas_used": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Gas consumed for transaction"
+    },
+    "sector_multiplier": {
+      "type": "number",
+      "minimum": 1.0,
+      "maximum": 2.0,
+      "description": "Sector-based token multiplier"
+    },
+    "ceremonial_data": {
+      "type": "object",
+      "description": "Ritual transaction information",
+      "properties": {
+        "invocation": {
+          "type": "string",
+          "description": "Transaction invocation text"
+        },
+        "burn_reason": {
+          "type": "string",
+          "description": "Reason for token burning"
+        },
+        "steward_signature": {
+          "type": "string",
+          "description": "Steward authorization signature"
+        }
+      }
+    },
+    "operational_data": {
+      "type": "object",
+      "description": "Operational transaction metadata",
+      "properties": {
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "urgent"],
+          "description": "Transaction priority level"
+        },
+        "batch_id": {
+          "type": "string",
+          "description": "Batch processing identifier"
+        },
+        "retry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of retry attempts"
+        },
+        "confirmation_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Blockchain confirmations"
+        }
+      }
+    },
+    "balance_info": {
+      "type": "object",
+      "description": "Account balance information",
+      "properties": {
+        "previous_balance": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.?[0-9]*$",
+          "description": "Balance before transaction"
+        },
+        "new_balance": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.?[0-9]*$",
+          "description": "Balance after transaction"
+        },
+        "total_supply": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.?[0-9]*$",
+          "description": "Total L-Token supply at time of transaction"
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "description": "Transaction validation data",
+      "properties": {
+        "verified": {
+          "type": "boolean",
+          "description": "Whether transaction is verified"
+        },
+        "validator": {
+          "type": "string",
+          "description": "Validator node identifier"
+        },
+        "proof_hash": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{64}$",
+          "description": "Validation proof hash"
+        }
+      }
+    }
+  }
+}

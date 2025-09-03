@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "approval.schema.json",
+  "title": "VC001 Grant Approval Schema",
+  "description": "Schema for grant approval decisions and administrative actions",
+  "type": "object",
+  "required": [
+    "approval_id",
+    "grant_id",
+    "decision",
+    "approver",
+    "timestamp",
+    "justification"
+  ],
+  "properties": {
+    "approval_id": {
+      "type": "string",
+      "pattern": "^APPR-[0-9]{8}$",
+      "description": "Unique approval identifier"
+    },
+    "grant_id": {
+      "type": "string",
+      "pattern": "^GRANT-[0-9]{6}$",
+      "description": "Associated grant identifier"
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["approved", "rejected", "deferred", "revision_required"],
+      "description": "Approval decision status"
+    },
+    "approver": {
+      "type": "object",
+      "required": ["id", "name", "role"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Approver unique identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Approver full name"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["steward", "admin", "sector_lead", "sovereign_council"],
+          "description": "Approver role/authority level"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Digital signature"
+        }
+      }
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 approval timestamp"
+    },
+    "justification": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 2000,
+      "description": "Detailed reasoning for decision"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "description"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["funding_cap", "timeline", "milestone", "reporting", "collaboration"],
+            "description": "Condition type"
+          },
+          "description": {
+            "type": "string",
+            "description": "Condition details"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Condition deadline if applicable"
+          },
+          "fulfilled": {
+            "type": "boolean",
+            "description": "Whether condition has been met"
+          }
+        }
+      },
+      "description": "Approval conditions and requirements"
+    },
+    "scoring": {
+      "type": "object",
+      "description": "Evaluation scoring details",
+      "properties": {
+        "total_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Overall evaluation score (0-100)"
+        },
+        "criteria_scores": {
+          "type": "object",
+          "properties": {
+            "technical_merit": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "feasibility": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "impact": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "alignment": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "sustainability": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "reviewer_consensus": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Consensus score among reviewers (0-1)"
+        }
+      }
+    },
+    "funding_details": {
+      "type": "object",
+      "description": "Approved funding information",
+      "properties": {
+        "approved_amount": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Final approved amount in USD"
+        },
+        "ltoken_allocation": {
+          "type": "number",
+          "minimum": 0,
+          "description": "L-Token allocation amount"
+        },
+        "disbursement_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["amount", "date"],
+            "properties": {
+              "amount": {
+                "type": "number",
+                "minimum": 0
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "milestone": {
+                "type": "string",
+                "description": "Associated milestone"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ceremonial_data": {
+      "type": "object",
+      "description": "Ritual approval information",
+      "properties": {
+        "invocation": {
+          "type": "string",
+          "description": "Ceremonial approval invocation"
+        },
+        "witness": {
+          "type": "string",
+          "description": "Approval witness signature"
+        },
+        "seal": {
+          "type": "string",
+          "description": "Sovereign seal identifier"
+        },
+        "lineage": {
+          "type": "string",
+          "description": "Approval lineage reference"
+        }
+      }
+    },
+    "escalation": {
+      "type": "object",
+      "description": "Escalation and appeal information",
+      "properties": {
+        "escalated": {
+          "type": "boolean",
+          "description": "Whether decision was escalated"
+        },
+        "escalation_reason": {
+          "type": "string",
+          "description": "Reason for escalation"
+        },
+        "appeal_deadline": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Appeal submission deadline"
+        },
+        "final": {
+          "type": "boolean",
+          "description": "Whether decision is final"
+        }
+      }
+    }
+  }
+}
