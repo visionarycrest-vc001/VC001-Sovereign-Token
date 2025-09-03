@@ -87,3 +87,18 @@ Below is the full lifecycle of our self‑maintaining, self‑healing, and self�
 - Main branch healed without human intervention  
 
 </details>
+
+## Contribution Guidance
+
+- **Starter Stubs:**  
+  All new files and folders must include ceremonial/operational starter stubs, following repository conventions:
+    - Scripts/contracts: Add comment blocks at the top with purpose, usage, and parameters.
+    - Docs/Markdowns: Start with a clear heading and brief description.
+    - Schemas/metadata: Use template JSON structure (see `/data/schemas/` for examples).
+  See [templates directory](./docs/templates/) for examples.
+
+- **Checklist Maintenance:**  
+  Update this checklist whenever the project structure changes. Contributors are encouraged to propose updates in their PRs; maintainers should review and approve changes after major merges.
+
+- **Visibility:**  
+  Reference this checklist in onboarding materials (`README.md`), contributor guides (`CONTRIBUTING.md`), and PR templates. Ensure links are present and instructions are clear for new contributors.
