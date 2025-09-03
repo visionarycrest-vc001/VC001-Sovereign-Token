@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://visionarycrest.org/schemas/grant-application.schema.json",
+  "title": "Grant Application",
+  "description": "Schema for validating grant application documents",
+  "type": "object",
+  "required": ["grant_application"],
+  "properties": {
+    "grant_application": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "applicant",
+        "proposal",
+        "metadata",
+        "lineage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^grant-[0-9]{14}$",
+          "description": "Unique grant identifier"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["template", "intake", "review", "approved", "rejected", "disbursed"],
+          "description": "Current status of the grant application"
+        },
+        "applicant": {
+          "type": "object",
+          "required": ["name", "organization", "contact", "wallet_address"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 2,
+              "description": "Applicant name"
+            },
+            "organization": {
+              "type": "string",
+              "minLength": 2,
+              "description": "Applicant organization"
+            },
+            "contact": {
+              "type": "string",
+              "format": "email",
+              "description": "Contact email address"
+            },
+            "wallet_address": {
+              "type": "string",
+              "pattern": "^0x[0-9a-fA-F]{40}$",
+              "description": "Ethereum wallet address"
+            }
+          },
+          "additionalProperties": true
+        },
+        "proposal": {
+          "type": "object",
+          "required": [
+            "title",
+            "sector",
+            "amount_requested",
+            "currency",
+            "duration_months",
+            "description"
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 10,
+              "maxLength": 200,
+              "description": "Proposal title"
+            },
+            "sector": {
+              "type": "string",
+              "enum": ["FDA", "EDA", "SAM"],
+              "description": "Grant sector classification"
+            },
+            "amount_requested": {
+              "type": "number",
+              "minimum": 1000,
+              "maximum": 1000000,
+              "description": "Requested grant amount"
+            },
+            "currency": {
+              "type": "string",
+              "enum": ["LTOKEN", "USD", "ETH"],
+              "description": "Currency for grant amount"
+            },
+            "duration_months": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 60,
+              "description": "Project duration in months"
+            },
+            "description": {
+              "type": "string",
+              "minLength": 100,
+              "description": "Detailed project description"
+            },
+            "objectives": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 10
+              },
+              "description": "Project objectives"
+            },
+            "deliverables": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 10
+              },
+              "description": "Expected deliverables"
+            }
+          },
+          "additionalProperties": true
+        },
+        "metadata": {
+          "type": "object",
+          "required": ["submitted_at"],
+          "properties": {
+            "submitted_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Submission timestamp"
+            },
+            "reviewed_at": {
+              "type": ["string", "null"],
+              "format": "date-time",
+              "description": "Review timestamp"
+            },
+            "approved_at": {
+              "type": ["string", "null"],
+              "format": "date-time",
+              "description": "Approval timestamp"
+            },
+            "steward_assigned": {
+              "type": ["string", "null"],
+              "description": "Assigned steward identifier"
+            },
+            "glyph_minted": {
+              "type": "boolean",
+              "description": "Whether associated glyph has been minted"
+            },
+            "ceremonial_notes": {
+              "type": "string",
+              "description": "Ceremonial notes and observations"
+            }
+          },
+          "additionalProperties": true
+        },
+        "lineage": {
+          "type": "object",
+          "required": ["inscribed_by", "witness", "anchor_token"],
+          "properties": {
+            "inscribed_by": {
+              "type": "string",
+              "description": "System that inscribed the grant"
+            },
+            "witness": {
+              "type": "string",
+              "description": "Witnessing protocol"
+            },
+            "anchor_token": {
+              "type": "string",
+              "pattern": "^VC\\d+$",
+              "description": "Anchor token identifier"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://visionarycrest.org/schemas/gsl-envelope.schema.json",
+  "title": "GSL Message Envelope",
+  "description": "Schema for validating GSL (Glyph Signaling Language) message envelopes",
+  "type": "object",
+  "required": ["gsl_envelope"],
+  "properties": {
+    "gsl_envelope": {
+      "type": "object",
+      "required": [
+        "envelope_id",
+        "message_type",
+        "timestamp",
+        "sender",
+        "recipient",
+        "priority",
+        "payload",
+        "ceremonial_metadata",
+        "signatures"
+      ],
+      "properties": {
+        "envelope_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+$",
+          "description": "Unique identifier for the message envelope"
+        },
+        "message_type": {
+          "type": "string",
+          "enum": [
+            "grant_intake",
+            "grant_review",
+            "grant_approved",
+            "tokens_minted",
+            "billing_processed",
+            "ceremonial_burn"
+          ],
+          "description": "Type of GSL message"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when message was created"
+        },
+        "sender": {
+          "type": "string",
+          "description": "Identifier of the sending bot/system"
+        },
+        "recipient": {
+          "type": "string",
+          "description": "Identifier of the receiving bot/system"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["low", "normal", "high", "urgent", "critical"],
+          "description": "Message priority level"
+        },
+        "payload": {
+          "type": "object",
+          "description": "Message-specific data payload"
+        },
+        "ceremonial_metadata": {
+          "type": "object",
+          "required": ["lineage", "inscribed_by", "witness"],
+          "properties": {
+            "lineage": {
+              "type": "string",
+              "pattern": "^VC\\d+$",
+              "description": "Token lineage identifier"
+            },
+            "inscribed_by": {
+              "type": "string",
+              "description": "System or bot that inscribed the message"
+            },
+            "witness": {
+              "type": "string",
+              "description": "Witnessing system or protocol"
+            }
+          },
+          "additionalProperties": true
+        },
+        "signatures": {
+          "type": "object",
+          "required": ["validation_hash"],
+          "properties": {
+            "validation_hash": {
+              "type": "string",
+              "pattern": "^0x[0-9a-fA-F]+$",
+              "description": "Cryptographic validation hash"
+            },
+            "steward_signature": {
+              "type": "string",
+              "pattern": "^0x[0-9a-fA-F]+$",
+              "description": "Steward authorization signature"
+            },
+            "witness_signature": {
+              "type": "string",
+              "pattern": "^0x[0-9a-fA-F]+$",
+              "description": "Witness validation signature"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

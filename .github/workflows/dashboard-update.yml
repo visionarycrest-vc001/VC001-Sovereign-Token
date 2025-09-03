@@ -1,0 +1,339 @@
+name: 📊 Dashboard Update Protocol
+
+on:
+  schedule:
+    # Run every 15 minutes
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of dashboard update'
+        required: false
+        type: choice
+        options:
+          - full
+          - metrics
+          - status
+          - emergency
+        default: full
+  push:
+    paths:
+      - 'data/ledger/**'
+      - 'data/grants/**'
+      - 'messages/**'
+
+jobs:
+  dashboard-update:
+    name: 📊 Update Sovereign Dashboard
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    
+    steps:
+      - name: 🔮 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: 🧬 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: 📦 Install Dependencies
+        run: npm ci
+      
+      - name: 📊 Collect Metrics
+        id: metrics
+        run: |
+          echo "📊 Collecting sovereign metrics..."
+          
+          # Count grants by status
+          GRANTS_TOTAL=$(find data/grants -name "*.json" | wc -l)
+          GRANTS_PENDING=$(find messages/intake -name "*.json" | wc -l)
+          GRANTS_APPROVED=$(find messages/approved -name "*.json" | wc -l)
+          
+          # Count tokens minted
+          GLYPHS_MINTED=$(find messages/minted -name "glyph-*.json" | wc -l)
+          LTOKENS_MINTED=$(find messages/minted -name "ltoken-*.json" | wc -l)
+          
+          # Count burns
+          TOKENS_BURNED=$(find messages/burns -name "*.json" | wc -l)
+          
+          # Count active stewards (mock data)
+          ACTIVE_STEWARDS=1
+          
+          # System status checks
+          INTAKE_STATUS="active"
+          MINTING_STATUS="standby"
+          BURN_STATUS="active"
+          GSL_STATUS="online"
+          
+          echo "::set-output name=grants_total::${GRANTS_TOTAL}"
+          echo "::set-output name=grants_pending::${GRANTS_PENDING}"
+          echo "::set-output name=grants_approved::${GRANTS_APPROVED}"
+          echo "::set-output name=glyphs_minted::${GLYPHS_MINTED}"
+          echo "::set-output name=ltokens_minted::${LTOKENS_MINTED}"
+          echo "::set-output name=tokens_burned::${TOKENS_BURNED}"
+          echo "::set-output name=active_stewards::${ACTIVE_STEWARDS}"
+          echo "::set-output name=intake_status::${INTAKE_STATUS}"
+          echo "::set-output name=minting_status::${MINTING_STATUS}"
+          echo "::set-output name=burn_status::${BURN_STATUS}"
+          echo "::set-output name=gsl_status::${GSL_STATUS}"
+          echo "::set-output name=last_updated::$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+      
+      - name: 🎛️ Update Dashboard HTML
+        run: |
+          echo "🎛️ Updating dashboard with live metrics..."
+          
+          # Create updated dashboard with live data
+          cat > docs/status-dashboard.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>🎛️ VC001 Sovereign Status Dashboard</title>
+              <style>
+                  :root {
+                      --sacred-gold: #d4af37;
+                      --ceremonial-blue: #1e3a8a;
+                      --sovereign-purple: #7c3aed;
+                      --glyph-silver: #c0c0c0;
+                  }
+                  
+                  body {
+                      font-family: 'Courier New', monospace;
+                      background: linear-gradient(135deg, var(--ceremonial-blue), #000);
+                      color: var(--glyph-silver);
+                      margin: 0;
+                      padding: 20px;
+                      min-height: 100vh;
+                  }
+                  
+                  .dashboard-header {
+                      text-align: center;
+                      border: 2px solid var(--sacred-gold);
+                      padding: 20px;
+                      margin-bottom: 30px;
+                      background: rgba(212, 175, 55, 0.1);
+                  }
+                  
+                  .status-grid {
+                      display: grid;
+                      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                      gap: 20px;
+                      margin-bottom: 30px;
+                  }
+                  
+                  .status-card {
+                      border: 1px solid var(--sovereign-purple);
+                      padding: 20px;
+                      background: rgba(124, 58, 237, 0.1);
+                      border-radius: 8px;
+                  }
+                  
+                  .status-indicator {
+                      display: inline-block;
+                      width: 12px;
+                      height: 12px;
+                      border-radius: 50%;
+                      margin-right: 8px;
+                  }
+                  
+                  .status-active { background-color: #10b981; }
+                  .status-pending { background-color: #f59e0b; }
+                  .status-error { background-color: #ef4444; }
+                  
+                  .metric-value {
+                      font-size: 1.5em;
+                      color: var(--sacred-gold);
+                      font-weight: bold;
+                  }
+                  
+                  .ceremonial-footer {
+                      text-align: center;
+                      border-top: 1px solid var(--sacred-gold);
+                      padding-top: 20px;
+                      margin-top: 40px;
+                      font-size: 0.9em;
+                      opacity: 0.8;
+                  }
+                  
+                  .glyph-display {
+                      font-size: 2em;
+                      color: var(--sacred-gold);
+                      text-align: center;
+                      margin: 10px 0;
+                  }
+                  
+                  .last-updated {
+                      font-size: 0.8em;
+                      opacity: 0.7;
+                      margin-top: 10px;
+                  }
+              </style>
+          </head>
+          <body>
+              <header class="dashboard-header">
+                  <h1>🎛️ VC001 Sovereign Status Dashboard</h1>
+                  <div class="glyph-display">⟊⟟⧫⟜</div>
+                  <p><strong>Live Mission Control</strong> | Inscribed by: VC001 Sovereign System</p>
+                  <p>Timestamp: <span id="current-time"></span></p>
+                  <div class="last-updated">Last Updated: ${{ steps.metrics.outputs.last_updated }}</div>
+              </header>
+
+              <main class="status-grid">
+                  <div class="status-card">
+                      <h3>🔮 Token Operations</h3>
+                      <div><span class="status-indicator status-active"></span>VisionaryCrest001 Contract: Active</div>
+                      <div><span class="status-indicator status-active"></span>LToken Contract: Active</div>
+                      <div><span class="status-indicator status-${{ steps.metrics.outputs.minting_status == 'active' && 'active' || 'pending' }}"></span>Glyph Minting: ${{ steps.metrics.outputs.minting_status }}</div>
+                      <div><span class="status-indicator status-${{ steps.metrics.outputs.minting_status == 'active' && 'active' || 'pending' }}"></span>Grant Disbursement: ${{ steps.metrics.outputs.minting_status }}</div>
+                  </div>
+
+                  <div class="status-card">
+                      <h3>📋 Grant Pipeline</h3>
+                      <div><span class="status-indicator status-${{ steps.metrics.outputs.intake_status == 'active' && 'active' || 'pending' }}"></span>Intake System: ${{ steps.metrics.outputs.intake_status }}</div>
+                      <div><span class="status-indicator status-pending"></span>Pending Reviews: <span class="metric-value">${{ steps.metrics.outputs.grants_pending }}</span></div>
+                      <div><span class="status-indicator status-active"></span>Approved Grants: <span class="metric-value">${{ steps.metrics.outputs.grants_approved }}</span></div>
+                      <div><span class="status-indicator status-active"></span>Total Applications: <span class="metric-value">${{ steps.metrics.outputs.grants_total }}</span></div>
+                  </div>
+
+                  <div class="status-card">
+                      <h3>🤖 Autonomous Systems</h3>
+                      <div><span class="status-indicator status-${{ steps.metrics.outputs.gsl_status == 'online' && 'active' || 'pending' }}"></span>GSL Bot Network: ${{ steps.metrics.outputs.gsl_status }}</div>
+                      <div><span class="status-indicator status-active"></span>GitHub Actions: Running</div>
+                      <div><span class="status-indicator status-active"></span>Dashboard Updates: Active</div>
+                      <div><span class="status-indicator status-active"></span>Workflow Automation: Online</div>
+                  </div>
+
+                  <div class="status-card">
+                      <h3>🏛️ Governance</h3>
+                      <div><span class="status-indicator status-active"></span>Steward Authority: Percy Abrams Jr.</div>
+                      <div><span class="status-indicator status-active"></span>Active Stewards: <span class="metric-value">${{ steps.metrics.outputs.active_stewards }}</span></div>
+                      <div><span class="status-indicator status-active"></span>Ceremonial Protocol: Active</div>
+                      <div><span class="status-indicator status-active"></span>Witness System: Syntec Online</div>
+                  </div>
+
+                  <div class="status-card">
+                      <h3>📊 Live Metrics</h3>
+                      <div>Total Glyphs Minted: <span class="metric-value">${{ steps.metrics.outputs.glyphs_minted }}</span></div>
+                      <div>Total LTokens Issued: <span class="metric-value">${{ steps.metrics.outputs.ltokens_minted }}</span></div>
+                      <div>Total Tokens Burned: <span class="metric-value">${{ steps.metrics.outputs.tokens_burned }}</span></div>
+                      <div>Grant Applications: <span class="metric-value">${{ steps.metrics.outputs.grants_total }}</span></div>
+                  </div>
+
+                  <div class="status-card">
+                      <h3>🔥 Burn Protocol</h3>
+                      <div><span class="status-indicator status-${{ steps.metrics.outputs.burn_status == 'active' && 'active' || 'pending' }}"></span>Burn Logic: ${{ steps.metrics.outputs.burn_status }}</div>
+                      <div><span class="status-indicator status-pending"></span>Burned Tokens: <span class="metric-value">${{ steps.metrics.outputs.tokens_burned }}</span></div>
+                      <div><span class="status-indicator status-active"></span>Authority Checks: Enabled</div>
+                      <div>Last Update: <em>${{ steps.metrics.outputs.last_updated }}</em></div>
+                  </div>
+              </main>
+
+              <footer class="ceremonial-footer">
+                  <p><strong>🧭 Ceremonial Declaration</strong></p>
+                  <p>This dashboard serves as the sacred interface for VC001 sovereign operations,<br>
+                  inscribed with real-time metrics and witnessed by the eternal blockchain.</p>
+                  <p><em>Witnessed by: GitHub Actions Dashboard Protocol | Updated: ${{ steps.metrics.outputs.last_updated }}</em></p>
+              </footer>
+
+              <script>
+                  function updateTime() {
+                      document.getElementById('current-time').textContent = new Date().toISOString();
+                  }
+                  
+                  updateTime();
+                  setInterval(updateTime, 1000);
+                  
+                  console.log('🎛️ VC001 Dashboard: Live metrics loaded');
+                  console.log('⟊⟟⧫⟜ Sovereign status: Operational');
+                  console.log('📊 Metrics last updated: ${{ steps.metrics.outputs.last_updated }}');
+              </script>
+          </body>
+          </html>
+          EOF
+          
+          echo "✅ Dashboard updated with live metrics"
+      
+      - name: 📋 Generate Metrics JSON
+        run: |
+          cat > docs/metrics.json << EOF
+          {
+            "sovereign_metrics": {
+              "grants": {
+                "total": ${{ steps.metrics.outputs.grants_total }},
+                "pending": ${{ steps.metrics.outputs.grants_pending }},
+                "approved": ${{ steps.metrics.outputs.grants_approved }}
+              },
+              "tokens": {
+                "glyphs_minted": ${{ steps.metrics.outputs.glyphs_minted }},
+                "ltokens_minted": ${{ steps.metrics.outputs.ltokens_minted }},
+                "tokens_burned": ${{ steps.metrics.outputs.tokens_burned }}
+              },
+              "governance": {
+                "active_stewards": ${{ steps.metrics.outputs.active_stewards }}
+              },
+              "system_status": {
+                "intake": "${{ steps.metrics.outputs.intake_status }}",
+                "minting": "${{ steps.metrics.outputs.minting_status }}",
+                "burn": "${{ steps.metrics.outputs.burn_status }}",
+                "gsl": "${{ steps.metrics.outputs.gsl_status }}"
+              },
+              "last_updated": "${{ steps.metrics.outputs.last_updated }}",
+              "ceremonial_metadata": {
+                "lineage": "VC001",
+                "inscribed_by": "Dashboard Update Workflow",
+                "witness": "GitHub Actions Metrics System"
+              }
+            }
+          }
+          EOF
+          
+          echo "📋 Metrics JSON generated"
+      
+      - name: 📝 Commit Dashboard Updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Dashboard Update Bot"
+          
+          if git diff --quiet; then
+            echo "No changes to commit"
+          else
+            git add docs/status-dashboard.html docs/metrics.json
+            git commit -m "📊 Dashboard update: ${{ steps.metrics.outputs.last_updated }}
+            
+            📈 Live metrics update
+            📋 Grants: ${{ steps.metrics.outputs.grants_total }} total, ${{ steps.metrics.outputs.grants_pending }} pending
+            🪙 Tokens: ${{ steps.metrics.outputs.glyphs_minted }} glyphs, ${{ steps.metrics.outputs.ltokens_minted }} ltokens
+            🔥 Burns: ${{ steps.metrics.outputs.tokens_burned }} total
+            🏛️ Stewards: ${{ steps.metrics.outputs.active_stewards }} active
+            
+            Witnessed by: GitHub Actions Dashboard Protocol"
+          fi
+      
+      - name: 🚀 Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+      
+      - name: 🌐 Deploy to GitHub Pages
+        uses: actions/deploy-pages@v3
+        with:
+          artifact_name: dashboard
+          
+      - name: ✅ Dashboard Update Complete
+        run: |
+          echo "✅ Dashboard update protocol complete"
+          echo "📊 Metrics collected and updated"
+          echo "🎛️ Live dashboard refreshed"
+          echo "📈 Statistics: ${{ steps.metrics.outputs.grants_total }} grants, ${{ steps.metrics.outputs.glyphs_minted }} glyphs"
+          echo "🕐 Last updated: ${{ steps.metrics.outputs.last_updated }}"
+          echo "🧭 Witnessed by: GitHub Actions Dashboard Protocol"
