@@ -1,0 +1,1 @@
+- [ ] My changes comply with the [Project Structure & Setup](../docs/PROJECT_STRUCTURE.md).
