@@ -4,5 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       const glyphs = document.getElementById("glyphs");
       glyphs.innerHTML = `<pre>${data}</pre>`;
+      return data;
     });
 });

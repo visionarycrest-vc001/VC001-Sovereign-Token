@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import react from "eslint-plugin-react";
 import globals from "globals";
 import tseslint from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
 import importPlugin from "eslint-plugin-import";
 import jsdoc from "eslint-plugin-jsdoc";
 import security from "eslint-plugin-security";
@@ -27,6 +28,17 @@ const commonRules = {
 };
 
 export default [
+  {
+    ignores: [
+      "node_modules/",
+      "build/",
+      "dist/",
+      "coverage/",
+      "*.min.js",
+      "**/AppData/",
+      "**/Extensions/",
+    ],
+  },
   js.configs.recommended,
   {
     files: ["**/*.{js,jsx}"],
@@ -53,9 +65,8 @@ export default [
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
-      parser: "@typescript-eslint/parser",
+      parser: tsParser,
       parserOptions: {
-        project: "./tsconfig.json",
         ecmaVersion: "latest",
         sourceType: "module",
       },
