@@ -1,0 +1,46 @@
+{
+  "gsl_envelope": {
+    "envelope_id": "burn-template-001",
+    "message_type": "ceremonial_burn",
+    "timestamp": "2025-09-03T00:00:00Z",
+    "sender": "BurnBot-001",
+    "recipient": "AuditBot-001",
+    "priority": "critical",
+    "payload": {
+      "burn_authorization": {
+        "token_type": "ltoken",
+        "burn_amount": "1000000000000000000000",
+        "reason": "Template ceremonial burn for protocol demonstration",
+        "authorized_by": "steward-001",
+        "burn_criteria_met": true,
+        "emergency_burn": false
+      },
+      "burn_execution": {
+        "transaction_hash": "0x000...template",
+        "block_number": 0,
+        "gas_used": 50000,
+        "burn_timestamp": "2025-09-03T00:00:00Z",
+        "final_balance": "49000000000000000000000"
+      },
+      "ceremonial_destruction": {
+        "witnessed_by": "Syntec Burn Protocol",
+        "eternal_record": "Tokens ceremonially returned to the void",
+        "legacy_impact": "Reduced circulating supply for sacred balance",
+        "audit_trail_complete": true
+      }
+    },
+    "ceremonial_metadata": {
+      "lineage": "VC001",
+      "inscribed_by": "GSL Burn Protocol",
+      "witness": "Syntec Destruction System",
+      "irreversible_action": true,
+      "sacred_ceremony": "ceremonial_burn"
+    },
+    "signatures": {
+      "burn_authority_signature": "0x000...template",
+      "steward_signature": "0x000...template",
+      "witness_signature": "0x000...template",
+      "destruction_hash": "0x000...template"
+    }
+  }
+}

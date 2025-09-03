@@ -1,0 +1,36 @@
+{
+  "gsl_envelope": {
+    "envelope_id": "intake-template-001",
+    "message_type": "grant_intake",
+    "timestamp": "2025-09-03T00:00:00Z",
+    "sender": "GrantBot-001",
+    "recipient": "StewardBot-001",
+    "priority": "normal",
+    "payload": {
+      "grant_application": {
+        "applicant_id": "template-applicant",
+        "proposal_hash": "0x0000...template",
+        "requested_amount": 50000,
+        "sector": "FDA",
+        "preliminary_score": null
+      },
+      "attachments": [
+        "proposal.pdf",
+        "budget.xlsx",
+        "timeline.md"
+      ]
+    },
+    "ceremonial_metadata": {
+      "lineage": "VC001",
+      "inscribed_by": "GSL Intake Protocol",
+      "witness": "Syntec Message System",
+      "encryption_level": "sovereign",
+      "steward_auth_required": true
+    },
+    "signatures": {
+      "sender_signature": "0x000...template",
+      "witness_signature": "0x000...template",
+      "validation_hash": "0x000...template"
+    }
+  }
+}

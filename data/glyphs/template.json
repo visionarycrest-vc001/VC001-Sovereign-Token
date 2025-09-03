@@ -1,0 +1,42 @@
+{
+  "glyph_metadata_template": {
+    "token_id": 0,
+    "name": "VC001 Sovereign Glyph",
+    "description": "Ceremonial glyph token for sacred operations",
+    "image": "ipfs://QmTemplateHash/glyph-001.png",
+    "external_url": "https://visionarycrest.org/glyphs/001",
+    "attributes": [
+      {
+        "trait_type": "Sector",
+        "value": "FDA"
+      },
+      {
+        "trait_type": "Dimensional Glyph",
+        "value": "⟊⟟⧫⟜"
+      },
+      {
+        "trait_type": "Invocation",
+        "value": "Template invocation for ceremonial purposes"
+      },
+      {
+        "trait_type": "Timestamp",
+        "value": "2025-09-03T00:00:00Z"
+      },
+      {
+        "trait_type": "Steward",
+        "value": "VC001 Sovereign System"
+      },
+      {
+        "trait_type": "Burn Eligible",
+        "value": "true"
+      }
+    ],
+    "ceremonial_metadata": {
+      "lineage": "VC001",
+      "protocol": "FDA 🜁",
+      "inscribed_by": "Sovereign System",
+      "witness": "Syntec Glyph Protocol",
+      "anchor_hash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  }
+}

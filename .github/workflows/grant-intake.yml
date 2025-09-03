@@ -1,0 +1,214 @@
+name: 📋 Grant Intake Processing
+
+on:
+  workflow_dispatch:
+    inputs:
+      grant_data:
+        description: 'Grant application data (JSON)'
+        required: true
+        type: string
+      applicant_address:
+        description: 'Applicant wallet address'
+        required: true
+        type: string
+      sector:
+        description: 'Grant sector (FDA/EDA/SAM)'
+        required: true
+        type: choice
+        options:
+          - FDA
+          - EDA
+          - SAM
+        default: FDA
+
+jobs:
+  grant-intake:
+    name: 🏛️ Process Grant Intake
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    
+    steps:
+      - name: 🔮 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: 🧬 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: 📦 Install Dependencies
+        run: npm ci
+      
+      - name: 🔍 Validate Grant Application
+        id: validate
+        run: |
+          echo "Validating grant application..."
+          echo "::set-output name=grant_id::grant-$(date +%Y%m%d%H%M%S)"
+          echo "::set-output name=timestamp::$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+      
+      - name: 📋 Create Grant Entry
+        run: |
+          # Create grant application file
+          GRANT_ID="${{ steps.validate.outputs.grant_id }}"
+          TIMESTAMP="${{ steps.validate.outputs.timestamp }}"
+          
+          cat > "data/grants/${GRANT_ID}.json" << EOF
+          {
+            "grant_application": {
+              "id": "${GRANT_ID}",
+              "status": "intake",
+              "applicant": {
+                "wallet_address": "${{ github.event.inputs.applicant_address }}",
+                "submitted_by": "${{ github.actor }}"
+              },
+              "proposal": {
+                "sector": "${{ github.event.inputs.sector }}",
+                "raw_data": ${{ github.event.inputs.grant_data }}
+              },
+              "metadata": {
+                "submitted_at": "${TIMESTAMP}",
+                "workflow_run": "${{ github.run_id }}",
+                "steward_assigned": null,
+                "ceremonial_notes": "Grant intake via GitHub workflow"
+              },
+              "lineage": {
+                "inscribed_by": "Grant Intake Workflow",
+                "witness": "GitHub Actions",
+                "anchor_token": "VC001"
+              }
+            }
+          }
+          EOF
+          
+          echo "📋 Grant entry created: ${GRANT_ID}"
+      
+      - name: 📨 Create GSL Intake Message
+        run: |
+          GRANT_ID="${{ steps.validate.outputs.grant_id }}"
+          TIMESTAMP="${{ steps.validate.outputs.timestamp }}"
+          
+          cat > "messages/intake/${GRANT_ID}.json" << EOF
+          {
+            "gsl_envelope": {
+              "envelope_id": "intake-${GRANT_ID}",
+              "message_type": "grant_intake",
+              "timestamp": "${TIMESTAMP}",
+              "sender": "GitHubIntakeBot",
+              "recipient": "StewardReviewBot",
+              "priority": "normal",
+              "payload": {
+                "grant_application": {
+                  "grant_id": "${GRANT_ID}",
+                  "applicant_address": "${{ github.event.inputs.applicant_address }}",
+                  "sector": "${{ github.event.inputs.sector }}",
+                  "submitted_by": "${{ github.actor }}",
+                  "workflow_source": "github_actions"
+                }
+              },
+              "ceremonial_metadata": {
+                "lineage": "VC001",
+                "inscribed_by": "Grant Intake Workflow",
+                "witness": "GitHub Actions GSL Protocol"
+              },
+              "signatures": {
+                "workflow_signature": "${{ github.run_id }}",
+                "actor_signature": "${{ github.actor }}",
+                "validation_hash": "github-actions-$(echo '${{ github.run_id }}' | sha256sum | cut -c1-32)"
+              }
+            }
+          }
+          EOF
+          
+          echo "📨 GSL intake message created"
+      
+      - name: 🔍 Validate GSL Message
+        run: |
+          echo "🔍 Validating GSL message format..."
+          node .github/tools/gsl-lint.js messages/intake/
+      
+      - name: 📊 Update Dashboard Metrics
+        run: |
+          echo "📊 Updating intake metrics..."
+          # This would trigger dashboard update in real implementation
+          echo "Grant intake processed: ${{ steps.validate.outputs.grant_id }}"
+      
+      - name: 📝 Commit Grant Application
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Grant Intake Bot"
+          git add data/grants/ messages/intake/
+          git commit -m "📋 Grant intake: ${{ steps.validate.outputs.grant_id }} for ${{ github.event.inputs.sector }} sector
+          
+          🏛️ Ceremonial inscription of grant application
+          📍 Applicant: ${{ github.event.inputs.applicant_address }}
+          🔮 Sector: ${{ github.event.inputs.sector }}
+          👤 Submitted by: ${{ github.actor }}
+          
+          Witnessed by: GitHub Actions Grant Protocol"
+      
+      - name: 🚀 Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+      
+      - name: 📋 Create Review Issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const grantId = '${{ steps.validate.outputs.grant_id }}';
+            const sector = '${{ github.event.inputs.sector }}';
+            const applicant = '${{ github.event.inputs.applicant_address }}';
+            const actor = '${{ github.actor }}';
+            
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔍 Grant Review Required: ${grantId}`,
+              body: `## 🏛️ Grant Application Review
+              
+              **Grant ID**: \`${grantId}\`
+              **Sector**: ${sector}
+              **Applicant**: \`${applicant}\`
+              **Submitted by**: @${actor}
+              **Timestamp**: ${{ steps.validate.outputs.timestamp }}
+              
+              ### 📋 Review Checklist
+              
+              - [ ] Technical merit assessment
+              - [ ] Financial viability review
+              - [ ] Sector alignment verification
+              - [ ] Ceremonial compliance check
+              - [ ] Steward approval required
+              
+              ### 🔮 Next Steps
+              
+              1. Steward assignment for review
+              2. Technical and financial assessment
+              3. Approval/rejection decision
+              4. Token minting authorization (if approved)
+              
+              ---
+              
+              **🧭 Ceremonial Declaration**: This grant application has been ceremonially inscribed and awaits steward review according to sovereign protocol.
+              
+              **Witnessed by**: GitHub Actions Grant Protocol`,
+              labels: ['grant-review', `sector-${sector.toLowerCase()}`, 'pending-steward']
+            });
+            
+            console.log(`📋 Review issue created: #${issue.data.number}`);
+      
+      - name: ✅ Grant Intake Complete
+        run: |
+          echo "✅ Grant intake processing complete"
+          echo "🆔 Grant ID: ${{ steps.validate.outputs.grant_id }}"
+          echo "🏛️ Sector: ${{ github.event.inputs.sector }}"
+          echo "📍 Applicant: ${{ github.event.inputs.applicant_address }}"
+          echo "🧭 Witnessed by: GitHub Actions Grant Protocol"

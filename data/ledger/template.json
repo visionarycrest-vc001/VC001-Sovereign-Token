@@ -1,0 +1,37 @@
+{
+  "ledger_template": {
+    "entry_id": "ledger-template-001",
+    "transaction_type": "template",
+    "timestamp": "2025-09-03T00:00:00Z",
+    "block_number": 0,
+    "transaction_hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "contract_address": "0x0000000000000000000000000000000000000000",
+    "token_operations": {
+      "ltoken": {
+        "action": "mint",
+        "amount": "50000000000000000000000",
+        "recipient": "0x0000000000000000000000000000000000000000",
+        "grant_id": "grant-template-001"
+      },
+      "glyph": {
+        "action": "mint",
+        "token_id": 0,
+        "recipient": "0x0000000000000000000000000000000000000000",
+        "metadata_uri": "ipfs://QmTemplateHash/metadata.json"
+      }
+    },
+    "audit_trail": {
+      "steward": "VC001 Sovereign System",
+      "approved_by": "Ceremonial Protocol",
+      "validation_signature": "0x000...template",
+      "gas_used": 0,
+      "gas_price": "0"
+    },
+    "ceremonial_metadata": {
+      "lineage": "VC001",
+      "inscribed_by": "Sovereign Ledger System",
+      "witness": "Syntec Audit Protocol",
+      "legacy_anchor": "Template entry for ceremonial structure"
+    }
+  }
+}

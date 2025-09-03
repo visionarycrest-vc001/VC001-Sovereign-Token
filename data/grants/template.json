@@ -1,0 +1,41 @@
+{
+  "grant_template": {
+    "id": "grant-template-001",
+    "status": "template",
+    "applicant": {
+      "name": "Template Applicant",
+      "organization": "Example Organization",
+      "contact": "contact@example.org",
+      "wallet_address": "0x0000000000000000000000000000000000000000"
+    },
+    "proposal": {
+      "title": "Template Grant Proposal",
+      "sector": "FDA",
+      "amount_requested": 50000,
+      "currency": "LTOKEN",
+      "duration_months": 12,
+      "description": "Template description for ceremonial grant structure",
+      "objectives": [
+        "Objective 1: Template objective",
+        "Objective 2: Template milestone"
+      ],
+      "deliverables": [
+        "Deliverable 1: Template output",
+        "Deliverable 2: Template result"
+      ]
+    },
+    "metadata": {
+      "submitted_at": "2025-09-03T00:00:00Z",
+      "reviewed_at": null,
+      "approved_at": null,
+      "steward_assigned": null,
+      "glyph_minted": false,
+      "ceremonial_notes": "Template grant for ceremonial structure"
+    },
+    "lineage": {
+      "inscribed_by": "VC001 Sovereign System",
+      "witness": "Syntec Ceremonial Protocol",
+      "anchor_token": "VC001"
+    }
+  }
+}

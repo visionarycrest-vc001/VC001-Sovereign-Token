@@ -1,0 +1,42 @@
+{
+  "gsl_envelope": {
+    "envelope_id": "billing-template-001",
+    "message_type": "billing_processed",
+    "timestamp": "2025-09-03T00:00:00Z",
+    "sender": "BillingBot-001",
+    "recipient": "AccountingBot-001",
+    "priority": "normal",
+    "payload": {
+      "billing_record": {
+        "grant_id": "grant-template-001",
+        "billing_period": "2025-Q1",
+        "services_rendered": [
+          "Token minting operations",
+          "Glyph generation and IPFS pinning",
+          "Ceremonial inscription and witness validation"
+        ],
+        "costs": {
+          "gas_fees": "0.05",
+          "ipfs_storage": "0.10",
+          "ceremonial_operations": "0.25",
+          "total": "0.40",
+          "currency": "ETH"
+        },
+        "payment_status": "processed"
+      }
+    },
+    "ceremonial_metadata": {
+      "lineage": "VC001",
+      "inscribed_by": "GSL Billing Protocol",
+      "witness": "Syntec Accounting System",
+      "audit_category": "operational_expenses",
+      "tax_classification": "ceremonial_services"
+    },
+    "signatures": {
+      "billing_signature": "0x000...template",
+      "accounting_signature": "0x000...template",
+      "witness_signature": "0x000...template",
+      "validation_hash": "0x000...template"
+    }
+  }
+}

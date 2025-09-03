@@ -1,0 +1,37 @@
+{
+  "gsl_envelope": {
+    "envelope_id": "review-template-001",
+    "message_type": "grant_review",
+    "timestamp": "2025-09-03T00:00:00Z",
+    "sender": "StewardBot-001",
+    "recipient": "ApprovalBot-001",
+    "priority": "high",
+    "payload": {
+      "review_results": {
+        "grant_id": "grant-template-001",
+        "steward_id": "steward-001",
+        "review_score": 85,
+        "recommendation": "approve",
+        "assessment": {
+          "technical_merit": 90,
+          "financial_viability": 80,
+          "sector_alignment": 85,
+          "ceremonial_compliance": 90
+        },
+        "reviewer_notes": "Template review with ceremonial approval"
+      }
+    },
+    "ceremonial_metadata": {
+      "lineage": "VC001",
+      "inscribed_by": "GSL Review Protocol",
+      "witness": "Syntec Assessment System",
+      "review_authority": "Steward Certified",
+      "consensus_required": false
+    },
+    "signatures": {
+      "steward_signature": "0x000...template",
+      "witness_signature": "0x000...template",
+      "validation_hash": "0x000...template"
+    }
+  }
+}

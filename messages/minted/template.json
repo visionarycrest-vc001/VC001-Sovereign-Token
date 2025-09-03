@@ -1,0 +1,47 @@
+{
+  "gsl_envelope": {
+    "envelope_id": "minted-template-001",
+    "message_type": "tokens_minted",
+    "timestamp": "2025-09-03T00:00:00Z",
+    "sender": "MintingBot-001",
+    "recipient": "LedgerBot-001",
+    "priority": "urgent",
+    "payload": {
+      "minting_confirmation": {
+        "grant_id": "grant-template-001",
+        "ltoken_details": {
+          "amount_minted": "50000000000000000000000",
+          "recipient_address": "0x0000000000000000000000000000000000000000",
+          "transaction_hash": "0x000...template",
+          "block_number": 0
+        },
+        "glyph_details": {
+          "token_id": 0,
+          "metadata_uri": "ipfs://QmTemplate.../metadata.json",
+          "dimensional_glyph": "⟊⟟⧫⟜",
+          "sector": "FDA",
+          "mint_transaction": "0x000...template"
+        }
+      },
+      "ceremonial_inscription": {
+        "inscribed_at": "2025-09-03T00:00:00Z",
+        "steward_witness": "steward-001",
+        "eternal_anchor": "Tokens minted by sovereign authority",
+        "legacy_recorded": true
+      }
+    },
+    "ceremonial_metadata": {
+      "lineage": "VC001",
+      "inscribed_by": "GSL Minting Protocol",
+      "witness": "Syntec Token System",
+      "immutable_record": true,
+      "audit_trail_complete": true
+    },
+    "signatures": {
+      "minting_signature": "0x000...template",
+      "contract_signature": "0x000...template",
+      "witness_signature": "0x000...template",
+      "validation_hash": "0x000...template"
+    }
+  }
+}
