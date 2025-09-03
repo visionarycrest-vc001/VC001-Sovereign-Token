@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🆘 Community Support
+    url: https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 📧 Security Contact
+    url: mailto:security@visionarycrest.org
+    about: Report sensitive security vulnerabilities privately
+  - name: 📚 Documentation
+    url: https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/tree/main/docs
+    about: Read the documentation and project guides
+  - name: 🏛️ Governance
+    url: https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/blob/main/GOVERNANCE.md
+    about: Learn about our governance model and steward roles
