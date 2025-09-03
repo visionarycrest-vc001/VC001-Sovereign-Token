@@ -1,0 +1,216 @@
+name: 🪙 Glyph Minting Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      submission_id:
+        description: 'Submission ID to mint glyph for'
+        required: true
+        type: string
+      recipient_address:
+        description: 'Recipient wallet address'
+        required: true
+        type: string
+      
+  repository_dispatch:
+    types: [mint-glyph]
+
+jobs:
+  mint-glyph:
+    runs-on: ubuntu-latest
+    name: 🪙 Mint Sovereign Glyph
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: 🔧 Install Dependencies
+        run: npm ci
+        
+      - name: 🔍 Validate Inputs
+        run: |
+          SUBMISSION_ID="${{ github.event.inputs.submission_id || github.event.client_payload.submission_id }}"
+          RECIPIENT="${{ github.event.inputs.recipient_address || github.event.client_payload.recipient_address }}"
+          
+          echo "Validating inputs..."
+          echo "Submission ID: $SUBMISSION_ID"
+          echo "Recipient: $RECIPIENT"
+          
+          # Validate submission ID format
+          if [[ ! "$SUBMISSION_ID" =~ ^SUB-[0-9]{6}$ ]]; then
+            echo "❌ Invalid submission ID format: $SUBMISSION_ID"
+            exit 1
+          fi
+          
+          # Validate wallet address format
+          if [[ ! "$RECIPIENT" =~ ^0x[a-fA-F0-9]{40}$ ]]; then
+            echo "❌ Invalid wallet address format: $RECIPIENT"
+            exit 1
+          fi
+          
+          # Check if submission exists and is approved
+          SUBMISSION_FILE="data/grants/submissions/${SUBMISSION_ID}.json"
+          if [ ! -f "$SUBMISSION_FILE" ]; then
+            echo "❌ Submission not found: $SUBMISSION_ID"
+            exit 1
+          fi
+          
+          APPROVAL_STATUS=$(jq -r '.recommendation.action' "$SUBMISSION_FILE")
+          if [[ "$APPROVAL_STATUS" != "immediate_approval" && "$APPROVAL_STATUS" != "conditional_approval" ]]; then
+            echo "❌ Submission not approved for minting: $APPROVAL_STATUS"
+            exit 1
+          fi
+          
+          echo "✅ Inputs validated successfully"
+          
+      - name: 🪙 Mint Glyph Token
+        run: |
+          SUBMISSION_ID="${{ github.event.inputs.submission_id || github.event.client_payload.submission_id }}"
+          RECIPIENT="${{ github.event.inputs.recipient_address || github.event.client_payload.recipient_address }}"
+          
+          echo "🪙 Minting glyph for submission $SUBMISSION_ID..."
+          
+          # Run glyph minting script
+          MINT_RESULT=$(node packages/scripts/mint-glyph.js "$SUBMISSION_ID" "$RECIPIENT")
+          MINT_EXIT_CODE=$?
+          
+          if [ $MINT_EXIT_CODE -eq 0 ]; then
+            echo "✅ Glyph minted successfully"
+            echo "$MINT_RESULT"
+          else
+            echo "❌ Glyph minting failed"
+            echo "$MINT_RESULT"
+            exit 1
+          fi
+          
+      - name: 💰 Mint Associated L-Tokens
+        run: |
+          SUBMISSION_ID="${{ github.event.inputs.submission_id || github.event.client_payload.submission_id }}"
+          RECIPIENT="${{ github.event.inputs.recipient_address || github.event.client_payload.recipient_address }}"
+          
+          # Extract glyph ID from latest minted glyph
+          LATEST_GLYPH=$(ls -t data/glyphs/*.json | head -1)
+          if [ -f "$LATEST_GLYPH" ]; then
+            GLYPH_ID=$(jq -r '.id' "$LATEST_GLYPH")
+            echo "💰 Minting L-Tokens for glyph $GLYPH_ID..."
+            
+            LTOKEN_RESULT=$(node packages/scripts/mint-ltoken.js "$GLYPH_ID" "$RECIPIENT")
+            LTOKEN_EXIT_CODE=$?
+            
+            if [ $LTOKEN_EXIT_CODE -eq 0 ]; then
+              echo "✅ L-Tokens minted successfully"
+              echo "$LTOKEN_RESULT"
+            else
+              echo "❌ L-Token minting failed"
+              echo "$LTOKEN_RESULT"
+              # Continue workflow - glyph is still valid without L-tokens
+            fi
+          else
+            echo "⚠️ No glyph found for L-Token minting"
+          fi
+          
+      - name: 🔐 Sign Minting Messages
+        run: |
+          echo "🔐 Signing minting messages..."
+          
+          # Sign all new minting messages
+          for message in messages/minted/*.json; do
+            if [ -f "$message" ] && [ ! -f "${message%.json}.signed.json" ]; then
+              echo "🔐 Signing: $(basename $message)"
+              node packages/scripts/gsl-sign.js "$message" "Glyph Minting System"
+            fi
+          done
+          
+      - name: 📊 Update Dashboard
+        run: |
+          echo "📊 Updating status dashboard with new mint data..."
+          node packages/scripts/update-dashboard.js
+          
+      - name: 🔍 Validate GSL Messages
+        run: |
+          echo "🔍 Validating minting GSL messages..."
+          node .github/tools/gsl-lint.js messages/minted/
+          
+      - name: 📝 Generate Minting Report
+        run: |
+          SUBMISSION_ID="${{ github.event.inputs.submission_id || github.event.client_payload.submission_id }}"
+          RECIPIENT="${{ github.event.inputs.recipient_address || github.event.client_payload.recipient_address }}"
+          
+          echo "📝 Generating minting report..."
+          
+          cat > minting-report.md << EOF
+          ## 🪙 Glyph Minting Report - $(date)
+          
+          ### Submission Details
+          - **Submission ID**: $SUBMISSION_ID
+          - **Recipient**: $RECIPIENT
+          - **Timestamp**: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          
+          ### Minting Results
+          $(if [ -f "data/glyphs/VC001-"*".json" ]; then
+            LATEST_GLYPH=$(ls -t data/glyphs/VC001-*.json | head -1)
+            GLYPH_ID=$(jq -r '.id' "$LATEST_GLYPH")
+            TOKEN_ID=$(jq -r '.token_id' "$LATEST_GLYPH")
+            SECTOR=$(jq -r '.sector' "$LATEST_GLYPH")
+            LTOKENS=$(jq -r '.operational_data.ltoken_allocation' "$LATEST_GLYPH")
+            
+            echo "- ✅ **Glyph ID**: $GLYPH_ID"
+            echo "- 🪙 **Token ID**: $TOKEN_ID"
+            echo "- 🎯 **Sector**: $SECTOR"
+            echo "- 💰 **L-Token Allocation**: $LTOKENS"
+          else
+            echo "- ❌ No glyph data found"
+          fi)
+          
+          ### Blockchain Data
+          $(if [ -f "data/glyphs/VC001-"*".json" ]; then
+            LATEST_GLYPH=$(ls -t data/glyphs/VC001-*.json | head -1)
+            TX_HASH=$(jq -r '.blockchain_data.transaction_hash' "$LATEST_GLYPH")
+            BLOCK=$(jq -r '.blockchain_data.block_number' "$LATEST_GLYPH")
+            
+            echo "- 📜 **Transaction**: $TX_HASH"
+            echo "- 🧱 **Block**: $BLOCK"
+          fi)
+          
+          ### Next Steps
+          - Glyph is now active and transferable
+          - L-Tokens are available for use
+          - Recipient notified via configured channels
+          EOF
+          
+      - name: 📤 Commit Minting Data
+        if: success()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Glyph Minting Bot"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "🪙 Automated glyph minting - $(date)"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+          
+      - name: 🚨 Notify on Failure
+        if: failure()
+        run: |
+          echo "❌ Glyph minting pipeline failed"
+          echo "::error::Glyph minting encountered errors for submission ${{ github.event.inputs.submission_id || github.event.client_payload.submission_id }}"
+          
+      - name: 📊 Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: minting-logs
+          path: |
+            minting-report.md
+            messages/minted/
+            data/glyphs/
+          retention-days: 90

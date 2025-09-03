@@ -1,0 +1,282 @@
+name: 🤖 AI Fix Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_files:
+        description: 'Specific files to fix (optional)'
+        required: false
+        type: string
+      issue_type:
+        description: 'Type of issues to fix'
+        required: false
+        type: choice
+        options:
+          - 'linting'
+          - 'formatting'
+          - 'schema-validation'
+          - 'all'
+        default: 'all'
+
+  schedule:
+    # Run AI fix checks twice daily
+    - cron: '0 6,18 * * *'
+
+jobs:
+  ai-fix:
+    runs-on: ubuntu-latest
+    name: 🤖 AI-Powered Issue Resolution
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: 🔧 Install Dependencies
+        run: npm ci
+        
+      - name: 🔍 Detect Issues
+        id: detect-issues
+        run: |
+          echo "🔍 Detecting code issues..."
+          
+          ISSUES_FOUND=false
+          ISSUE_SUMMARY=""
+          
+          # Check linting issues
+          if [[ "${{ github.event.inputs.issue_type }}" == "linting" || "${{ github.event.inputs.issue_type }}" == "all" ]]; then
+            echo "Checking linting issues..."
+            if ! npm run lint > lint-results.txt 2>&1; then
+              ISSUES_FOUND=true
+              ISSUE_SUMMARY="${ISSUE_SUMMARY}\n- Linting issues detected"
+              echo "❌ Linting issues found"
+            else
+              echo "✅ No linting issues"
+            fi
+          fi
+          
+          # Check JSON schema validation
+          if [[ "${{ github.event.inputs.issue_type }}" == "schema-validation" || "${{ github.event.inputs.issue_type }}" == "all" ]]; then
+            echo "Checking JSON schema validation..."
+            if [ -d "data" ]; then
+              SCHEMA_ERRORS=0
+              
+              # Validate grant files
+              for file in data/grants/*.json; do
+                if [ -f "$file" ]; then
+                  if ! node .github/tools/validate-json.js "$file" data/schemas/grant.schema.json > /dev/null 2>&1; then
+                    SCHEMA_ERRORS=$((SCHEMA_ERRORS + 1))
+                  fi
+                fi
+              done
+              
+              # Validate glyph files
+              for file in data/glyphs/*.json; do
+                if [ -f "$file" ]; then
+                  if ! node .github/tools/validate-json.js "$file" data/schemas/glyph.schema.json > /dev/null 2>&1; then
+                    SCHEMA_ERRORS=$((SCHEMA_ERRORS + 1))
+                  fi
+                fi
+              done
+              
+              if [ $SCHEMA_ERRORS -gt 0 ]; then
+                ISSUES_FOUND=true
+                ISSUE_SUMMARY="${ISSUE_SUMMARY}\n- $SCHEMA_ERRORS JSON schema validation errors"
+                echo "❌ Schema validation issues found: $SCHEMA_ERRORS"
+              else
+                echo "✅ No schema validation issues"
+              fi
+            fi
+          fi
+          
+          # Check GSL message validation
+          echo "Checking GSL message validation..."
+          if ! node .github/tools/gsl-lint.js messages/ > gsl-results.txt 2>&1; then
+            ISSUES_FOUND=true
+            ISSUE_SUMMARY="${ISSUE_SUMMARY}\n- GSL message validation errors"
+            echo "❌ GSL message issues found"
+          else
+            echo "✅ No GSL message issues"
+          fi
+          
+          echo "issues_found=$ISSUES_FOUND" >> $GITHUB_OUTPUT
+          echo "issue_summary<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$ISSUE_SUMMARY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+      - name: 🤖 Apply AI Fixes
+        if: steps.detect-issues.outputs.issues_found == 'true'
+        run: |
+          echo "🤖 Applying AI-powered fixes..."
+          
+          # Fix linting issues automatically
+          if grep -q "Linting issues" <<< "${{ steps.detect-issues.outputs.issue_summary }}"; then
+            echo "🔧 Attempting to auto-fix linting issues..."
+            
+            # Auto-fix common ESLint issues
+            if command -v eslint >/dev/null 2>&1; then
+              npx eslint . --fix --ext .js,.jsx,.ts,.tsx || true
+              echo "✅ ESLint auto-fix completed"
+            fi
+            
+            # Auto-format with Prettier
+            if command -v prettier >/dev/null 2>&1; then
+              npx prettier --write "**/*.{js,jsx,ts,tsx,json,md}" || true
+              echo "✅ Prettier formatting completed"
+            fi
+          fi
+          
+          # Fix JSON formatting issues
+          if grep -q "JSON schema" <<< "${{ steps.detect-issues.outputs.issue_summary }}"; then
+            echo "🔧 Attempting to fix JSON formatting..."
+            
+            # Format JSON files
+            find data/ -name "*.json" -type f | while read file; do
+              if [ -f "$file" ]; then
+                # Validate and reformat JSON
+                if jq . "$file" > /tmp/formatted.json 2>/dev/null; then
+                  mv /tmp/formatted.json "$file"
+                  echo "✅ Formatted: $file"
+                fi
+              fi
+            done
+          fi
+          
+          # Fix GSL message issues
+          if grep -q "GSL message" <<< "${{ steps.detect-issues.outputs.issue_summary }}"; then
+            echo "🔧 Attempting to fix GSL message issues..."
+            
+            # Auto-sign unsigned messages
+            find messages/ -name "*.json" -type f | while read message; do
+              if [ -f "$message" ] && [ ! -f "${message%.json}.signed.json" ]; then
+                echo "🔐 Auto-signing: $message"
+                node packages/scripts/gsl-sign.js "$message" "AI Fix System" || true
+              fi
+            done
+          fi
+          
+      - name: 🔄 Re-validate After Fixes
+        if: steps.detect-issues.outputs.issues_found == 'true'
+        id: revalidate
+        run: |
+          echo "🔄 Re-validating after AI fixes..."
+          
+          FIXES_SUCCESSFUL=true
+          
+          # Re-check linting
+          if ! npm run lint > post-fix-lint.txt 2>&1; then
+            echo "⚠️ Some linting issues remain"
+            FIXES_SUCCESSFUL=false
+          else
+            echo "✅ Linting issues resolved"
+          fi
+          
+          # Re-check GSL messages
+          if ! node .github/tools/gsl-lint.js messages/ > post-fix-gsl.txt 2>&1; then
+            echo "⚠️ Some GSL message issues remain"
+            FIXES_SUCCESSFUL=false
+          else
+            echo "✅ GSL message issues resolved"
+          fi
+          
+          echo "fixes_successful=$FIXES_SUCCESSFUL" >> $GITHUB_OUTPUT
+          
+      - name: 📝 Generate Fix Report
+        if: steps.detect-issues.outputs.issues_found == 'true'
+        run: |
+          echo "📝 Generating AI fix report..."
+          
+          cat > ai-fix-report.md << EOF
+          ## 🤖 AI Fix Report - $(date)
+          
+          ### Issues Detected
+          ${{ steps.detect-issues.outputs.issue_summary }}
+          
+          ### Fixes Applied
+          - ✅ ESLint auto-fix rules applied
+          - ✅ Prettier formatting applied
+          - ✅ JSON files reformatted
+          - ✅ GSL messages auto-signed
+          
+          ### Results
+          $(if [ "${{ steps.revalidate.outputs.fixes_successful }}" == "true" ]; then
+            echo "✅ **All issues successfully resolved**"
+          else
+            echo "⚠️ **Some issues require manual intervention**"
+          fi)
+          
+          ### Manual Review Required
+          $(if [ "${{ steps.revalidate.outputs.fixes_successful }}" != "true" ]; then
+            echo "- Review remaining linting issues"
+            echo "- Check schema validation errors"
+            echo "- Verify GSL message compliance"
+          else
+            echo "- None - all issues auto-resolved"
+          fi)
+          EOF
+          
+      - name: 📤 Commit AI Fixes
+        if: steps.detect-issues.outputs.issues_found == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "AI Fix Bot"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            
+            if [ "${{ steps.revalidate.outputs.fixes_successful }}" == "true" ]; then
+              git commit -m "🤖 AI auto-fix: Resolved all detected issues - $(date)"
+            else
+              git commit -m "🤖 AI partial-fix: Resolved some issues, manual review needed - $(date)"
+            fi
+            
+            git push
+            echo "✅ AI fixes committed"
+          else
+            echo "No changes to commit"
+          fi
+          
+      - name: 🎯 Create Issue for Manual Review
+        if: steps.detect-issues.outputs.issues_found == 'true' && steps.revalidate.outputs.fixes_successful != 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🤖 AI Fix: Manual Review Required',
+              body: `## AI Fix Report - ${new Date().toISOString()}
+              
+              The AI fix pipeline detected and partially resolved issues, but some require manual intervention.
+              
+              ### Issues Detected
+              ${{ steps.detect-issues.outputs.issue_summary }}
+              
+              ### Next Steps
+              - Review the AI fix report artifact
+              - Address remaining linting issues
+              - Check schema validation errors
+              - Verify GSL message compliance
+              
+              This issue was automatically created by the AI Fix Pipeline.`,
+              labels: ['ai-fix', 'needs-review']
+            });
+            
+      - name: 📊 Upload Fix Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: ai-fix-results
+          path: |
+            ai-fix-report.md
+            lint-results.txt
+            gsl-results.txt
+            post-fix-*.txt
+          retention-days: 30

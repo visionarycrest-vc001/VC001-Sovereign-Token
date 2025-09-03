@@ -1,0 +1,262 @@
+name: 🎯 Grant Review Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      proposal_id:
+        description: 'Proposal ID to review'
+        required: true
+        type: string
+      reviewer_id:
+        description: 'Reviewer identifier'
+        required: true
+        type: string
+      auto_score:
+        description: 'Generate automatic scores'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  review-proposal:
+    runs-on: ubuntu-latest
+    name: 🎯 Process Grant Review
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: 🔧 Install Dependencies
+        run: npm ci
+        
+      - name: 🔍 Validate Review Inputs
+        run: |
+          PROPOSAL_ID="${{ github.event.inputs.proposal_id }}"
+          REVIEWER_ID="${{ github.event.inputs.reviewer_id }}"
+          
+          echo "Validating review inputs..."
+          echo "Proposal ID: $PROPOSAL_ID"
+          echo "Reviewer ID: $REVIEWER_ID"
+          
+          # Check if proposal exists
+          PROPOSAL_FILE="data/grants/proposals/${PROPOSAL_ID}.json"
+          if [ ! -f "$PROPOSAL_FILE" ]; then
+            echo "❌ Proposal not found: $PROPOSAL_ID"
+            exit 1
+          fi
+          
+          # Verify proposal is in reviewable state
+          PROPOSAL_STATUS=$(jq -r '.status' "$PROPOSAL_FILE")
+          if [[ "$PROPOSAL_STATUS" != "draft" && "$PROPOSAL_STATUS" != "under_review" ]]; then
+            echo "❌ Proposal not in reviewable state: $PROPOSAL_STATUS"
+            exit 1
+          fi
+          
+          echo "✅ Review inputs validated"
+          
+      - name: 📝 Create Reviewer Config
+        run: |
+          REVIEWER_ID="${{ github.event.inputs.reviewer_id }}"
+          
+          echo "📝 Creating reviewer configuration..."
+          
+          # Create reviewer configuration file
+          cat > reviewer-config.json << EOF
+          {
+            "id": "$REVIEWER_ID",
+            "name": "Review System $REVIEWER_ID",
+            "role": "automated_reviewer",
+            "expertise": ["grant_evaluation", "technical_assessment", "compliance_review"],
+            "certification_level": "standard",
+            "review_count": 1
+          }
+          EOF
+          
+      - name: 🎯 Generate Review Scores
+        run: |
+          PROPOSAL_ID="${{ github.event.inputs.proposal_id }}"
+          
+          echo "🎯 Generating review scores for $PROPOSAL_ID..."
+          
+          # Run review scoring
+          REVIEW_RESULT=$(node packages/scripts/review-score.js --proposal-id "$PROPOSAL_ID" reviewer-config.json)
+          REVIEW_EXIT_CODE=$?
+          
+          if [ $REVIEW_EXIT_CODE -eq 0 ]; then
+            echo "✅ Review scoring completed"
+            echo "$REVIEW_RESULT"
+          else
+            echo "❌ Review scoring failed"
+            echo "$REVIEW_RESULT"
+            exit 1
+          fi
+          
+      - name: 📊 Update Proposal Status
+        run: |
+          PROPOSAL_ID="${{ github.event.inputs.proposal_id }}"
+          
+          echo "📊 Updating proposal status..."
+          
+          # Update proposal status to "reviewed"
+          PROPOSAL_FILE="data/grants/proposals/${PROPOSAL_ID}.json"
+          if [ -f "$PROPOSAL_FILE" ]; then
+            # Update status using jq
+            jq '.status = "reviewed" | .last_updated = "'"$(date -u +"%Y-%m-%dT%H:%M:%SZ")"'"' "$PROPOSAL_FILE" > temp.json
+            mv temp.json "$PROPOSAL_FILE"
+            echo "✅ Proposal status updated to 'reviewed'"
+          fi
+          
+      - name: 🔐 Sign Review Messages
+        run: |
+          echo "🔐 Signing review messages..."
+          
+          # Sign all new review messages
+          for message in messages/review/*.json; do
+            if [ -f "$message" ] && [ ! -f "${message%.json}.signed.json" ]; then
+              echo "🔐 Signing: $(basename $message)"
+              node packages/scripts/gsl-sign.js "$message" "Grant Review System"
+            fi
+          done
+          
+      - name: 🎯 Check for Approval Threshold
+        id: approval-check
+        run: |
+          PROPOSAL_ID="${{ github.event.inputs.proposal_id }}"
+          
+          echo "🎯 Checking approval threshold..."
+          
+          # Count reviews for this proposal
+          REVIEW_COUNT=0
+          TOTAL_SCORE=0
+          APPROVED_COUNT=0
+          
+          if [ -d "data/grants/reviews" ]; then
+            for review_file in data/grants/reviews/*.json; do
+              if [ -f "$review_file" ]; then
+                REVIEW_PROPOSAL_ID=$(jq -r '.proposal_id' "$review_file")
+                if [ "$REVIEW_PROPOSAL_ID" = "$PROPOSAL_ID" ]; then
+                  REVIEW_COUNT=$((REVIEW_COUNT + 1))
+                  SCORE=$(jq -r '.scoring.total_score' "$review_file")
+                  DECISION=$(jq -r '.recommendation.decision' "$review_file")
+                  
+                  TOTAL_SCORE=$(echo "$TOTAL_SCORE + $SCORE" | bc -l)
+                  
+                  if [ "$DECISION" = "approved" ]; then
+                    APPROVED_COUNT=$((APPROVED_COUNT + 1))
+                  fi
+                fi
+              fi
+            done
+          fi
+          
+          if [ $REVIEW_COUNT -gt 0 ]; then
+            AVG_SCORE=$(echo "scale=2; $TOTAL_SCORE / $REVIEW_COUNT" | bc -l)
+            APPROVAL_RATE=$(echo "scale=2; $APPROVED_COUNT / $REVIEW_COUNT" | bc -l)
+            
+            echo "📊 Review Statistics:"
+            echo "  Reviews: $REVIEW_COUNT"
+            echo "  Average Score: $AVG_SCORE"
+            echo "  Approval Rate: $APPROVAL_RATE"
+            
+            # Check if ready for submission
+            READY_FOR_SUBMISSION=false
+            if (( $(echo "$AVG_SCORE >= 70" | bc -l) )) && (( $(echo "$APPROVAL_RATE >= 0.6" | bc -l) )); then
+              READY_FOR_SUBMISSION=true
+              echo "✅ Proposal meets submission criteria"
+            else
+              echo "⏳ Proposal needs more positive reviews"
+            fi
+            
+            echo "ready_for_submission=$READY_FOR_SUBMISSION" >> $GITHUB_OUTPUT
+            echo "average_score=$AVG_SCORE" >> $GITHUB_OUTPUT
+            echo "approval_rate=$APPROVAL_RATE" >> $GITHUB_OUTPUT
+          else
+            echo "No reviews found for proposal"
+            echo "ready_for_submission=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: 🚀 Trigger Submission Pipeline
+        if: steps.approval-check.outputs.ready_for_submission == 'true'
+        run: |
+          PROPOSAL_ID="${{ github.event.inputs.proposal_id }}"
+          
+          echo "🚀 Triggering submission pipeline for $PROPOSAL_ID..."
+          
+          # Get grant ID from proposal
+          PROPOSAL_FILE="data/grants/proposals/${PROPOSAL_ID}.json"
+          GRANT_ID=$(jq -r '.grant_id' "$PROPOSAL_FILE")
+          
+          echo "Grant ID: $GRANT_ID"
+          echo "Average Score: ${{ steps.approval-check.outputs.average_score }}"
+          echo "Approval Rate: ${{ steps.approval-check.outputs.approval_rate }}"
+          
+          # Process grant submission
+          node packages/scripts/submit-grant.js "$GRANT_ID"
+          
+      - name: 📝 Generate Review Report
+        run: |
+          PROPOSAL_ID="${{ github.event.inputs.proposal_id }}"
+          REVIEWER_ID="${{ github.event.inputs.reviewer_id }}"
+          
+          echo "📝 Generating review report..."
+          
+          cat > review-report.md << EOF
+          ## 🎯 Grant Review Report - $(date)
+          
+          ### Review Details
+          - **Proposal ID**: $PROPOSAL_ID
+          - **Reviewer**: $REVIEWER_ID
+          - **Timestamp**: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          
+          ### Review Results
+          $(if [ "${{ steps.approval-check.outputs.ready_for_submission }}" == "true" ]; then
+            echo "- ✅ **Status**: Ready for submission"
+            echo "- 📊 **Average Score**: ${{ steps.approval-check.outputs.average_score }}/100"
+            echo "- 👍 **Approval Rate**: $(echo "${{ steps.approval-check.outputs.approval_rate }} * 100" | bc -l)%"
+          else
+            echo "- ⏳ **Status**: Needs additional review"
+            echo "- 📊 **Average Score**: ${{ steps.approval-check.outputs.average_score }}/100"
+            echo "- 👍 **Approval Rate**: $(echo "${{ steps.approval-check.outputs.approval_rate }} * 100" | bc -l)%"
+          fi)
+          
+          ### Next Steps
+          $(if [ "${{ steps.approval-check.outputs.ready_for_submission }}" == "true" ]; then
+            echo "- Submission pipeline automatically triggered"
+            echo "- Awaiting final approval for minting"
+          else
+            echo "- Additional reviews required"
+            echo "- Proposal remains in review queue"
+          fi)
+          EOF
+          
+      - name: 📤 Commit Review Data
+        if: success()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Grant Review Bot"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "🎯 Automated grant review processing - $(date)"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+          
+      - name: 📊 Upload Review Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: review-results
+          path: |
+            review-report.md
+            reviewer-config.json
+            messages/review/
+            data/grants/reviews/
+          retention-days: 90

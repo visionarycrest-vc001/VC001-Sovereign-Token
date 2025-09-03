@@ -1,0 +1,128 @@
+name: 📋 Grant Intake Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      application_file:
+        description: 'Path to grant application JSON file'
+        required: true
+        type: string
+      batch_mode:
+        description: 'Process as batch'
+        required: false
+        type: boolean
+        default: false
+
+  schedule:
+    # Run every hour to check for new applications
+    - cron: '0 * * * *'
+
+jobs:
+  process-intake:
+    runs-on: ubuntu-latest
+    name: 🏛️ Process Grant Intake
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: 🔧 Install Dependencies
+        run: npm ci
+        
+      - name: 📋 Process Grant Applications
+        if: github.event.inputs.application_file
+        run: |
+          if [ "${{ github.event.inputs.batch_mode }}" = "true" ]; then
+            node packages/scripts/intake-grants.js --batch "${{ github.event.inputs.application_file }}"
+          else
+            node packages/scripts/intake-grants.js "${{ github.event.inputs.application_file }}"
+          fi
+          
+      - name: 🔍 Scan for New Applications
+        if: github.event_name == 'schedule'
+        run: |
+          echo "🔍 Scanning for new grant applications..."
+          # In production, this would check external sources or API endpoints
+          # For now, demonstrate the workflow structure
+          if [ -d "incoming/applications" ]; then
+            for file in incoming/applications/*.json; do
+              if [ -f "$file" ]; then
+                echo "📋 Processing: $file"
+                node packages/scripts/intake-grants.js "$file"
+              fi
+            done
+          fi
+          
+      - name: 🔐 Sign GSL Messages
+        run: |
+          if [ -d "messages/intake" ]; then
+            for message in messages/intake/*.json; do
+              if [ -f "$message" ] && [ ! -f "${message%.json}.signed.json" ]; then
+                echo "🔐 Signing: $message"
+                node packages/scripts/gsl-sign.js "$message" "Grant Intake System"
+              fi
+            done
+          fi
+          
+      - name: 📊 Update Dashboard
+        run: |
+          echo "📊 Updating status dashboard..."
+          node packages/scripts/update-dashboard.js
+          
+      - name: 🔍 Validate GSL Messages
+        run: |
+          echo "🔍 Validating GSL messages..."
+          node .github/tools/gsl-lint.js messages/
+          
+      - name: 📝 Generate Intake Report
+        run: |
+          echo "📝 Generating intake report..."
+          echo "## 📋 Grant Intake Report - $(date)" > intake-report.md
+          echo "" >> intake-report.md
+          echo "### Processed Applications" >> intake-report.md
+          
+          if [ -d "data/grants" ]; then
+            pending_count=$(find data/grants -name "*.json" -exec grep -l '"status": "pending"' {} \; | wc -l)
+            echo "- ⏳ Pending Applications: $pending_count" >> intake-report.md
+          fi
+          
+          echo "" >> intake-report.md
+          echo "### Next Steps" >> intake-report.md
+          echo "- Applications ready for proposal drafting" >> intake-report.md
+          echo "- Automatic notification sent to review team" >> intake-report.md
+          
+      - name: 📤 Commit Changes
+        if: success()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Grant Intake Bot"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "🏛️ Automated grant intake processing - $(date)"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+          
+      - name: 🚨 Notify on Failure
+        if: failure()
+        run: |
+          echo "❌ Grant intake pipeline failed"
+          echo "::error::Grant intake processing encountered errors"
+          
+      - name: 📊 Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: intake-logs
+          path: |
+            intake-report.md
+            messages/intake/
+          retention-days: 30

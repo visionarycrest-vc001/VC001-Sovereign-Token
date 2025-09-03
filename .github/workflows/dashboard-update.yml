@@ -1,0 +1,194 @@
+name: 📊 Dashboard Update Pipeline
+
+on:
+  schedule:
+    # Update dashboard every hour
+    - cron: '0 * * * *'
+  
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Force dashboard update'
+        required: false
+        type: boolean
+        default: true
+  
+  push:
+    paths:
+      - 'data/grants/**'
+      - 'data/glyphs/**'
+      - 'data/ledger/**'
+
+jobs:
+  update-dashboard:
+    runs-on: ubuntu-latest
+    name: 📊 Update Status Dashboard
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: 🔧 Install Dependencies
+        run: npm ci
+        
+      - name: 📊 Collect System Metrics
+        run: |
+          echo "📊 Collecting system metrics..."
+          
+          # Count grants by status
+          if [ -d "data/grants" ]; then
+            TOTAL_GRANTS=$(find data/grants -name "*.json" -type f | wc -l)
+            PENDING_GRANTS=$(find data/grants -name "*.json" -exec grep -l '"status": "pending"' {} \; | wc -l)
+            APPROVED_GRANTS=$(find data/grants -name "*.json" -exec grep -l '"status": "approved"' {} \; | wc -l)
+            MINTED_GRANTS=$(find data/grants -name "*.json" -exec grep -l '"status": "minted"' {} \; | wc -l)
+            
+            echo "Grant Metrics:"
+            echo "  Total: $TOTAL_GRANTS"
+            echo "  Pending: $PENDING_GRANTS"
+            echo "  Approved: $APPROVED_GRANTS"
+            echo "  Minted: $MINTED_GRANTS"
+          fi
+          
+          # Count glyphs
+          if [ -d "data/glyphs" ]; then
+            TOTAL_GLYPHS=$(find data/glyphs -name "*.json" -type f | wc -l)
+            echo "Total Glyphs: $TOTAL_GLYPHS"
+          fi
+          
+          # Count L-Token transactions
+          if [ -d "data/ledger" ]; then
+            TOTAL_TRANSACTIONS=$(find data/ledger -name "*.json" -type f | wc -l)
+            echo "L-Token Transactions: $TOTAL_TRANSACTIONS"
+          fi
+          
+      - name: 📊 Generate Dashboard
+        run: |
+          echo "📊 Generating status dashboard..."
+          node packages/scripts/update-dashboard.js
+          
+      - name: 🔍 Validate Dashboard
+        run: |
+          echo "🔍 Validating dashboard output..."
+          
+          if [ -f "docs/status-dashboard.html" ]; then
+            # Basic HTML validation
+            if grep -q "<html" docs/status-dashboard.html && grep -q "</html>" docs/status-dashboard.html; then
+              echo "✅ Dashboard HTML structure is valid"
+            else
+              echo "❌ Dashboard HTML structure is invalid"
+              exit 1
+            fi
+            
+            # Check for required content
+            if grep -q "VC001 Sovereign Status Dashboard" docs/status-dashboard.html; then
+              echo "✅ Dashboard title present"
+            else
+              echo "❌ Dashboard title missing"
+              exit 1
+            fi
+            
+            echo "✅ Dashboard validation passed"
+          else
+            echo "❌ Dashboard file not generated"
+            exit 1
+          fi
+          
+      - name: 📈 Generate Metrics Summary
+        run: |
+          echo "📈 Generating metrics summary..."
+          
+          cat > dashboard-metrics.json << EOF
+          {
+            "timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "grants": {
+              "total": $(find data/grants -name "*.json" -type f 2>/dev/null | wc -l),
+              "pending": $(find data/grants -name "*.json" -exec grep -l '"status": "pending"' {} \; 2>/dev/null | wc -l),
+              "approved": $(find data/grants -name "*.json" -exec grep -l '"status": "approved"' {} \; 2>/dev/null | wc -l),
+              "minted": $(find data/grants -name "*.json" -exec grep -l '"status": "minted"' {} \; 2>/dev/null | wc -l)
+            },
+            "glyphs": {
+              "total": $(find data/glyphs -name "*.json" -type f 2>/dev/null | wc -l)
+            },
+            "transactions": {
+              "total": $(find data/ledger -name "*.json" -type f 2>/dev/null | wc -l)
+            }
+          }
+          EOF
+          
+      - name: 🔐 Sign Dashboard Update
+        run: |
+          echo "🔐 Signing dashboard update message..."
+          
+          # Create dashboard update message
+          cat > dashboard-update-message.json << EOF
+          {
+            "timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "action": "dashboard_updated",
+            "trigger": "${{ github.event_name }}",
+            "metrics_file": "dashboard-metrics.json",
+            "dashboard_file": "docs/status-dashboard.html"
+          }
+          EOF
+          
+          # Sign the message
+          node packages/scripts/gsl-sign.js dashboard-update-message.json "Dashboard Update System"
+          
+      - name: 📊 Archive Previous Dashboard
+        run: |
+          echo "📊 Archiving previous dashboard versions..."
+          
+          # Create archive directory
+          mkdir -p docs/archive/dashboards
+          
+          # Archive with timestamp if dashboard exists
+          if [ -f "docs/status-dashboard.html" ]; then
+            TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+            cp docs/status-dashboard.html "docs/archive/dashboards/dashboard_$TIMESTAMP.html"
+            echo "📁 Archived: dashboard_$TIMESTAMP.html"
+          fi
+          
+          # Keep only last 10 archived versions
+          if [ -d "docs/archive/dashboards" ]; then
+            find docs/archive/dashboards -name "dashboard_*.html" -type f | sort -r | tail -n +11 | xargs rm -f
+          fi
+          
+      - name: 📤 Commit Dashboard Updates
+        if: success()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Dashboard Update Bot"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git add docs/status-dashboard.html
+            git add docs/archive/dashboards/
+            git add dashboard-metrics.json
+            git add dashboard-update-message.signed.json
+            
+            git commit -m "📊 Automated dashboard update - $(date)"
+            git push
+          else
+            echo "No dashboard changes to commit"
+          fi
+          
+      - name: 🚨 Notify on Failure
+        if: failure()
+        run: |
+          echo "❌ Dashboard update pipeline failed"
+          echo "::error::Dashboard update encountered errors"
+          
+      - name: 📊 Upload Dashboard Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: dashboard-update
+          path: |
+            docs/status-dashboard.html
+            dashboard-metrics.json
+            dashboard-update-message.signed.json
+          retention-days: 30
