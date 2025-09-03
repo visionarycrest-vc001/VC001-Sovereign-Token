@@ -9,16 +9,15 @@ SECURITY.md: CodeQL scan and steward protocols
 Below is the full lifecycle of our self‑maintaining, self‑healing, and self‑governing repository — with live status for each automation phase.
 
 Phase	Workflow	Status
-📁 Structure	CodeQL	![CodeQL](https://github.com/<OWNER>/<REPO>/actions/workflows/codeql.yml/badge.svg)
-🧰 Guardrails	Validate JSON	![Validate JSON](https://github.com/<OWNER>/<REPO>/actions/workflows/json-validate.yml/badge.svg)
-🧪 Guardrails	Run Tests	![Run Tests](https://github.com/<OWNER>/<REPO>/actions/workflows/test.yml/badge.svg)
-🧹 Self‑Healing	Auto‑Fix	![Auto-Fix](https://github.com/<OWNER>/<REPO>/actions/workflows/auto-fix.yml/badge.svg)
-♻️ Self‑Healing	Metrics Cron	![Metrics Cron](https://github.com/<OWNER>/<REPO>/actions/workflows/metrics-cron.yml/badge.svg)
-🏛 Governance	Governance Review	![Governance Review](https://github.com/<OWNER>/<REPO>/actions/workflows/governance-review.yml/badge.svg)
-🧠 Intelligence	Predictive Alert	![Predictive Alert](https://github.com/<OWNER>/<REPO>/actions/workflows/predictive-alert.yml/badge.svg)
-💡 Intelligence	AI Fix	![AI Fix](https://github.com/<OWNER>/<REPO>/actions/workflows/ai-fix.yml/badge.svg)
-🤖 Self‑Repair	Auto‑Merge AI Fix	![Auto-Merge AI Fix](https://github.com/<OWNER>/<REPO>/actions/workflows/auto-merge-ai-fix.yml/badge.svg)
-Replace <OWNER> and <REPO> with your GitHub username/org and repository name for live badges.
+📁 Structure	CodeQL	![CodeQL](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/codeql.yml/badge.svg)
+🧰 Guardrails	Validate JSON	![Validate JSON](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/json-validate.yml/badge.svg)
+🧪 Guardrails	Run Tests	![Run Tests](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/test.yml/badge.svg)
+🧹 Self‑Healing	Auto‑Fix	![Auto-Fix](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/auto-fix.yml/badge.svg)
+♻️ Self‑Healing	Metrics Cron	![Metrics Cron](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/metrics-cron.yml/badge.svg)
+🏛 Governance	Governance Review	![Governance Review](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/governance-review.yml/badge.svg)
+🧠 Intelligence	Predictive Alert	![Predictive Alert](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/predictive-alert.yml/badge.svg)
+💡 Intelligence	AI Fix	![AI Fix](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/ai-fix.yml/badge.svg)
+🤖 Self‑Repair	Auto‑Merge AI Fix	![Auto-Merge AI Fix](https://github.com/visionarycrest-vc001/VC001-Sovereign-Token/actions/workflows/auto-merge-ai-fix.yml/badge.svg)
 
 📁 Project Structure & Setup
 This repository uses a modular, ceremonial, and operational file structure. All contributors should follow these guidelines for onboarding, contributions, and reviews.
