@@ -1,0 +1,12 @@
+body {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  font-family: monospace;
+  padding: 2rem;
+}
+
+#metrics {
+  border: 1px solid #444;
+  padding: 1rem;
+  margin-top: 1rem;
+}

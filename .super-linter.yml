@@ -1,0 +1,12 @@
+---
+run_all_linters: false
+
+validate_cpp: true
+validate_javascript: true
+validate_python: true
+validate_rust: true
+validate_typescript: true
+
+# Optional extras
+validate_yaml: true
+validate_markdown: true

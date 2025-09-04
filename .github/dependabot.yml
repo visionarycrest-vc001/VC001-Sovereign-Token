@@ -1,0 +1,117 @@
+# 🤖 Dependabot Configuration - VC001 Sovereign Archive
+# Automated dependency updates and security alerts for the ecosystem
+
+version: 2
+updates:
+  # NPM package updates
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "visionarycrest-vc001"
+    assignees:
+      - "visionarycrest-vc001"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "auto-update"
+      - "bot"
+    commit-message:
+      prefix: "🔄"
+      include: "scope"
+
+  # NPM updates for core package
+  - package-ecosystem: "npm"
+    directory: "/packages/core"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:30"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "visionarycrest-vc001"
+    assignees:
+      - "visionarycrest-vc001"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "auto-update"
+      - "bot"
+      - "core-package"
+    commit-message:
+      prefix: "🔄"
+      include: "scope"
+
+  # NPM updates for percy-abrams package
+  - package-ecosystem: "npm"
+    directory: "/packages/percy-abrams"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "visionarycrest-vc001"
+    assignees:
+      - "visionarycrest-vc001"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "auto-update"
+      - "bot"
+      - "percy-abrams-package"
+    commit-message:
+      prefix: "🔄"
+      include: "scope"
+
+  # GitHub Actions updates
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "04:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "visionarycrest-vc001"
+    assignees:
+      - "visionarycrest-vc001"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "auto-update"
+      - "bot"
+      - "ci-cd"
+    commit-message:
+      prefix: "⚙️"
+      include: "scope"
+
+  # Python dependencies (if any requirements.txt exists)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "04:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "visionarycrest-vc001"
+    assignees:
+      - "visionarycrest-vc001"
+    labels:
+      - "dependencies"
+      - "python"
+      - "auto-update"
+      - "bot"
+    commit-message:
+      prefix: "🐍"
+      include: "scope"

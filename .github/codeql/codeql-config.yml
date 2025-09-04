@@ -1,0 +1,39 @@
+# 🔐 CodeQL Configuration for VC001 Sovereign Token
+# Enhanced security analysis configuration
+
+name: "VC001 Security Analysis"
+
+# Disable default queries and use custom suite
+disable-default-queries: false
+
+# Include additional query suites for comprehensive analysis
+queries:
+  - name: security-extended
+    uses: security-extended
+  - name: security-and-quality
+    uses: security-and-quality
+
+# Paths to analyze
+paths:
+  - src/
+  - packages/
+  - scripts/
+  - apps/
+  - "*.js"
+
+# Paths to ignore
+paths-ignore:
+  - node_modules/
+  - dist/
+  - build/
+  - coverage/
+  - "**/*.min.js"
+  - "**/*.test.js"
+  - "**/*.spec.js"
+
+# Custom query filters
+query-filters:
+  - exclude:
+      id: js/trivial-conditional
+  - exclude:
+      id: js/useless-assignment-to-local

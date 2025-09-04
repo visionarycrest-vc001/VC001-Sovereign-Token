@@ -1,0 +1,26 @@
+# 🎨 Stylelint Configuration for VC001 Sovereign Token
+# CSS/SCSS linting rules
+
+extends:
+  - stylelint-config-standard
+  - stylelint-config-prettier
+
+rules:
+  # Allow vendor prefixes
+  property-no-vendor-prefix: null
+  value-no-vendor-prefix: null
+  
+  # Allow unknown properties for CSS variables
+  property-no-unknown: 
+    - true
+    - ignoreProperties:
+        - /^--/
+  
+  # Allow empty sources for generated CSS
+  no-empty-source: null
+  
+  # Flexible selector naming
+  selector-class-pattern: null
+  
+  # Allow important declarations in utility classes
+  declaration-no-important: null

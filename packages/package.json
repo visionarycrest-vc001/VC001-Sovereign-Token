@@ -1,0 +1,18 @@
+{
+  "name": "visionarycrest-vc001",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sovereign archive for VisionaryCrest‑001",
+  "workspaces": [
+    "packages/*",
+    "scripts"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "lint": "eslint . --ext .js,.ts",
+    "format": "prettier --write .",
+    "test": "jest"
+  },
+  "author": "Visionary Inc.",
+  "license": "MIT"
+}

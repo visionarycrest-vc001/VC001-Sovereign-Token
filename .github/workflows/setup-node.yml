@@ -1,0 +1,16 @@
+name: 🛠️ Setup Node
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+      - name: Install dependencies for all workspaces
+        run: npm install

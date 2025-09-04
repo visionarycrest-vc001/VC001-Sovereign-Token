@@ -1,0 +1,14 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "Node/CLI helpers for sovereign batch activation and scroll inscription",
+  "main": "sovereign-batch.js",
+  "scripts": {
+    "activate": "node signal-activate.js",
+    "inscribe": "node scroll-inscribe.js",
+    "batch": "node sovereign-batch.js"
+  },
+  "author": "Visionary Inc.",
+  "license": "MIT",
+  "dependencies": {}
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["timestamp", "event", "contributor", "badge", "proposalId"],
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "event": { "type": "string" },
+    "contributor": { "type": "string" },
+    "badge": { "type": "string" },
+    "proposalId": { "type": "string" }
+  }
+}

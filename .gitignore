@@ -1,18 +1,45 @@
-# System folders
-AppData/
-OneDrive/
+# Node artifacts
 node_modules/
+dist/
+.env
+.DS_Store
+
+# Logs and temp
 *.log
 *.tmp
-*.bak
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
 
-# Windows artifacts
-NTUSER.*
+# Editor configs
+.vscode/
+.idea/
+
+# CI artifacts
+coverage/
+build/
+*.lock
+*.tsbuildinfo
+
+# Legacy Windows artifacts (optional)
 Thumbs.db
 Desktop.ini
 
-# Editor and shell history
-.bash_history
-.lesshst
-.gitconfig
-.cache/
+# Environment files
+.env.local
+.env.*.local
+
+# Misc
+*.swp
+*.swo
+test-output/
+secrets.json
+*.sh~
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+# HTML/CSS/JS build artifacts
+*.map
