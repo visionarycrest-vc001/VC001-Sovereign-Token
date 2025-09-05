@@ -1,0 +1,30 @@
+name: Release Monorepo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lerna-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Setup Node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Install dependencies
+      - run: npm ci
+
+      # Get current Lerna version
+      - uses: bjerkio/get-current-lerna-version@v1.0.0
+
+      # Generate changelog
+      - uses: bjerkio/generate-changelog@v1.0.0
+
+      # Release packages
+      - uses: bjerkio/release-action@v1.0.0
