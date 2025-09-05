@@ -1,4 +1,4 @@
-VC001-Sovereign-Token Sacred Autonomous Tree
+VC001-Sovereign-Token Project Structure
 
 ├─ apps/
 │  ├─ landing/                  # Static landing site (public, ceremonial)
