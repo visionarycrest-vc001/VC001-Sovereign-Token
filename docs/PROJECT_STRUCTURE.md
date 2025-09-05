@@ -20,68 +20,201 @@ Phase	Workflow	Status
 🤖 Self‑Repair	Auto‑Merge AI Fix	![Auto-Merge AI Fix](https://github.com/<OWNER>/<REPO>/actions/workflows/auto-merge-ai-fix.yml/badge.svg)
 Replace <OWNER> and <REPO> with your GitHub username/org and repository name for live badges.
 
-📁 Project Structure & Setup
-This repository uses a modular, ceremonial, and operational file structure. All contributors should follow these guidelines for onboarding, contributions, and reviews.
+VC001-Sovereign-Token Project Structure
 
-Directory & File Checklist
-Apps
-apps/console/ — Web UI for subscribers & admin
-Smart Contracts
-contracts/VisionaryCrest001.sol — ERC-721 Glyph contract
-contracts/LToken.sol — ERC-20 L-token contract
-Data Structure
-data/grants/ — Intake & status JSON
-data/glyphs/ — NFT metadata JSON
-data/ledger/ — Issuance, burn, audit records
-data/schemas/ — JSON Schemas for validation
-Documentation
-docs/status-dashboard.html — Live mission control
-docs/GOVERNANCE.md — Governance documentation
-Messages System
-messages/intake/
-messages/review/
-messages/approved/
-messages/minted/
-messages/billing/
-messages/burns/
-(GSL bot-to-bot envelopes)
-Package Scripts
-packages/core/ — Shared logic
-packages/scripts/generate-glyph-asset.js
-packages/scripts/pin-to-ipfs.js
-packages/scripts/mint-glyph.js
-packages/scripts/mint-ltoken.js
-packages/scripts/billing.js
-packages/scripts/burn-manager.js
-packages/scripts/draft-proposal.js
-packages/scripts/review-score.js
-packages/scripts/ledger-hash.js
-packages/scripts/gsl-sign.js
-packages/scripts/gsl-verify.js
-Deployment Scripts
-scripts/deploy-contracts.js
-GitHub Tools
-.github/tools/gsl-lint.js
-.github/tools/validate-json.js
-GitHub Workflows
-.github/workflows/grant-intake.yml
-.github/workflows/grant-draft.yml
-.github/workflows/grant-review.yml
-.github/workflows/grant-submit.yml
-.github/workflows/decision-monitor.yml
-.github/workflows/glyph-mint.yml
-.github/workflows/ltoken-mint.yml
-.github/workflows/billing.yml
-.github/workflows/burn-manager.yml
-.github/workflows/ledger-hash.yml
-.github/workflows/dashboard-update.yml
-.github/workflows/auto-fix.yml
-.github/workflows/ai-fix.yml
-.github/workflows/auto-merge-ai-fix.yml
-.github/workflows/predictive-alert.yml
-Root Files
-package.json — Ensure proper configuration
-README.md — Keep up to date
+├─ apps/
+│  ├─ landing/                  # Static landing site (public, ceremonial)
+│  │  ├─ index.html
+│  │  ├─ styles.css
+│  │  └─ viewer.js
+│  ├─ watcher/                  # Live dashboard/watcher UI
+│  │  ├─ dashboard.html
+│  │  ├─ watcher.css
+│  │  └─ watcher.js
+│  └─ console/                  # Next.js admin/subscriber UI
+│     ├─ pages/
+│     ├─ components/
+│     └─ lib/
+├─ contracts/
+│  ├─ VisionaryCrest001.sol     # ERC-721 Glyph contract (NFT, grants)
+│  ├─ LToken.sol                # ERC-20 L-token contract (linked to glyphs)
+│  └─ ceremonial_stub.sol       # Ceremonial starter stub (template)
+├─ data/
+│  ├─ grants/                   # Grant intake & status JSON
+│  ├─ glyphs/                   # NFT metadata JSON (IPFS pointers)
+│  ├─ ledger/                   # Issuance, burn, audit records
+│  ├─ glyph-metadata/           # Metadata for minted NFTs
+│  ├─ watcher-metrics.json      # Metrics for watcher dashboard
+│  ├─ ascension-log.json        # Ritual log (ceremonial)
+│  ├─ recalibration-queue.json  # For glyph recalibration
+│  ├─ vc_ledger.json            # General ledger
+│  ├─ vcxxxx_glyphset.json      # Glyphset (batch mint)
+│  └─ schemas/                  # JSON Schemas for all above
+│     ├─ grant.schema.json
+│     ├─ glyph.schema.json
+│     ├─ ledger.schema.json
+│     ├─ ltoken.schema.json
+│     ├─ approval.schema.json
+│     ├─ ascension-log.schema.json
+│     ├─ recalibration-queue.schema.json
+│     ├─ glyph-metadata.schema.json
+│     └─ ceremonial_schema.json
+├─ docs/
+│  ├─ ASCENSION_GUIDE.md        # Ceremonial onboarding
+│  ├─ Glyph_Recalibration_Rituals.md
+│  ├─ VC_GlyphCodex.md
+│  ├─ VCXXXX_Protocol.md
+│  ├─ Watcher_Protocol.md
+│  ├─ status-dashboard.html     # Live mission control
+│  ├─ GOVERNANCE.md
+│  ├─ PROJECT_STRUCTURE.md      # This file
+│  ├─ lineage/                  # Lineage scrolls
+│  │  ├─ VC001_CrestLineage.md
+│  │  ├─ VC001_Invocation.md
+│  │  ├─ VC002_CrestLineage.md
+│  │  ├─ VC002_Invocation.md
+│  │  ├─ VC003_CrestLineage.md
+│  │  └─ VC003_Invocation.md
+│  └─ logs/                     # Ritual & batch logs
+│     ├─ VC_AutonomyLog.md
+│     ├─ VC_BatchLog.md
+│     ├─ VC_BurnLog.md
+│     ├─ VC_GrantLog.md
+│     ├─ VC_OrchestrationLog.md
+│     ├─ VC_PricingLog.md
+│     ├─ VC_RetryLog.md
+│     ├─ VC_RetryLog_raw.md
+│     ├─ VC_SchedulerLog.md
+│     ├─ VC_SecurityLog.md
+│     └─ VC_WrapLog.md
+├─ messages/                    # GSL message bus/envelopes (.glyph files)
+│  ├─ intake/
+│  ├─ review/
+│  ├─ approved/
+│  ├─ minted/
+│  ├─ billing/
+│  └─ burns/
+│  └─ ceremonial_message.json
+├─ packages/
+│  ├─ core/                     # Shared, reusable runtime logic
+│  │  ├─ autonomy.js
+│  │  ├─ orchestrator.js
+│  │  ├─ scheduler.js
+│  │  ├─ grant-tracker.js
+│  │  ├─ dashboardHooks.js
+│  │  ├─ nft-pricing.js
+│  │  ├─ burn-logic.js
+│  │  ├─ index.js
+│  │  └─ package.json
+│  └─ scripts/                  # Node/CLI automation
+│     ├─ generate-glyph-asset.js
+│     ├─ pin-to-ipfs.js
+│     ├─ mint-glyph.js
+│     ├─ mint-ltoken.js
+│     ├─ billing.js
+│     ├─ burn-manager.js
+│     ├─ draft-proposal.js
+│     ├─ review-score.js
+│     ├─ ledger-hash.js
+│     ├─ gsl-sign.js
+│     ├─ gsl-verify.js
+│     ├─ intake-grants.js
+│     ├─ submit-grant.js
+│     ├─ update-dashboard.js
+│     ├─ signal-activate.js
+│     ├─ scroll-inscribe.js
+│     ├─ sovereign-batch.js     # Renamed
+│     └─ package.json
+├─ public/
+│  ├─ assets/
+│  │  ├─ glyph-assets/
+│  │  ├─ landing-icons/
+│  │  ├─ template-icons/
+│  │  ├─ ledger-icons/
+│  │  └─ Solar-Powered Crest 3.png
+│  └─ placeholder/
+├─ scripts/
+│  ├─ build.sh
+│  ├─ deploy.sh
+│  ├─ deploy-contracts.js
+│  ├─ generate-timeline.js
+│  ├─ Dashboard-deploy.js
+│  ├─ mintGlyph.js
+│  ├─ mintLToken.js
+│  ├─ burnNFT.js
+│  ├─ updateMetadata.js
+│  ├─ processGrants.js
+│  └─ wrapStackTraces.sh
+├─ src/                        # Multi-language prototypes
+│  ├─ cpp/placeholder.cpp
+│  ├─ python/sovereign-placeholder.py
+│  └─ rust/placeholder.rs
+├─ templates/
+│  └─ nft-metadata.template.json
+├─ .github/
+│  ├─ CODEOWNERS
+│  ├─ ISSUE_TEMPLATE/
+│  │  ├─ bug.md
+│  │  ├─ feature.md
+│  │  └─ ceremonial_stub.md
+│  ├─ PULL_REQUEST_TEMPLATE.md
+│  ├─ tools/
+│  │  ├─ validate-json.js
+│  │  └─ gsl-lint.js
+│  └─ workflows/
+│     ├─ codeql.yml
+│     ├─ deploy-pages.yml
+│     ├─ json-validate.yml
+│     ├─ metrics-cron.yml
+│     ├─ signature-check.yml
+│     ├─ setup-node.yml
+│     ├─ grant-intake.yml
+│     ├─ grant-draft.yml
+│     ├─ grant-review.yml
+│     ├─ grant-submit.yml
+│     ├─ decision-monitor.yml
+│     ├─ glyph-mint.yml
+│     ├─ ltoken-mint.yml
+│     ├─ billing.yml
+│     ├─ burn-manager.yml
+│     ├─ dashboard-update.yml
+│     ├─ ai-fix.yml
+│     ├─ auto-fix.yml
+│     ├─ auto-merge-ai-fix.yml
+│     ├─ predictive-alert.yml
+│     ├─ grant-approval.yml
+│     ├─ nft-metadata-update.yml
+│     └─ ledger-hash.yml
+├─ .editorconfig
+├─ .gitattributes
+├─ .gitignore
+├─ .pre-commit-config.yaml      # (or Husky configs)
+├─ package.json                 # root, with workspaces
+├─ package-lock.json
+├─ README.md                    # repo overview
+├─ SECURITY.md
+├─ CHANGELOG.md
+├─ TIMELINE.md
+└─ LICENSE
+
+Key Principles in This Tree:
+apps/: Static, live dashboard, and console/admin UI all separated.
+contracts/: All smart contracts and ceremonial stubs.
+data/: Intake, status, metadata, logs, schemas.
+docs/: Protocols, guides, lineage, logs, dashboard.
+messages/: GSL envelope bus; all NFT/glyph lifecycle messages.
+packages/: Shared code and scripts, renamed for clarity.
+public/: All static assets grouped.
+scripts/: All deploy/build/mint/burn/update scripts and CLI automation.
+src/: Polyglot prototypes for future expansion.
+templates/: NFT metadata templates for minting.
+.github/: All automation, tools, workflows, templates.
+Hidden/Config Files: EditorConfig, .gitattributes, .gitignore, pre-commit, LICENSE, etc.
+Every folder is harmonized.
+Every script, contract, and schema is functional and ceremonial.
+Every workflow is structured for full CI/CD autonomy and self-healing.
+All templates and onboarding guides are unified.
+
 Testing & Validation
 Fix linting issues
 Test file structure
