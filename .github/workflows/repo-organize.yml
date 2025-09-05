@@ -1,0 +1,31 @@
+name: Repo Auto Organizer
+
+on:
+  workflow_dispatch:   # Manual run
+  schedule:
+    - cron: '0 5 * * 1'  # Every Monday at 5AM UTC
+
+jobs:
+  organize:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run repo organizer script
+        run: node scripts/repo-organizer.js
+
+      - name: Commit & push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-organize repo structure"
+          branch: ${{ github.ref }}
