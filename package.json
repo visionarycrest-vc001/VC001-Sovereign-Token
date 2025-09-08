@@ -15,7 +15,7 @@
   "devDependencies": {
     "ajv": "^8.12.0",
     "ajv-formats": "^3.0.1",
-    "eslint": "^9.0.0",
+    "eslint": "^9.35.0",
     "jest": "^30.1.2"
   }
 }
