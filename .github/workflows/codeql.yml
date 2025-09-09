@@ -39,7 +39,7 @@ jobs:
       # 👇 Node.js setup and npm authentication for JS/TS
       - name: Setup Node.js
         if: ${{ matrix.language == 'javascript-typescript' }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 18
           cache: npm
