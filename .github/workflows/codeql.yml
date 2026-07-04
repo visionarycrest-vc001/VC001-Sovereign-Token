@@ -34,12 +34,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       # 👇 Node.js setup and npm authentication for JS/TS
       - name: Setup Node.js
         if: ${{ matrix.language == 'javascript-typescript' }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 18
           cache: npm

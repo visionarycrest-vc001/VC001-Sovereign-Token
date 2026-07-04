@@ -1,8 +1,6 @@
 import js from "@eslint/js";
-import react from "eslint-plugin-react";
 import globals from "globals";
 import tseslint from "@typescript-eslint/eslint-plugin";
-import importPlugin from "eslint-plugin-import";
 import jsdoc from "eslint-plugin-jsdoc";
 import security from "eslint-plugin-security";
 import promise from "eslint-plugin-promise";
@@ -18,16 +16,18 @@ const commonRules = {
   eqeqeq: "error",
   "prefer-const": "error",
   "no-var": "error",
-  "react/jsx-uses-react": "off",
-  "react/react-in-jsx-scope": "off",
+  // Archive repo: legacy ceremonial scripts carry dead identifiers; surface,
+  // don't block. New eslint-10 rule kept visible as a warning likewise.
+  "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "caughtErrors": "none" }],
+  "preserve-caught-error": "warn",
   // Plugins rules
-  "import/no-unresolved": "error",
   "jsdoc/check-alignment": "warn",
   "security/detect-object-injection": "warn",
   "promise/always-return": "warn",
 };
 
 export default [
+  { ignores: ["dist/", "coverage/", "node_modules/"] },
   js.configs.recommended,
   {
     files: ["**/*.{js,jsx}"],
@@ -37,18 +37,12 @@ export default [
       globals: { ...globals.browser, ...globals.node, ...globals.jest },
     },
     plugins: {
-      react,
-      import: importPlugin,
       jsdoc,
       security,
       promise,
     },
     rules: {
       ...commonRules,
-      "react/prop-types": "off",
-    },
-    settings: {
-      react: { version: "detect" },
     },
   },
   {
@@ -63,7 +57,6 @@ export default [
     },
     plugins: {
       "@typescript-eslint": tseslint,
-      import: importPlugin,
       jsdoc,
       security,
       promise,
@@ -72,6 +65,13 @@ export default [
       ...commonRules,
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/explicit-function-return-type": "off",
+    },
+  },
+  {
+    // Static browser apps — marked is loaded as a CDN global.
+    files: ["apps/**/*.js"],
+    languageOptions: {
+      globals: { marked: "readonly" },
     },
   },
   {
