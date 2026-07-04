@@ -7,5 +7,10 @@
       "badge": "Builder Verified",
       "joined": "2025-08-29"
     }
-  ]
+  ],
+  "ltoken_supply": {
+    "total_minted": 5000,
+    "current_supply": 5000,
+    "last_mint": "2025-09-03T05:22:46.955Z"
+  }
 }

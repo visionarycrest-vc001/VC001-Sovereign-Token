@@ -42,7 +42,7 @@ jobs:
     if: github.event_name != 'schedule' || github.ref == 'refs/heads/main'
     steps:
       - name: "📥 Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -75,7 +75,7 @@ jobs:
           fi
 
       - name: "🔐 Initialize CodeQL Analysis"
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: 'javascript'
           config: |
@@ -98,7 +98,7 @@ jobs:
           npm run build
 
       - name: "🔍 Perform CodeQL Analysis"
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
         with:
           category: "/language:javascript"
 
@@ -117,7 +117,7 @@ jobs:
     if: github.event_name != 'schedule'
     steps:
       - name: "📥 Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -155,7 +155,7 @@ jobs:
     needs: [security-scan]
     steps:
       - name: "📥 Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
@@ -168,7 +168,7 @@ jobs:
           cache: 'npm'
 
       - name: "🐍 Setup Python ${{ env.PYTHON_VERSION }}"
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: 'pip'
@@ -383,7 +383,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: "📥 Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "🔧 Setup Node.js ${{ env.NODE_VERSION }}"
         uses: actions/setup-node@v4
@@ -493,7 +493,7 @@ jobs:
     needs: [security-scan, super-lint, quality-check, documentation]
     steps:
       - name: "📥 Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "🔧 Setup Node.js ${{ env.NODE_VERSION }}"
         uses: actions/setup-node@v4

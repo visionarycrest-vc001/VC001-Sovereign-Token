@@ -1,0 +1,32 @@
+{
+  "grant_id": "GRANT-SAMPLE-001",
+  "title": "Rural Health AI Diagnostics Initiative",
+  "description": "Deploy AI-enabled diagnostic tools to expand healthcare access in rural communities, focusing on early detection and preventive care protocols.",
+  "applicant": "Rural Health Foundation",
+  "contact": "director@ruralhealthfoundation.org",
+  "sector": "FDA",
+  "sector_code": 1,
+  "requested_amount": 50000,
+  "status": "pending",
+  "application_date": "2025-09-03T05:10:00Z",
+  "last_updated": "2025-09-03T05:10:00Z",
+  "project_timeline": "12 months",
+  "target_beneficiaries": 25000,
+  "steward_notes": [
+    {
+      "steward": "system",
+      "action": "intake",
+      "note": "Sample grant application for demonstration",
+      "timestamp": "2025-09-03T05:10:00Z"
+    }
+  ],
+  "grant_details": {
+    "objective": "Improve rural healthcare access through AI diagnostics",
+    "methodology": "Deploy mobile diagnostic units with AI-powered screening",
+    "expected_outcomes": "25% improvement in early detection rates",
+    "sustainability_plan": "Train local healthcare workers for ongoing operation"
+  },
+  "ceremonial_blessing": "🌿 May this grant serve the sovereign purpose of healing and health",
+  "lineage_anchor": "VC001 Grant Protocol",
+  "sample_data": true
+}

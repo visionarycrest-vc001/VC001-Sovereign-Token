@@ -1,0 +1,14 @@
+{
+  "total_burned": 1,
+  "burn_reasons": {
+    "ceremonial": 1
+  },
+  "last_burn": "2025-09-03T05:22:41.034Z",
+  "burned_tokens": [
+    {
+      "token_id": 999,
+      "reason": "ceremonial",
+      "timestamp": "2025-09-03T05:22:41.034Z"
+    }
+  ]
+}

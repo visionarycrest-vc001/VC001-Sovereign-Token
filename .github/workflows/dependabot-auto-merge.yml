@@ -18,7 +18,7 @@ jobs:
     if: github.actor == 'dependabot[bot]'
     steps:
       - name: 📥 Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: 🔍 Get Dependabot metadata
         id: metadata
@@ -27,7 +27,7 @@ jobs:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: 🧹 Run Super-Linter
-        uses: super-linter/super-linter@v8.1.0
+        uses: super-linter/super-linter@v8.2.1
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
