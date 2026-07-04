@@ -1,0 +1,12 @@
+{
+  "ceremony_type": "Token Burn",
+  "token_id": 999,
+  "burn_reason": "ceremonial",
+  "ceremonial_reason": "Ceremonial tribute burn",
+  "burning_steward": "system",
+  "timestamp": "2025-09-03T05:22:41.033Z",
+  "block_timestamp": 1756876961,
+  "ceremonial_status": "Retired",
+  "lineage_inscription": "Token 999 ceremonially retired",
+  "final_blessing": "⚱️ May this token rest in digital peace"
+}

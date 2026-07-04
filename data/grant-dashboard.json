@@ -1,0 +1,32 @@
+{
+  "total_grants": 2,
+  "grants_by_status": {
+    "pending": 1,
+    "Pending Review": 1
+  },
+  "grants_by_sector": {
+    "FDA": 2
+  },
+  "total_allocated": 0,
+  "last_updated": "2025-09-03T05:22:53.498Z",
+  "grants": [
+    {
+      "grant_id": "GRANT-SAMPLE-001",
+      "title": "Rural Health AI Diagnostics Initiative",
+      "applicant": "Rural Health Foundation",
+      "sector": "FDA",
+      "amount": 50000,
+      "status": "pending",
+      "application_date": "2025-09-03T05:10:00Z"
+    },
+    {
+      "grant_id": "GRANT-TEST-001",
+      "title": "Grant Application #GRANT-TEST-001",
+      "applicant": "Unknown",
+      "sector": "FDA",
+      "amount": 0,
+      "status": "Pending Review",
+      "application_date": "2025-09-03T05:19:56.495Z"
+    }
+  ]
+}
