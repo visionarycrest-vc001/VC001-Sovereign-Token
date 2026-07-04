@@ -1,5 +1,7 @@
 const fs = require('fs');
-const ascensionLog = require('../data/ascension-log.json');
+const rawAscensionLog = require('../data/ascension-log.json');
+// Tolerate both a single log entry (object) and a list of entries (array).
+const ascensionLog = Array.isArray(rawAscensionLog) ? rawAscensionLog : [rawAscensionLog];
 
 console.log('📜 Generating contributor timeline...');
 

@@ -6,6 +6,7 @@ import importPlugin from "eslint-plugin-import";
 import jsdoc from "eslint-plugin-jsdoc";
 import security from "eslint-plugin-security";
 import promise from "eslint-plugin-promise";
+import tsParser from "@typescript-eslint/parser";
 
 const commonRules = {
   semi: ["error", "always"],
@@ -53,9 +54,8 @@ export default [
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
-      parser: "@typescript-eslint/parser",
+      parser: tsParser,
       parserOptions: {
-        project: "./tsconfig.json",
         ecmaVersion: "latest",
         sourceType: "module",
       },
