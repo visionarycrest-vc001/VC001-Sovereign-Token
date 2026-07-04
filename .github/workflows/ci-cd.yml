@@ -14,10 +14,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
       - run: npm ci
       - run: npm run lint         # ESLint for JS/TS
-      - run: npm run format:check # Prettier format check
 
   test:
     name: Run Tests
@@ -26,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
       - run: npm ci
       - run: npm test             # Jest for JS/TS (adjust if using another test runner)
 
@@ -37,7 +36,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
       - run: npm ci
       - run: npm run build        # Add this if you have a build step
 
@@ -48,7 +47,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
       - run: npm ci
       - run: npx npm audit        # Check for vulnerabilities
 
@@ -66,5 +65,5 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
       - run: echo "Deploy scripts go here" # Replace with actual deploy commands

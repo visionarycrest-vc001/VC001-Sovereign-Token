@@ -6,8 +6,13 @@
     "apps/*",
     "packages/*"
   ],
+  "engines": {
+    "node": ">=20",
+    "npm": ">=8"
+  },
   "scripts": {
     "build": "echo \"add app builds here\"",
+    "build-pages": "node scripts/build-pages.js",
     "lint": "eslint .",
     "test": "jest --passWithNoTests",
     "validate:data": "node scripts/generate-timeline.js && node .github/tools/validate-json.js"
