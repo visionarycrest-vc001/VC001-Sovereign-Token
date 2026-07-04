@@ -1,14 +1,14 @@
 // onboardVC003A.js
-const fs = require('fs');
-const dashboardHooks = require('./dashboardHooks');
-const scrollInscription = require('./scrollInscription');
+const fs = require("fs");
+const dashboardHooks = require("./dashboardHooks");
+const scrollInscription = require("./scrollInscription");
 
 function activateCohort(cohortName) {
   console.log(`Activating ${cohortName}...`);
 
   // Register stewards
   const stewards = [
-    'Steward001', 'Steward002', 'Steward003', // Add all 12
+    "Steward001", "Steward002", "Steward003", // Add all 12
   ];
 
   stewards.forEach(steward => {
@@ -18,10 +18,10 @@ function activateCohort(cohortName) {
   });
 
   // Pair scrolls
-  scrollInscription.pairScrolls('VC003');
+  scrollInscription.pairScrolls("VC003");
 
   // Sync dashboard
-  dashboardHooks.activateMetrics('VC003');
+  dashboardHooks.activateMetrics("VC003");
 }
 
 module.exports = { activateCohort };

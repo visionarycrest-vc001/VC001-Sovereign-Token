@@ -3,10 +3,10 @@ export default [
     files: ["**/*.js"],
     languageOptions: {
       ecmaVersion: 2021,
-      sourceType: "module"
+      sourceType: "module",
     },
     rules: {
-      semi: ["error", "always"]
-    }
-  }
-]
+      semi: ["error", "always"],
+    },
+  },
+];

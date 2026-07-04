@@ -77,7 +77,7 @@ function generateMintMetadata(amount, recipient, mintType = "steward") {
  * @param {string} mintType - Type of mint
  */
 async function mintLToken(amount, recipient, mintType = "steward") {
-  console.log(`💰 Initiating L-token minting protocol...`);
+  console.log("💰 Initiating L-token minting protocol...");
   console.log(`   Amount: ${amount} LTOKEN`);
   console.log(`   Recipient: ${recipient}`);
   console.log(`   Type: ${MINT_TYPES[mintType] || MINT_TYPES.steward}`);
@@ -117,7 +117,7 @@ async function mintLToken(amount, recipient, mintType = "steward") {
   // Update supply tracking
   updateSupplyMetrics(amount, recipient, mintType);
 
-  console.log(`✅ L-tokens minted successfully!`);
+  console.log("✅ L-tokens minted successfully!");
   console.log(`   Transaction metadata: ${metadataFile}`);
   console.log(`   Mint log: ${mintFile}`);
 
@@ -165,10 +165,10 @@ function updateSupplyMetrics(amount, recipient, mintType) {
   // Write updated ledger
   fs.writeFileSync(ledgerFile, JSON.stringify(ledger, null, 2));
 
-  console.log(`📊 Supply metrics updated:`);
+  console.log("📊 Supply metrics updated:");
   console.log(`   Total minted: ${ledger.ltoken_supply.total_minted} LTOKEN`);
   console.log(
-    `   Current supply: ${ledger.ltoken_supply.current_supply} LTOKEN`
+    `   Current supply: ${ledger.ltoken_supply.current_supply} LTOKEN`,
   );
 }
 
@@ -181,11 +181,11 @@ if (require.main === module) {
 
   mintLToken(amount, recipient, mintType)
     .then((result) => {
-      console.log(`🎉 L-token minting ceremony completed!`);
+      console.log("🎉 L-token minting ceremony completed!");
       process.exit(0);
     })
     .catch((error) => {
-      console.error(`❌ L-token minting failed:`, error.message);
+      console.error("❌ L-token minting failed:", error.message);
       process.exit(1);
     });
 }

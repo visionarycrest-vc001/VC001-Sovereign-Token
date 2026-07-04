@@ -1,17 +1,17 @@
 // dashboard-deploy.js
 // Unified VC003 dashboard deployment — lineage + signal activation
 
-import fs from 'fs';
-import { activateSignals } from './signal-activate.js';
-import { fetchMetrics, pushToDashboard } from './dashboard-utils.js';
+import fs from "fs";
+import { activateSignals } from "./signal-activate.js";
+import { fetchMetrics, pushToDashboard } from "./dashboard-utils.js";
 
 const VC003 = {
-  token: 'VC003',
-  protocol: 'DOE 🜃',
-  sector: 'Climate Resilience',
-  glyph: '⧉⚘⟒⟊',
-  cohort: 'VC003-A',
-  metricsPath: './vc003.json',
+  token: "VC003",
+  protocol: "DOE 🜃",
+  sector: "Climate Resilience",
+  glyph: "⧉⚘⟒⟊",
+  cohort: "VC003-A",
+  metricsPath: "./vc003.json",
 };
 
 async function deployVC003Dashboard() {
@@ -29,7 +29,7 @@ async function deployVC003Dashboard() {
   await activateSignals(metrics);
   await pushToDashboard(VC003.token, metrics);
 
-  console.log(`✅ VC003 metrics deployed and visible on sovereign dashboard.`);
+  console.log("✅ VC003 metrics deployed and visible on sovereign dashboard.");
 }
 
 deployVC003Dashboard();

@@ -77,7 +77,7 @@ function generateGlyphMetadata(type = "contributor", recipient = "treasury") {
  * @param {string} recipient - Recipient
  */
 async function mintGlyph(type, recipient) {
-  console.log(`🔮 Initiating glyph minting ceremony...`);
+  console.log("🔮 Initiating glyph minting ceremony...");
   console.log(`   Type: ${type}`);
   console.log(`   Recipient: ${recipient}`);
   console.log(`   Glyph: ${GLYPH_TYPES[type] || GLYPH_TYPES.auto}`);
@@ -110,7 +110,7 @@ async function mintGlyph(type, recipient) {
   const logFile = path.join(metadataDir, "mint-log.md");
   fs.appendFileSync(logFile, logEntry);
 
-  console.log(`✅ Glyph minted successfully!`);
+  console.log("✅ Glyph minted successfully!");
   console.log(`   Metadata: ${metadataFile}`);
   console.log(`   Log: ${logFile}`);
 
@@ -129,11 +129,11 @@ if (require.main === module) {
 
   mintGlyph(type, recipient)
     .then((result) => {
-      console.log(`🎉 Glyph minting ceremony completed!`);
+      console.log("🎉 Glyph minting ceremony completed!");
       process.exit(0);
     })
     .catch((error) => {
-      console.error(`❌ Glyph minting failed:`, error);
+      console.error("❌ Glyph minting failed:", error);
       process.exit(1);
     });
 }

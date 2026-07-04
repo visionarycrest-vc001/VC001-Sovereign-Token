@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "engines": {
-    "node": ">=20",
+    "node": ">=20.19",
     "npm": ">=8"
   },
   "scripts": {
@@ -18,19 +18,17 @@
     "validate:data": "node scripts/generate-timeline.js && node .github/tools/validate-json.js"
   },
   "devDependencies": {
-    "@eslint/js": "^9.34.0",
-    "@typescript-eslint/eslint-plugin": "^8.41.0",
-    "@typescript-eslint/parser": "^8.41.0",
-    "ajv": "^8.12.0",
+    "@eslint/js": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.62.1",
+    "@typescript-eslint/parser": "^8.62.1",
+    "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
-    "eslint": "^9.0.0",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsdoc": "^54.1.1",
-    "eslint-plugin-promise": "^7.2.1",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-security": "^3.0.1",
-    "globals": "^16.3.0",
-    "jest": "^30.1.2",
-    "typescript": "^5.9.2"
+    "eslint": "^10.6.0",
+    "eslint-plugin-jsdoc": "^63.0.11",
+    "eslint-plugin-promise": "^7.3.0",
+    "eslint-plugin-security": "^4.0.1",
+    "globals": "^17.7.0",
+    "jest": "^30.4.2",
+    "typescript": "^6.0.3"
   }
 }
