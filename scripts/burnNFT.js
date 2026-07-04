@@ -77,7 +77,7 @@ function generateBurnMetadata(tokenId, reason, steward = "system") {
  * @param {string} steward - Burning steward
  */
 async function burnNFT(tokenId, reason = "ceremonial", steward = "system") {
-  console.log(`🔥 Initiating token burn ceremony...`);
+  console.log("🔥 Initiating token burn ceremony...");
   console.log(`   Token ID: ${tokenId}`);
   console.log(`   Reason: ${BURN_REASONS[reason] || reason}`);
   console.log(`   Steward: ${steward}`);
@@ -93,7 +93,7 @@ async function burnNFT(tokenId, reason = "ceremonial", steward = "system") {
   const burnRegistryFile = path.join(dataDir, "burn-registry.md");
   const burnMetadataFile = path.join(
     dataDir,
-    `burn-${tokenId}-${Date.now()}.json`
+    `burn-${tokenId}-${Date.now()}.json`,
   );
 
   // Ensure directory exists
@@ -125,10 +125,10 @@ async function burnNFT(tokenId, reason = "ceremonial", steward = "system") {
   // Inscribe to lineage scrolls
   inscribeBurnLineage(tokenId, reason, steward);
 
-  console.log(`✅ Token burn ceremony completed!`);
+  console.log("✅ Token burn ceremony completed!");
   console.log(`   Burn registry: ${burnRegistryFile}`);
   console.log(`   Metadata: ${burnMetadataFile}`);
-  console.log(`   Status: ⚱️ Ceremonially retired`);
+  console.log("   Status: ⚱️ Ceremonially retired");
 
   return {
     metadata,
@@ -174,7 +174,7 @@ function updateBurnStatistics(tokenId, reason) {
   // Write updated stats
   fs.writeFileSync(statsFile, JSON.stringify(stats, null, 2));
 
-  console.log(`📊 Burn statistics updated:`);
+  console.log("📊 Burn statistics updated:");
   console.log(`   Total burned: ${stats.total_burned}`);
   console.log(`   Reason: ${reason} (${stats.burn_reasons[reason]} total)`);
 }
@@ -237,11 +237,11 @@ if (require.main === module) {
 
   burnNFT(tokenId, reason, steward)
     .then((result) => {
-      console.log(`🎉 Token burn ceremony completed with honor!`);
+      console.log("🎉 Token burn ceremony completed with honor!");
       process.exit(0);
     })
     .catch((error) => {
-      console.error(`❌ Token burn ceremony failed:`, error.message);
+      console.error("❌ Token burn ceremony failed:", error.message);
       process.exit(1);
     });
 }

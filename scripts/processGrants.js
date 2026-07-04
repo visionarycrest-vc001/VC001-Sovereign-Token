@@ -48,7 +48,7 @@ const GRANT_SECTORS = {
 function validateGrantParams(action, grantId) {
   if (!GRANT_ACTIONS[action]) {
     throw new Error(
-      `Invalid action. Valid actions: ${Object.keys(GRANT_ACTIONS).join(", ")}`
+      `Invalid action. Valid actions: ${Object.keys(GRANT_ACTIONS).join(", ")}`,
     );
   }
 
@@ -92,7 +92,7 @@ function generateGrantMetadata(grantId, grantData = {}) {
  * @param {object} applicationData - Application data
  */
 async function processGrantIntake(grantId = null, applicationData = {}) {
-  console.log(`🌿 Processing grant intake...`);
+  console.log("🌿 Processing grant intake...");
 
   // Generate grant ID if not provided
   if (!grantId) {
@@ -132,7 +132,7 @@ async function processGrantIntake(grantId = null, applicationData = {}) {
 
   fs.appendFileSync(intakeLogFile, intakeEntry);
 
-  console.log(`✅ Grant intake processed successfully!`);
+  console.log("✅ Grant intake processed successfully!");
   console.log(`   Grant file: ${grantFile}`);
 
   return {
@@ -148,7 +148,7 @@ async function processGrantIntake(grantId = null, applicationData = {}) {
  * @param {string} steward - Approving steward
  */
 async function approveGrant(grantId, steward = "system") {
-  console.log(`✅ Processing grant approval...`);
+  console.log("✅ Processing grant approval...");
   console.log(`   Grant ID: ${grantId}`);
   console.log(`   Approving Steward: ${steward}`);
 
@@ -179,7 +179,7 @@ async function approveGrant(grantId, steward = "system") {
   grantMetadata.steward_notes.push({
     steward: steward,
     action: "approval",
-    note: `Grant approved and tokens allocated`,
+    note: "Grant approved and tokens allocated",
     timestamp: new Date().toISOString(),
   });
 
@@ -205,10 +205,10 @@ async function approveGrant(grantId, steward = "system") {
   updateGrantStatistics(
     "approved",
     grantMetadata.sector,
-    grantMetadata.requested_amount
+    grantMetadata.requested_amount,
   );
 
-  console.log(`✅ Grant approved successfully!`);
+  console.log("✅ Grant approved successfully!");
   console.log(`   Amount: ${grantMetadata.requested_amount} LTOKEN`);
   console.log(`   Sector: ${grantMetadata.sector}`);
 
@@ -223,14 +223,14 @@ async function approveGrant(grantId, steward = "system") {
  * Synchronize grant data with dashboard
  */
 async function syncGrantDashboard() {
-  console.log(`📊 Synchronizing grant data with dashboard...`);
+  console.log("📊 Synchronizing grant data with dashboard...");
 
   const grantsDir = path.join(__dirname, "..", "data", "grants");
   const dashboardFile = path.join(
     __dirname,
     "..",
     "data",
-    "grant-dashboard.json"
+    "grant-dashboard.json",
   );
 
   // Get all grant files
@@ -251,7 +251,7 @@ async function syncGrantDashboard() {
   for (const file of grantFiles) {
     try {
       const grantData = JSON.parse(
-        fs.readFileSync(path.join(grantsDir, file), "utf8")
+        fs.readFileSync(path.join(grantsDir, file), "utf8"),
       );
 
       // Count by status
@@ -285,7 +285,7 @@ async function syncGrantDashboard() {
   // Write dashboard data
   fs.writeFileSync(dashboardFile, JSON.stringify(dashboardData, null, 2));
 
-  console.log(`✅ Dashboard synchronized!`);
+  console.log("✅ Dashboard synchronized!");
   console.log(`   Total grants: ${dashboardData.total_grants}`);
   console.log(`   Total allocated: ${dashboardData.total_allocated} LTOKEN`);
 
@@ -350,7 +350,7 @@ function updateGrantStatistics(action, sector, amount = 0) {
  * @param {string} grantId - Grant ID (optional)
  */
 async function processGrants(action, grantId = null) {
-  console.log(`🌿 Initiating grant processing protocol...`);
+  console.log("🌿 Initiating grant processing protocol...");
   console.log(`   Action: ${GRANT_ACTIONS[action]}`);
 
   // Validate parameters
@@ -359,20 +359,20 @@ async function processGrants(action, grantId = null) {
   let result;
 
   switch (action) {
-    case "intake":
-      result = await processGrantIntake(grantId);
-      break;
-    case "approve":
-      result = await approveGrant(grantId);
-      break;
-    case "sync-dashboard":
-      result = await syncGrantDashboard();
-      break;
-    default:
-      throw new Error(`Action not implemented: ${action}`);
+  case "intake":
+    result = await processGrantIntake(grantId);
+    break;
+  case "approve":
+    result = await approveGrant(grantId);
+    break;
+  case "sync-dashboard":
+    result = await syncGrantDashboard();
+    break;
+  default:
+    throw new Error(`Action not implemented: ${action}`);
   }
 
-  console.log(`✅ Grant processing completed successfully!`);
+  console.log("✅ Grant processing completed successfully!");
 
   return result;
 }
@@ -385,11 +385,11 @@ if (require.main === module) {
 
   processGrants(action, grantId)
     .then((result) => {
-      console.log(`🎉 Grant processing ceremony completed!`);
+      console.log("🎉 Grant processing ceremony completed!");
       process.exit(0);
     })
     .catch((error) => {
-      console.error(`❌ Grant processing failed:`, error.message);
+      console.error("❌ Grant processing failed:", error.message);
       process.exit(1);
     });
 }

@@ -39,16 +39,16 @@ const CEREMONIAL_ATTRIBUTES = {
  */
 function validateUpdateParams(tokenId, updateType) {
   if (!tokenId) {
-    throw new Error('Token ID is required (use "all" for batch update)');
+    throw new Error("Token ID is required (use \"all\" for batch update)");
   }
 
   if (tokenId !== "all" && isNaN(parseInt(tokenId))) {
-    throw new Error('Token ID must be a valid number or "all"');
+    throw new Error("Token ID must be a valid number or \"all\"");
   }
 
   if (!UPDATE_TYPES[updateType]) {
     throw new Error(
-      `Invalid update type. Valid types: ${Object.keys(UPDATE_TYPES).join(", ")}`
+      `Invalid update type. Valid types: ${Object.keys(UPDATE_TYPES).join(", ")}`,
     );
   }
 
@@ -64,7 +64,7 @@ function validateUpdateParams(tokenId, updateType) {
 function generateEnhancedMetadata(
   tokenId,
   existingMetadata = {},
-  updateType = "metadata"
+  updateType = "metadata",
 ) {
   const timestamp = new Date().toISOString();
 
@@ -73,7 +73,7 @@ function generateEnhancedMetadata(
     name: existingMetadata.name || `VC001 Sovereign Token #${tokenId}`,
     description:
       existingMetadata.description ||
-      `Sovereign token representing lineage and purpose within the VC001 ecosystem.`,
+      "Sovereign token representing lineage and purpose within the VC001 ecosystem.",
     image:
       existingMetadata.image ||
       `https://visionarycrest.org/tokens/${tokenId}.png`,
@@ -125,7 +125,7 @@ function generateEnhancedMetadata(
   // Preserve existing attributes and add new ones
   if (existingMetadata.attributes) {
     const existingTraits = existingMetadata.attributes.map(
-      (attr) => attr.trait_type
+      (attr) => attr.trait_type,
     );
     attributes.forEach((newAttr) => {
       if (!existingTraits.includes(newAttr.trait_type)) {
@@ -154,7 +154,7 @@ function getRandomCeremonialAttribute(category) {
  * @param {string} updateType - Type of update
  */
 async function updateMetadata(tokenId, updateType = "metadata") {
-  console.log(`🧬 Initiating metadata update ritual...`);
+  console.log("🧬 Initiating metadata update ritual...");
   console.log(`   Token ID: ${tokenId}`);
   console.log(`   Update Type: ${UPDATE_TYPES[updateType]}`);
 
@@ -197,7 +197,7 @@ ${updatedTokens.map((t) => `- ${t.filename}`).join("\n")}
 
   fs.appendFileSync(updateLogFile, logEntry);
 
-  console.log(`✅ Metadata update ceremony completed!`);
+  console.log("✅ Metadata update ceremony completed!");
   console.log(`   Tokens updated: ${updatedTokens.length}`);
   console.log(`   Update log: ${updateLogFile}`);
 
@@ -231,7 +231,7 @@ async function updateSingleToken(tokenId, metadataDir, updateType) {
   const enhancedMetadata = generateEnhancedMetadata(
     tokenId,
     existingMetadata,
-    updateType
+    updateType,
   );
 
   // Write updated metadata
@@ -305,11 +305,11 @@ if (require.main === module) {
 
   updateMetadata(tokenId, updateType)
     .then((result) => {
-      console.log(`🎉 Metadata update ceremony completed with precision!`);
+      console.log("🎉 Metadata update ceremony completed with precision!");
       process.exit(0);
     })
     .catch((error) => {
-      console.error(`❌ Metadata update ceremony failed:`, error.message);
+      console.error("❌ Metadata update ceremony failed:", error.message);
       process.exit(1);
     });
 }

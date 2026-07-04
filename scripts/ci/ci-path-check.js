@@ -1,9 +1,9 @@
 // 🛡️ CI Guardrail: Filename Validator for Sovereign Archive
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const forbiddenChars = [':', '/', '\\', '*', '?', '"', '<', '>', '|'];
+const forbiddenChars = [":", "/", "\\", "*", "?", "\"", "<", ">", "|"];
 const allowedPattern = /^[a-z0-9\-_.]+$/; // kebab-case, snake_case, dots
 
 function scanDir(dir) {
@@ -13,19 +13,19 @@ function scanDir(dir) {
 
     if (forbiddenChars.some(char => entry.name.includes(char))) {
       console.error(`❌ Invalid path detected: "${fullPath}"`);
-      console.error(`🛡️ Ritual Block: Forbidden character found. Use kebab-case.`);
+      console.error("🛡️ Ritual Block: Forbidden character found. Use kebab-case.");
       process.exit(1);
     }
 
     if (!allowedPattern.test(entry.name)) {
       console.error(`⚠️ Non-standard name: "${fullPath}"`);
-      console.error(`🔍 Suggestion: Rename to kebab-case or snake_case.`);
+      console.error("🔍 Suggestion: Rename to kebab-case or snake_case.");
       process.exit(1);
     }
 
-    if (entry.isDirectory()) scanDir(fullPath);
+    if (entry.isDirectory()) {scanDir(fullPath);}
   }
 }
 
-scanDir('.');
-console.log('✅ Path check passed: All filenames are sovereign-compliant.');
+scanDir(".");
+console.log("✅ Path check passed: All filenames are sovereign-compliant.");
