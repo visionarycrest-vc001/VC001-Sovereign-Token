@@ -25,7 +25,7 @@ jobs:
         run: node scripts/repo-organizer.js
 
       - name: Commit & push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: auto-organize repo structure"
           branch: main   # Use 'main' explicitly!
